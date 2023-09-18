@@ -30,19 +30,10 @@ Run the programme
 
 Examples
 ============================
-
-
 - Examples are in **./examples** folder
 
+`API Examples <https://github.com/kenho811/api_compose/examples>`_
 
-
-`Bullish API <./examples/bullish>`_
-
-`Cat API <./examples/cat_api>`_
-
-`Bitgo API <./examples/bitgo>`_
-
-`Random Data API <./examples/random_data_api>`_
 
 Features
 =====================
@@ -56,7 +47,7 @@ Declaration-based API Call Composition
 
 - Leverages networkx to determine the execution order of each API call.
 
-- Exposes decorator **@FunctionsRegistry** to for users to register user-defined jinja functions.
+- Exposes decorator **@FunctionsRegistry** to for users to register user-defined jinja functions (Globals, Filters and Tests)
 
 
 Useful Builtin Jinja Globals
@@ -132,7 +123,7 @@ Architectural Diagram
    :align: center
    :alt: API Testing Framwork Architecture
 
-   The above is the  API Testing Framwork Architecture.
+   The above is the Programme Architecture.
 
    Lucid Chart here: `https://lucid.app/lucidchart/f8d1f9f9-bc93-46ec-8e4f-6561a4c822c3/edit?beaconFlowId=70D4EDD3B7971E6C&invitationId=inv_c7b45baf-050c-480b-923e-2979440ce4c8&page=0_0#`
 
@@ -175,7 +166,6 @@ Run Time Rendering
     variable_end_string='}}'
     comment_start_string='{#'
     comment_end_string='#}'
-
 
 
 
