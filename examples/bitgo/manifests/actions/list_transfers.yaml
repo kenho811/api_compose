@@ -1,0 +1,18 @@
+model_name: JsonHttpActionModel
+config:
+  method:
+    format: string
+    template: GET
+  headers:
+    format: yaml
+    template: |
+      Authorization: "Bearer [[ globals.access_token ]] "
+  url:
+    format: string
+    template: "[[ globals.base_url ]]/api/v2/[[ actions.list_transfers.coin ]]/wallet/[[ actions.list_transfers.wallet_id ]]/transfer"
+description: Get Wallet Transfer by Coin
+[% if actions.list_transfers.execution_id is defined %]
+execution_id: [[ actions.list_transfers.execution_id ]]
+[% endif %]
+
+

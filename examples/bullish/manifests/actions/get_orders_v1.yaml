@@ -1,0 +1,17 @@
+description: I get all orders by v1
+model_name: JsonHttpActionModel
+tags:
+  - tests
+[% if actions.get_orders_v1.execution_id is defined %]
+execution_id: [[ actions.get_orders_v1.execution_id ]]
+[% endif %]
+config:
+  method:
+   template: 'GET'
+  url:
+    template: "[[ globals.BX_API_BASE_URL ]]/trading-api/v1/orders"
+  headers:
+    template: |
+      Content-type: "application/json"
+      Authorization: "Bearer [[ actions.get_orders_v1.token ]]"
+    format: 'yaml'

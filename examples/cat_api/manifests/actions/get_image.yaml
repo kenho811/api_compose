@@ -1,0 +1,80 @@
+model_name: JsonHttpActionModel
+config:
+  body:
+    format: json
+    template: '{}'
+  headers:
+    format: yaml
+    template: |
+      x-api-key: "[[ globals.x_api_key ]]"
+  method:
+    format: string
+    template: GET
+  params:
+    format: yaml
+    template: |
+      [% if actions.get_image.limit is defined %]
+      limit: [[ actions.get_image.limit ]]
+      [% endif %]
+      [% if actions.get_image.page is defined %]
+      page: [[ actions.get_image.page ]]
+      [% endif %]
+      [% if actions.get_image.order is defined %]
+      order: "[[ actions.get_image.order ]]"
+      [% endif %]
+      [% if actions.get_image.has_breeds is defined %]
+      has_breeds: [[ actions.get_image.has_breads ]]
+      [% endif %]
+      [% if actions.get_image.breed_ids is defined %]
+      breed_ids: [[ actions.get_image.breed_ids ]]
+      [% endif %]
+      [% if actions.get_image.category_ids is defined %]
+      category_ids : [[ actions.get_image.category_ids ]]
+      [% endif %]
+      [% if actions.get_image.sub_id is defined %]
+      sub_id : [[ actions.get_image.sub_id ]]
+      [% endif %]
+  url:
+    format: string
+    template: "[[ globals.base_url ]]/images/search"
+description: Get Cat Image
+[% if actions.get_image.execution_id is defined %]
+execution_id: [[ actions.get_image.execution_id ]]
+[% endif %]
+schemas:
+  - id: "200"
+    model_name: JsonSchemaModel
+    schema_ :
+      format: yaml
+      text: |
+          type: array
+          items:
+            type: object
+            properties:
+              breeds:
+                type: array
+                items:
+                  type: string
+              id:
+                type: string
+              url:
+                type: string
+                format: uri
+              width:
+                type: integer
+              height:
+                type: integer
+            required:
+              - id
+              - url
+              - width
+              - height
+schema_validators:
+[% if actions.get_image.validate_body_200 is defined and actions.get_image.validate_body_200 is true %]
+  - id: "200"
+    schema_id: "200"
+    model_name: JsonSchemaValidatorModel
+    against: 'output_body'
+[% endif %]
+
+

@@ -1,0 +1,26 @@
+model_name: SpecificationModel
+tags: []
+scenarios:
+  - id: vote_image
+    model_name: ScenarioModel
+    description: Can Up
+    functional_testing: HappyPath
+    execution_id_assignment: UserDefined
+    actions:
+      - model_name: RefResolverModel
+        ref: get_image
+        context: {}
+      - model_name: RefResolverModel
+        ref: sleep
+        context:
+          actions:
+            sleep:
+              sleep_seconds: 2
+      - model_name: RefResolverModel
+        ref: vote_image
+        context:
+          actions:
+            vote_image:
+              image_id: "{{ action('get_image')| output_body| jpath('$[0].id') }}"
+              validate_body_200: true
+              value: 1

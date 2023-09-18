@@ -1,0 +1,22 @@
+name: Publish to PyPI
+
+description: Check i
+inputs:
+  python-version:
+    required: true
+    description: "The python version to use"
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-python@v3
+      with:
+        python-version: ${{ inputs.python-version }}
+    - name: Install dependencies
+      shell: bash
+      run: |
+        make setup
+    - name: Check if package exists on PyPI
+      shell: bash
+      run: |
+        make check

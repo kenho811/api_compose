@@ -1,0 +1,23 @@
+name: On Push To Main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish-to-pypi:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check if Package already exists on PyPI
+        id: check-pypi
+        uses: ./.github/actions/check-if-package-exists-on-pypi
+        with:
+          python-version: "3.10"
+      - name: Publish to PyPI
+        if: steps.check-pypi.conclusion == 'success'
+        uses: ./.github/actions/publish-to-pypi
+        with:
+          pypi-api-token: ${{ secrets.PYPI_API_TOKEN }}
+          python-version: "3.10"

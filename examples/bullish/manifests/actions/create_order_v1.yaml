@@ -1,0 +1,50 @@
+model_name: JsonHttpActionModel
+description: I create an order by v1
+tags:
+  - tests
+[% if actions.create_order_v1.execution_id is defined %]
+execution_id: [[ actions.create_order_v1.execution_id ]]
+[% endif %]
+pre_hook_context:
+  nonce: [[ actions.create_order_v1.nonce| acp.utils.double_quote ]]
+  timestamp: [[ actions.create_order_v1.timestamp| acp.utils.double_quote ]]
+config:
+  method:
+   template: 'POST'
+  url:
+   template: "[[ globals.BX_API_BASE_URL ]]/trading-api/v1/orders"
+   format: 'string'
+  headers:
+    template: |
+      Content-type: "application/json"
+      Authorization: "Bearer [[ actions.create_order_v1.token ]]"
+      BX-SIGNATURE: "[[ actions.create_order_v1.signature ]]"
+      BX-TIMESTAMP: {{ timestamp | acp.utils.double_quote }}
+      BX-NONCE: {{ nonce| acp.utils.double_quote }}
+    format: 'yaml'
+  body:
+    template: |
+       timestamp: {{ timestamp | acp.utils.double_quote }}
+       nonce: {{ nonce | acp.utils.double_quote }}
+       authorizer: "Bearer [[ actions.create_order_v1.authorizer ]]"
+       command:
+        commandType: "V1CreateOrder"
+        handle: null
+        symbol: [[ actions.create_order_v1.symbol| acp.utils.double_quote ]]
+        type: [[ actions.create_order_v1.type | acp.utils.double_quote ]]
+        side: [[ actions.create_order_v1.side | acp.utils.double_quote ]]
+        price: [[ actions.create_order_v1.price | acp.utils.double_quote ]]
+        [% if actions.create_order_v1.stop_price is defined %]
+        stopPrice: [[ actions.create_order_v1.stop_price | acp.utils.double_quote ]]
+        [% else %]
+        stopPrice: null
+        [% endif %]
+        quantity: [[ actions.create_order_v1.quantity | acp.utils.double_quote ]]
+        timeInForce: [[ actions.create_order_v1.time_in_force | acp.utils.double_quote ]]
+        allowMargin: [[ actions.create_order_v1.allow_margin ]]
+    format: 'yaml'
+
+
+
+
+

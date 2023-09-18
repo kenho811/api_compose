@@ -1,0 +1,4 @@
+global: global_string
+field_one:
+  sub_field_one: 1
+  sub_field_two: [[ acp.utils.tpl('$.global')]]

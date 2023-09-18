@@ -1,0 +1,59 @@
+model_name: JsonHttpActionModel
+config:
+  adapter_class_name: JsonHttpAdapter
+  body:
+    format: yaml
+    template: |
+      image_id: [[ actions.vote_image.image_id ]]
+      [% if actions.vote_image.sub_id is defined %]
+      sub_id : [[ actions.vote_image.sub_id ]]
+      [% endif %]
+      value: [[ actions.vote_image.value ]]
+  headers:
+    format: yaml
+    template: |
+      Content-Type: application/json
+      x-api-key: "[[ globals.x_api_key ]]"
+  method:
+    format: string
+    template: POST
+  url:
+    format: string
+    template: "[[ globals.base_url ]]/votes"
+description: Vote Cat Image
+[% if actions.vote_image.execution_id is defined %]
+execution_id: [[ actions.vote_image.execution_id ]]
+[% endif %]
+schemas:
+  - id: "200"
+    model_name: JsonSchemaModel
+    schema_ :
+      format: yaml
+      text: |
+          $schema: http://json-schema.org/draft-07/schema#
+          type: object
+          properties:
+            message:
+              type: string
+            id:
+              type: integer
+            image_id:
+              type: string
+            value:
+              anyOf:
+                - type: "null"
+                - type: string
+            country_code:
+              type: string
+          required:
+            - message
+            - id
+            - image_id
+            - country_code
+schema_validators:
+[% if actions.vote_image.validate_body_200 is defined and actions.vote_image.validate_body_200 is true %]
+  - id: "200"
+    model_name: JsonSchemaValidatorModel
+    schema_id: "200"
+    against: 'output_body'
+[% endif %]

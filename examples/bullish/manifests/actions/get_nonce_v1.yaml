@@ -1,0 +1,12 @@
+model_name: JsonHttpActionModel
+description: I get nonce by v1
+tags:
+  - tests
+[% if actions.get_nonce_v1.execution_id is defined %]
+execution_id: [[ actions.get_nonce_v1.execution_id ]]
+[% endif %]
+config:
+  method:
+   template: 'GET'
+  url:
+    template: "[[ globals.BX_API_BASE_URL ]]/trading-api/v1/nonce"

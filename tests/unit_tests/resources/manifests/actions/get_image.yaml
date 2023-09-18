@@ -1,0 +1,72 @@
+description: I get image
+api_protocol: http
+class_name: JsonHttpAction
+model_name: JsonHttpActionModel
+config:
+  adapter_class_name: JsonHttpAdapter
+  body:
+    format: json
+    template: '{}'
+  headers:
+    format: yaml
+    template: |
+      x-api-key: [[ x_api_key | default('abc', true) ]]
+  method:
+    format: string
+    template: GET
+  params:
+    format: yaml
+    template: |
+      [% if limit is defined %]
+      limit: [[ limit ]]
+      [% endif %]
+      [% if page is defined %]
+      page: [[ page ]]
+      [% endif %]
+      [% if order is defined %]
+      order: "[[ order ]]"
+      [% endif %]
+      [% if has_breeds is defined %]
+      has_breeds: [[ has_breads ]]
+      [% endif %]
+      [% if breed_ids is defined %]
+      breed_ids: [[ breed_ids ]]
+      [% endif %]
+      [% if category_ids is defined %]
+      category_ids : [[ category_ids ]]
+      [% endif %]
+      [% if sub_id is defined %]
+      sub_id : [[ sub_id ]]
+      [% endif %]
+  url:
+    format: string
+    template: "[[ base_url | default('http://dummy.com', true) ]]/images/search"
+[% if execution_id is defined %]
+execution_id: [[ execution_id ]]
+[% endif %]
+schemas:
+  - id: "200"
+    model_name: JsonSchemaModel
+    schema_ :
+      format: yaml
+      text: |
+          $schema: http://json-schema.org/draft-07/schema#
+          type: object
+          properties:
+            message:
+              type: string
+            id:
+              type: integer
+            image_id:
+              type: string
+            value:
+              anyOf:
+                - type: null
+                - type: string
+            country_code:
+              type: string
+          required:
+            - message
+            - id
+            - image_id
+            - country_code

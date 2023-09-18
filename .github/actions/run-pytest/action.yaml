@@ -1,0 +1,26 @@
+name: Run Pytest
+
+description: "Run pytest"
+inputs:
+  python-version:
+    required: true
+    description: "The python version to use"
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-python@v3
+      with:
+        python-version: ${{ inputs.python-version }}
+    - name: Run Setup
+      shell: bash
+      run: |
+        make setup
+    - name: Run Pytest - Unit Tests
+      shell: bash
+      run: |
+        make unit_test
+    - name: Run Pytest - E2E Tests
+      shell: bash
+      run: |
+        echo 'TO BE ADDED'

@@ -1,0 +1,3 @@
+eosio-signer@git+https://github.com/kenho811/python-signer.git@develop
+api_compose
+pytz

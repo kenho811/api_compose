@@ -1,0 +1,14 @@
+venv
+*.egg-info
+**./pytest_cache
+build
+dist/
+
+**/reports
+**/__pycache__
+**/.idea
+
+**/.DS_Store
+**/*.log
+**/*.jsonl
+**/*.svg

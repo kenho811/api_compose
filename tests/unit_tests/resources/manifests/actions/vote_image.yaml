@@ -1,0 +1,19 @@
+description: I vote image
+model_name: JsonHttpActionModel
+config:
+  body:
+    format: yaml
+    template: |
+      image_id: 1234
+      value: 1
+  headers:
+    format: yaml
+    template: |
+      Content-Type: application/json
+      x-api-key: [[ x_api_key | default('abc', true) ]]
+  method:
+    format: string
+    template: POST
+  url:
+    format: string
+    template: "[[ base_url | default('http://dummy.com', true) ]]/votes"

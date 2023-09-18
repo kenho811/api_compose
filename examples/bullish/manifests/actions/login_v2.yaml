@@ -1,0 +1,33 @@
+description: I login by v2
+model_name: JsonHttpActionModel
+tags:
+  - tests
+[% if actions.login_v2.execution_id is defined %]
+execution_id: [[ actions.login_v2.execution_id ]]
+[% endif %]
+config:
+  method:
+   template: 'POST'
+  url:
+   template: "[[ globals.BX_API_BASE_URL ]]/trading-api/v2/users/login"
+   format: 'string'
+  headers:
+    template: |
+      "Content-type": "application/json"
+    format: 'yaml'
+  body:
+    template: |
+      publicKey: "[[ globals.BX_PUBLIC_KEY ]]"
+      signature: "[[ actions.login_v2.signature ]]"
+      loginPayload:
+        userId: [[ actions.login_v2.user_id| acp.utils.double_quote ]]
+        nonce: [[ actions.login_v2.nonce ]]
+        expirationTime: [[ actions.login_v2.expiration_time ]]
+        biometricsUsed: false
+        sessionKey: null
+    format: 'yaml'
+
+
+
+
+

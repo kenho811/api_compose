@@ -1,0 +1,26 @@
+model_name: SpecificationModel
+tags:
+  - stateless
+scenarios:
+  [% for coin, wallet_id in scenarios.can_list_transfers.coin_to_wallet_id_mapping.items() %]
+  - id: list_[[ coin ]]_transfer
+    model_name: ScenarioModel
+    description: Can get [[ coin ]] Transfer
+    functional_testing: HappyPath
+    execution_id_assignment: UserDefined
+    actions:
+      - model_name: RefResolverModel
+        ref: list_wallets
+        context:
+          actions:
+            list_wallets:
+              coin: [[ coin ]]
+      - model_name: RefResolverModel
+        ref: list_transfers
+        context:
+          actions:
+            list_transfers:
+              coin: [[ coin ]]
+              wallet_id: "[[ wallet_id ]]"
+    assertions: []
+  [% endfor %]

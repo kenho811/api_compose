@@ -1,0 +1,6 @@
+model_name: DummyActionModel
+config:
+  sleep_seconds:
+    format: integer
+    template: '1'
+description: I Sleep for a while

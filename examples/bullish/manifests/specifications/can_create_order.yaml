@@ -1,0 +1,26 @@
+model_name: SpecificationModel
+descriptions: User Can Do Various Trades
+tags: []
+scenarios:
+  - id: can_create_one_order
+    model_name: ScenarioModel
+    functional_testing: HappyPath
+    description: |
+      When I create order
+      Then I can read back said order with order_id field
+    actions:
+      - model_name: RefResolverModel
+        given: I get nonce by v1
+        context: {}
+      - model_name: RefResolverModel
+        given: I login by v2
+        context: {}
+      - model_name: RefResolverModel
+        when: I create an order by v1
+        context: {}
+      - model_name: RefResolverModel
+        then: I get an order by v1
+        context: {}
+    assertions:
+      - description: Status of Created Order is OPEN
+        template: "{{ action('get_order_by_id_v1')| output_body| jpath('$.status') }} == OPEN"

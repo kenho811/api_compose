@@ -1,0 +1,40 @@
+model_name: JsonHttpActionModel
+description: I cancel an order by v1
+tags:
+  - tests
+[% if actions.cancel_order_v1.execution_id is defined %]
+execution_id: [[ actions.cancel_order_v1.execution_id ]]
+[% endif %]
+pre_hook_context:
+  nonce: [[ actions.cancel_order_v1.nonce| acp.utils.double_quote ]]
+  timestamp: [[ actions.cancel_order_v1.timestamp| acp.utils.double_quote ]]
+config:
+  method:
+   template: 'DELETE'
+  url:
+   template: "[[ globals.BX_API_BASE_URL ]]/trading-api/v1/orders"
+   format: 'string'
+  headers:
+    template: |
+      Content-type: "application/json"
+      Authorization: "Bearer [[ actions.cancel_order_v1.token ]]"
+      BX-SIGNATURE: [[ actions.cancel_order_v1.signature| acp.utils.double_quote ]]
+      BX-TIMESTAMP: {{ timestamp | acp.utils.double_quote }}
+      BX-NONCE: {{ nonce| acp.utils.double_quote }}
+    format: 'yaml'
+  body:
+    template: |
+       timestamp: {{ timestamp | acp.utils.double_quote }}
+       nonce: {{ nonce | acp.utils.double_quote }}
+       authorizer: "Bearer [[ actions.cancel_order_v1.authorizer ]]"
+       command:
+        commandType: "V1CancelOrder"
+        orderId: [[ actions.cancel_order_v1.order_id | acp.utils.double_quote ]]
+        handle: null
+        symbol: [[ actions.cancel_order_v1.symbol| acp.utils.double_quote ]]
+    format: 'yaml'
+
+
+
+
+

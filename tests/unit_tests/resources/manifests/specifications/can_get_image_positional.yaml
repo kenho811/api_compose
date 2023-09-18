@@ -1,0 +1,14 @@
+description: I can get image with positional execution id
+model_name: SpecificationModel
+tags:
+  - get_image_positional
+scenarios:
+  - id: can_get_image
+    model_name: ScenarioModel
+    description: Can Get Image
+    execution_id_assignment: Positional
+    actions:
+      - model_name: RefResolverModel
+        ref: actions/get_image.yaml
+        context:
+          execution_id: 'get_image'

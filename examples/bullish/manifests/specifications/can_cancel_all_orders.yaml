@@ -1,0 +1,41 @@
+model_name: SpecificationModel
+descriptions: User Can Do Various Trades
+tags: []
+scenarios:
+  - id: can_cancel_all_orders
+    model_name: ScenarioModel
+    description: |
+      Given I created 3 passive order,
+      when I cancel all orders,
+      Then the status of said orders is CANCELLED
+    functional_testing: HappyPath
+    actions:
+      - model_name: RefResolverModel
+        given: I get nonce by v1
+        context: {}
+      - model_name: RefResolverModel
+        given: I login by v2
+        context: {}
+      - model_name: RefResolverModel
+        given: I get all trading accounts by v1
+        context: {}
+     [% for num in range(scenarios.can_cancel_all_orders.num_created_orders) %]
+      - model_name: RefResolverModel
+        given: I create an order by v1
+        context:
+          actions:
+            create_order_v1:
+              execution_id: create_order_v1_[[ num ]]
+     [% endfor %]
+      - model_name: RefResolverModel
+        when: I cancel all orders
+        context: {}
+     [% for num in range(scenarios.can_cancel_all_orders.num_created_orders) %]
+      - model_name: RefResolverModel
+        then: I get an order by v1
+        context:
+          actions:
+            get_order_by_id_v1:
+              order_id: "{{ action('create_order_v1_[[ num ]]')| output_body| jpath('$.orderId') }}"
+              execution_id: get_order_by_id_v1_[[ num ]]
+     [% endfor %]

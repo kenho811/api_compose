@@ -1,0 +1,55 @@
+globals:
+  BX_CORNEA_BASE_URL: ''
+  BX_API_BASE_URL: ''
+  BX_WSS_BASE_URL: ''
+  BX_PUBLIC_KEY: ''
+  BX_PRIVATE_KEY: ''
+  BX_METADATA: ''
+actions:
+  cancel_all_orders:
+    authorizer: "{{ action('login_v2')| output_body| jpath('$.authorizer') }}"
+    nonce: "{{ b1x.nonce() }}"
+    signature: -1
+    token: "{{ action('login_v2') | output_body| jpath('$.token') }}"
+    trading_account_id: "{{ action('get_trading_acounts')| output_body| jpath('$[0].trading_account_id') }}"
+    timestamp: "{{ b1x.timestamp() }}"
+  cancel_order_v1:
+    authorizer: "{{ action('login_v2')| output_body| jpath('$.authorizer') }}"
+    nonce: "{{ b1x.nonce() }}"
+    order_id: "{{ action('create_order_v1')| output_body| jpath('$.order_id') }}"
+    symbol: "{{ action('create_order_v1')| input_body| jpath('$.command.symbol') }}"
+    signature: -1
+    timestamp: "{{ b1x.timestamp() }}"
+    token: "{{ action('login_v2')| output_body| jpath('$.token') }}"
+  create_order_v1:
+    allow_margin: false
+    authorizer: "{{ action('login_v2')| output_body| jpath('$.authorizer') }}"
+    nonce: "{{ b1x.nonce() }}"
+    price: "11480.5000"
+    quantity: "1.87000000"
+    signature: -1
+    side: "BUY"
+    stop_price: null
+    symbol: "BTCUSDC"
+    timestamp: "{{ b1x.timestamp() }}"
+    time_in_force: "GTC"
+    token: "{{ action('login_v2') | output_body| jpath('$.token') }}"
+    type: "LMT"
+  get_nonce_v1: {}
+  get_order_by_id_v1:
+    order_id: "{{ action('create_order_v1')| output_body| jpath('$.orderId') }}"
+    token: "{{ action('login_v2')| output_body| jpath('$.token') }}"
+  get_orders_v1:
+    token: "{{ action('login_v2')| output_body| jpath('$.token') }}"
+  get_trading_accounts:
+    token: "{{ action('login_v2')| output_body| jpath('$.token') }}"
+  login_v2:
+    expiration_time: "{{ b1x.expiration_time() }}"
+    nonce: "{{ b1x.login_nonce() }}"
+    signature: -1
+    user_id: -1
+scenarios:
+  can_cancel_all_orders:
+    num_created_orders: 3
+  can_cancel_single_order:
+    num_created_orders: 2

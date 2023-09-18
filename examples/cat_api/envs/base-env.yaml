@@ -1,0 +1,13 @@
+globals:
+  base_url: ''
+  x_api_key: ''
+actions:
+  get_categories: {}
+  get_image: {}
+  sleep:
+    sleep_seconds: 1
+  vote_image:
+    image_id: -1
+    value: 1
+    validate_body_200: false
+

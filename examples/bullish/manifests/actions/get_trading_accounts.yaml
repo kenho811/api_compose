@@ -1,0 +1,17 @@
+description: I get all trading accounts by v1
+model_name: JsonHttpActionModel
+tags:
+  - tests
+[% if actions.get_trading_accounts.execution_id is defined %]
+execution_id: [[ actions.get_trading_accounts.execution_id ]]
+[% endif %]
+config:
+  method:
+   template: 'GET'
+  url:
+    template: "[[ globals.BX_API_BASE_URL ]]/trading-api/v1/accounts/trading-accounts"
+  headers:
+    template: |
+      Content-type: "application/json"
+      Authorization: "Bearer [[ actions.get_trading_accounts.token ]]"
+    format: 'yaml'

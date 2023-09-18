@@ -1,0 +1,57 @@
+model_name: JsonHttpActionModel
+config:
+  method:
+    format: string
+    template: GET
+  params:
+    format: yaml
+    template: |
+      [% if actions.list_wallets.coin is defined %]
+      coin: [[ actions.list_wallets.coin ]]
+      [% endif %]
+      [% if actions.list_wallets.deleted is defined %]
+      deleted: [[ actions.list_wallets.deleted ]]
+      [% endif %]
+      [% if actions.list_wallets.enterprise is defined %]
+      enterprise: [[ actions.list_wallets.enterprise ]]
+      [% endif %]
+      [% if actions.list_wallets.enterpriseIsNull is defined %]
+      enterpriseIsNull: [[ actions.list_wallets.enterpriseIsNull ]]
+      [% endif %]
+      [% if actions.list_wallets.expandBalance is defined %]
+      expandBalance: [[ actions.list_wallets.expandBalance ]]
+      [% endif %]
+      [% if actions.list_wallets.id is defined %]
+      id: [[ actions.list_wallets.id ]]
+      [% endif %]
+      [% if actions.list_wallets.labelContains is defined %]
+      labelContains: [[ actions.list_wallets.labelContains ]]
+      [% endif %]
+      [% if actions.list_wallets.limit is defined %]
+      limit: [[ actions.list_wallets.limit ]]
+      [% endif %]
+      [% if actions.list_wallets.offset is defined %]
+      offset: [[ actions.list_wallets.offset ]]
+      [% endif %]
+      [% if actions.list_wallets.prevId is defined %]
+      prevId: [[ actions.list_wallets.prevId ]]
+      [% endif %]
+      [% if actions.list_wallets.type is defined %]
+      type: [[ actions.list_wallets.type ]]
+      [% endif %]
+      [% if actions.list_wallets.expandCustodialWallet is defined %]
+      expandCustodialWallet: [[ actions.list_wallets.expandCustodialWallet ]]
+      [% endif %]
+  headers:
+    format: yaml
+    template: |
+      Authorization: "Bearer [[ globals.access_token ]] "
+  url:
+    format: string
+    template: "[[ globals.base_url ]]/api/v2/wallets"
+description: Get wallets
+[% if actions.list_wallets.execution_id is defined %]
+execution_id: [[ actions.list_wallets.execution_id ]]
+[% endif %]
+
+

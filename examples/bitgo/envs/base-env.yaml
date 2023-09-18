@@ -1,0 +1,14 @@
+globals:
+  base_url: 'https://app.bitgo-test.com'
+  access_token: ''
+actions:
+  list_wallets:
+    coin: []
+  list_transfers:
+    coin: ''
+    wallet_id: ''
+scenarios:
+  can_list_transfers:
+    coin_to_wallet_id_mapping:
+      tbtc: ""
+      gteth: ""

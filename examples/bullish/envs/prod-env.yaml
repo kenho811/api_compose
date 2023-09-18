@@ -1,0 +1,17 @@
+globals:
+  BX_CORNEA_BASE_URL: 'https://exchange.bullish.com'
+  BX_API_BASE_URL: 'https://api.exchange.bullish.com'
+  BX_WSS_BASE_URL: 'wss://api.exchange.bullish.com'
+  BX_PUBLIC_KEY: 'PUB_R1_6ePATBSHnfot4xxAGcR4Y9fytL3MZ4qnK3dAsspkcQ8TwAxTxA'
+  BX_PRIVATE_KEY: 'PVT_R1_2sz1au86pp5TrKbeSSAeFoHd9qj5S1kyNVESQVF22AJYFMgxHx'
+  BX_METADATA: 'eyJhY2NvdW50SWQiOjIyMjAwMDAwMDAwMTYyNSwicHVibGljS2V5IjoiUFVCX1IxXzZlUEFUQlNIbmZvdDR4eEFHY1I0WTlmeXRMM01aNHFuSzNkQXNzcGtjUThUd0F4VHhBIiwiY3JlZGVudGlhbElkIjoiNjIwMSJ9'
+actions:
+  cancel_all_orders:
+    signature: "{{ b1x.signature([[ acp.utils.tpl('$.globals.BX_PRIVATE_KEY') | acp.utils.single_quote ]], action('self') | config_body) }}"
+  cancel_order_v1:
+    signature: "{{ b1x.signature([[ acp.utils.tpl('$.globals.BX_PRIVATE_KEY') | acp.utils.single_quote ]], action('self') | config_body) }}"
+  create_order_v1:
+    signature: "{{ b1x.signature([[ acp.utils.tpl('$.globals.BX_PRIVATE_KEY') | acp.utils.single_quote ]], action('self') | config_body) }}"
+  login_v2:
+    signature: "{{ b1x.login_signature( [[ acp.utils.tpl('$.globals.BX_PRIVATE_KEY') | acp.utils.single_quote ]] , b1x.user_id( [[ acp.utils.tpl('$.globals.BX_METADATA') | acp.utils.single_quote ]] ), b1x.login_nonce(), b1x.expiration_time() ) }}"
+    user_id: "{{ b1x.user_id( [[ acp.utils.tpl('$.globals.BX_METADATA') | acp.utils.single_quote ]] ) }}"

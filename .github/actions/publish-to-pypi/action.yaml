@@ -1,0 +1,25 @@
+name: Publish to PyPI
+
+description: Publish to PyPI
+inputs:
+  python-version:
+    required: true
+    description: "The python version to use"
+  pypi-api-token:
+    required: true
+    description: "PyPI API Token"
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-python@v3
+      with:
+        python-version: ${{ inputs.python-version }}
+    - name: Install dependencies
+      shell: bash
+      run: |
+        make setup
+    - name: Upload to PyPI
+      shell: bash
+      run: |
+        TWINE_USERNAME=__token__ TWINE_PASSWORD=${{ inputs.pypi-api-token }} make dist
