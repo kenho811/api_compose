@@ -1,8 +1,8 @@
 name: PR against Main Branch
 
 on:
-  pull_request:
-    branches:
+  push:
+    branches-ignore:
       - main
 
 
@@ -13,10 +13,10 @@ jobs:
       matrix:
         python-version:
          - "3.9"
-#         - "3.10"
+         - "3.10"
          - "3.11"
         hosts:
-#          - 'windows-latest'
+          - 'windows-latest'
           - 'ubuntu-latest'
     runs-on: ${{ matrix.hosts }}
     steps:
