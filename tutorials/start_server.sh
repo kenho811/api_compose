@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Step 1: Download Repository
 REPO_URL="git@github.com:kenho811/connexion-example.git"
 REPO_DIR="connexion-example"
 
@@ -13,4 +14,18 @@ else
   # Directory does not exist, clone the repository
   echo "Repository directory does not exist. Cloning repository..."
   git clone "$REPO_URL"
+  cd clone "$REPO_URL"
 fi
+
+
+# Step 2: Run Docker Container
+CONTAINER_NAME="connexion-example"
+
+# Check if the container is already running
+if docker ps -a --format '{{.Names}}' | grep -q "^$CONTAINER_NAME$"; then
+  echo "Container $CONTAINER_NAME is already running. Killing the existing container..."
+  docker kill "$CONTAINER_NAME"
+fi
+
+# Build and run the container
+docker build -t connexion-example . && docker run -d -p 8080:8080 --name "$CONTAINER_NAME" connexion-example || exit
