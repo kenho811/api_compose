@@ -23,8 +23,8 @@ CONTAINER_NAME="connexion-example"
 
 # Check if the container is already running
 if docker ps -a --format '{{.Names}}' | grep -q "^$CONTAINER_NAME$"; then
-  echo "Container $CONTAINER_NAME is already running. Killing the existing container..."
-  docker kill "$CONTAINER_NAME"
+  echo "Container $CONTAINER_NAME exists. Removing the container..."
+  docker rm -f "$CONTAINER_NAME" >/dev/null 2>&1
 fi
 
 # Build and run the container
