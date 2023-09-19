@@ -29,3 +29,6 @@ fi
 
 # Build and run the container
 docker build -t connexion-example . && docker run -d -p 8080:8080 --name "$CONTAINER_NAME" connexion-example || exit
+
+
+echo "For the Swagger UI, Please visit http://localhost:8080/ui"

@@ -124,7 +124,8 @@ def deserialise_manifest_to_dict(
 
     dict_ = yaml.safe_load(str_)
 
-    if dict_ is None:
+    if type(dict_ ) != dict_:
+        logger.error(f'Cannot deserialise file {manifest_file_path} to a dictionary.', DeserialisationEvent())
         raise ManifestDeserialisationException(
             manifest_file_path=manifest_file_path,
             model_name=None,
