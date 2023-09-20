@@ -1,6 +1,7 @@
 from random import randint
 
-from tests.unit_tests.resources.views.base import BaseView
+from unit_tests.resources.views.base import BaseView
+
 
 
 class StatefulOneView(BaseView):

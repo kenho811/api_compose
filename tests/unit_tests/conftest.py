@@ -20,7 +20,7 @@ from connexion.resolver import MethodViewResolver
 
 from api_compose.core.jinja.core.engine import JinjaEngine
 from api_compose.services.composition_service.models.actions.outputs.http_outputs import JsonHttpActionOutputModel
-from tests.unit_tests.fixtures import *  # noqa. Import pytest fixtures
+from fixtures import *  # noqa. Import pytest fixtures
 
 
 @FunctionsRegistry.set(
