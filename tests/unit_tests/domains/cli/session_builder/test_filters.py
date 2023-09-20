@@ -73,13 +73,13 @@ def test_filter_by_inclusion(
 @pytest.mark.parametrize(
     'exclude_manifest_file_paths,exclude_tags,exclude_models,expected_ids',
     [
-        ([Path('actions/json_http_action_one.yaml')], set(), [],
+        ([Path('actions/json_http_action_one.yaml')], [], [],
          ['json_http_action_two', 'xml_http_action_one', 'specification_one']),
         ([Path('actions/json_http_action_one.yaml'), Path('actions/json_http_action_two.yaml')], set(), [],
          ['xml_http_action_one', 'specification_one']),
         ([Path('actions/json_http_action_one.yaml')], {'end_to_end'}, [],
          ['json_http_action_two', 'xml_http_action_one']),
-        ([], {'qa'}, [], ['specification_one']),
+        ([], ['qa'], [], ['specification_one']),
         ([], {}, ['XmlHttpActionModel'], ['json_http_action_one', 'json_http_action_two', 'specification_one']),
         ([], {}, ['XmlHttpActionModel', 'SpecificationModel'], ['json_http_action_one', 'json_http_action_two']),
     ]
