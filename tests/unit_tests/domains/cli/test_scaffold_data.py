@@ -23,9 +23,9 @@ def test_scaffold_data_can_compile(
         capsys: CaptureFixture,
         test_runner,
 ):
+    """Assert that files can be compiled in scaffold_data folder"""
     target_path = Path(main.__file__).parent.joinpath('scaffold_data')
     with working_directory(target_path=target_path):
-        print(Path.cwd())
         with capsys.disabled() as disabled:
             result = test_runner.invoke(app, [
                 "compile",
