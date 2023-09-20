@@ -1,10 +1,9 @@
 name: PR against Main Branch
 
 on:
-  push:
-    branches-ignore:
+  pull_request:
+    branches:
       - main
-
 
 jobs:
   pytest:
