@@ -6,7 +6,7 @@ unit_test:
 	bash -c "cd ./tests/unit_tests/ && LOGGING__FILE_PATH='' pytest -vvvv"; \
 
 integration_test:
-	  bash -c "cd ./tests/e2e_tests/ && LOGGING__FILE_PATH='' pytest -vvvv";
+	  bash -c "cd ./tests/e2e_tests/e2e_scaffold && LOGGING__FILE_PATH='' pytest -vvvv";
 
 check:
 	python ./check_pypi_package.py

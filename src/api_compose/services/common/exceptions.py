@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from typing import List, Dict, Set
+from typing import List, Dict, Set, Optional
 
 from api_compose.core.utils.files import get_file_paths_relative_to, get_file_names_in
 from api_compose.core.utils.list import get_duplicates_in_list
@@ -174,8 +174,8 @@ class ManifestRenderException(Exception):
 class ManifestDeserialisationException(Exception):
     def __init__(self,
                  manifest_file_path: Path,
-                 model_name: str,
-                 content: Dict
+                 model_name: Optional[str],
+                 content: Optional[Dict],
                  ):
         self.manifest_file_path = manifest_file_path
         self.model_name = model_name

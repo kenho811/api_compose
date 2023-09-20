@@ -1,4 +1,4 @@
-from tests.unit_tests.resources.views.base import BaseView
+from unit_tests.resources.views.base import BaseView
 
 
 class StatelessView(BaseView):

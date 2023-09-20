@@ -123,6 +123,15 @@ def deserialise_manifest_to_dict(
         ) from exec
 
     dict_ = yaml.safe_load(str_)
+
+    if type(dict_ ) != dict:
+        logger.error(f'Cannot deserialise file {manifest_file_path} to a dictionary.', DeserialisationEvent())
+        raise ManifestDeserialisationException(
+            manifest_file_path=manifest_file_path,
+            model_name=None,
+            content=None,
+        )
+
     if dict_.get('id'):
         logger.warning(f'Id field is already set in the file. Will be overridden by the file name {id=}',
                        DeserialisationEvent())

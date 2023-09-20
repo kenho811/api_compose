@@ -10,7 +10,7 @@ from api_compose.services.composition_service.models.actions.inputs.http_inputs 
     JsonHttpActionInputModel, XmlHttpActionInputModel
 from api_compose.services.composition_service.models.actions.outputs.http_outputs import BaseHttpActionOutputModel, \
     JsonHttpActionOutputModel, XmlHttpActionOutputModel
-from api_compose.services.composition_service.models.actions.schemas import JsonSchemaModel
+from api_compose.services.composition_service.models.actions.schemas import JsonSchemaModel, XmlSchemaModel
 from api_compose.services.composition_service.models.protocols.protocols import ActionAPIProtocolEnum
 from api_compose.services.composition_service.models.protocols.status_enums import HttpResponseStatusEnum, \
     OtherResponseStatusEnum
@@ -111,7 +111,7 @@ class XmlHttpActionModel(BaseHttpActionModel):
     )
 
     schemas: List[
-        Annotated[Union[JsonSchemaValidatorModel, XmlSchemaValidatorModel], Field(discriminator='model_name')]] = Field(
+        Annotated[Union[JsonSchemaModel, XmlSchemaModel], Field(discriminator='model_name')]] = Field(
         # XML HTTP exchange might contain both JSON (e.g. headers) and XML (e.g. body)
         [],
         description=BaseHttpActionModel.model_fields['schemas'].description,

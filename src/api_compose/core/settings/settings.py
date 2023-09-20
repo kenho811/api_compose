@@ -69,8 +69,8 @@ class EnvFilesSettings(BaseSettings):
         name: str = Field(description='Name of the pack')
         paths: List[JsonSerialisablePathAnnotation] = Field(description='Ordered List of env files')
 
-    default: str = Field(
-        'base',
+    default: Optional[str] = Field(
+        None,
         description='Default Pack of env files to use',
     )
     packs: List[EnvFilesPackSettings] = Field(
@@ -94,7 +94,7 @@ class EnvFilesSettings(BaseSettings):
 class SelectorsSettings(BaseSettings):
     class SelectorsPackSettings(BaseSettings):
         name: str = Field(description='Name of the pack')
-        type: Literal['Include', 'Exclude', 'Notset']
+        type: Literal['Include', 'Exclude']
         manifest_file_paths: List[JsonSerialisablePathAnnotation] = Field([],
                                                                           description='List of manifest file paths. Path must be relative to the manifest folder')
         tags: List[str] = Field([], description='set of tags to look for in manifest(s)')
@@ -107,8 +107,8 @@ class SelectorsSettings(BaseSettings):
                 values = list(set(values))
             return values
 
-    default: str = Field(
-        'spec',
+    default: Optional[str] = Field(
+        None,
         description='Current selector',
     )
 
@@ -180,16 +180,20 @@ class GlobalSettingsModel(YamlBaseSettings):
 
     @computed_field
     @property
-    def current_env_files_pack_name(self) -> str:
+    def current_env_files_pack_name(self) -> Optional[str]:
         return self.env_files.default if not self.cli_options.env_files_pack_name else self.cli_options.env_files_pack_name
 
     @computed_field
     @property
-    def current_selectors_pack_name(self) -> str:
+    def current_selectors_pack_name(self) -> Optional[str]:
         return self.selectors.default if not self.cli_options.selectors_pack_name else self.cli_options.selectors_pack_name
 
     @property
     def current_env_files_pack(self) -> EnvFilesSettings.EnvFilesPackSettings:
+        if self.current_env_files_pack_name is None:
+            # No env
+            return EnvFilesSettings.EnvFilesPackSettings(name='', paths=[])
+
         env_files_packs = [pack for pack in self.env_files.packs if pack.name == self.current_env_files_pack_name]
         if len(env_files_packs) == 0:
             raise ValueError(f'No env files pack named **{self.current_env_files_pack_name}** is found! \n'
@@ -203,6 +207,10 @@ class GlobalSettingsModel(YamlBaseSettings):
 
     @property
     def current_selectors_pack(self) -> SelectorsSettings.SelectorsPackSettings:
+        if self.current_env_files_pack_name is None:
+            # Run everything
+            return SelectorsSettings.SelectorsPackSettings(name='', type='Exclude')
+
         selector_packs = [pack for pack in self.selectors.packs if pack.name == self.current_selectors_pack_name]
         if len(selector_packs) == 0:
             raise ValueError(f'No selector pack named **{self.current_selectors_pack_name}** is found! \n'

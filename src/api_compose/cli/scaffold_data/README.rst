@@ -1,10 +1,6 @@
 Sample Project
 ~~~~~~~~~~~~~~~~~~~~~~
 
-This is a sample project
+This project contains the bare-minimum to run the programme
 
-Try by running the below.
-
-.. code-block::
-
-    acp run
+Start adding manifests to the manifest folders :)
