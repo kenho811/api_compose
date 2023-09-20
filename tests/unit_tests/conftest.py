@@ -144,9 +144,6 @@ def test_manifests_search_path() -> Path:
     return Path(__file__).parent.joinpath('resources/manifests').absolute()
 
 
-@pytest.fixture()
-def test_runner() -> CliRunner:
-    return CliRunner()
 
 
 ############################################################
