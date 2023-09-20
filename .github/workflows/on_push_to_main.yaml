@@ -6,7 +6,29 @@ on:
       - main
 
 jobs:
+  pytest:
+    permissions: write-all
+    strategy:
+      matrix:
+        python-version:
+         - "3.9"
+         - "3.10"
+         - "3.11"
+        hosts:
+          - 'windows-latest'
+          - 'ubuntu-latest'
+    runs-on: ${{ matrix.hosts }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Pytest
+        id: run-pytest
+        uses: ./.github/actions/run-pytest
+        with:
+          python-version: ${{ matrix.python-version }}
+
   publish-to-pypi:
+    needs:
+      - pytest
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

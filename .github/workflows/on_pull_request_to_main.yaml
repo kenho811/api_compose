@@ -1,0 +1,67 @@
+name: PR against Main Branch
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+
+jobs:
+  pytest:
+    permissions: write-all
+    strategy:
+      matrix:
+        python-version:
+         - "3.9"
+         - "3.10"
+         - "3.11"
+        hosts:
+          - 'windows-latest'
+          - 'ubuntu-latest'
+    runs-on: ${{ matrix.hosts }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Pytest
+        id: run-pytest
+        uses: ./.github/actions/run-pytest
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Show PyTest Error Message
+        if: failure()
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: ' :warning: Pytest Failed!!!! :warning: '
+            });
+
+  check-pypi:
+    needs:
+      - pytest
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check if Package already exists on PyPI
+        id: check-pypi
+        uses: ./.github/actions/check-if-package-exists-on-pypi
+        with:
+          python-version: "3.10"
+
+      - name: Show Package Already Exists Error Message
+        if: failure()
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: ' :warning: Package with version already exists on PYPI!! Please bump your version!!! :warning: '
+            });
