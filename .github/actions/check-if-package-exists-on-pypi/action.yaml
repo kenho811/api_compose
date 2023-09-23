@@ -5,11 +5,11 @@ inputs:
   python-version:
     required: true
     description: "The python version to use"
+outputs:
+  exists: ${{ steps.set.outputs.exists }}
 
 runs:
   using: "composite"
-  outputs:
-    exists: ${{ steps.set.outputs.exists }}
   steps:
     - uses: actions/setup-python@v3
       with:
@@ -30,4 +30,5 @@ runs:
       run: cat ./result.txt >> $GITHUB_OUTPUT
     - name: Print
       id: print
+      shell: bash
       run: echo "This is the output of find-comment ${{ steps.set.outputs.exists }}"
