@@ -31,6 +31,3 @@ runs:
       id: set
       shell: bash
       run: cat ./result.txt >> $GITHUB_OUTPUT
-    - name: Print
-      shell: bash
-      run: echo "Outputs are ${{ steps.set.outputs }}"
