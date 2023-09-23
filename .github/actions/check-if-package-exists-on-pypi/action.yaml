@@ -8,18 +8,26 @@ inputs:
 
 runs:
   using: "composite"
+  outputs:
+    exists: ${{ steps.set.outputs.exists }}
   steps:
     - uses: actions/setup-python@v3
       with:
         python-version: ${{ inputs.python-version }}
     - name: Install dependencies
+      id: install
       shell: bash
       run: |
         make setup
     - name: Check if package exists on PyPI
+      id: check
       shell: bash
       run: |
         make check
-    - name: Set output
+    - name: Write result to output
+      id: set
       shell: bash
       run: cat ./result.txt >> $GITHUB_OUTPUT
+   - name: Print
+     id: print
+     run: echo "This is the output of find-comment ${{ steps.set.outputs.exists }}"
