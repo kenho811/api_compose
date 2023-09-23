@@ -27,8 +27,10 @@ def is_package_exist(
 def write_exists_in_kv_format(
         file_path: str,
         exists: bool,
+        version: str,
 ):
-    formatted_string=f'exists={exists}'
+    formatted_string=(f'exists={exists}\n'
+                      f'version={version}')
     print(f'writing {formatted_string} to file {file_path}')
     with open(file_path, 'w') as f:
         f.write(formatted_string)
@@ -52,4 +54,4 @@ if __name__ == '__main__':
         print(f"Package {package_name=} with version {version=} does not exist on {base_url=}")
         exists = False
 
-    write_exists_in_kv_format(file_path, exists=exists)
+    write_exists_in_kv_format(file_path, exists=exists, version=version)
