@@ -1,3 +1,2 @@
 api-server-one
-lesson_*
-!**/*.ipynb
+**/*.ipynb_checkpoints/

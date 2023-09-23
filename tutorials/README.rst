@@ -3,6 +3,8 @@ Tutorials
 
 A tutorial series using jupyter notebook.
 
+Lessons build on top of one another. Please start from lesson one.
+
 
 Pre-requireistes
 ====================
