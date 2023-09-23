@@ -27,7 +27,7 @@ extensions = [
     # Create [source] for method signature
     'sphinx.ext.viewcode',
 
-    "nbsphinx",
+    "myst_nb",
     
 
     

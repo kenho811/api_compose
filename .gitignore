@@ -12,3 +12,5 @@ dist/
 **/*.log
 **/*.jsonl
 **/*.svg
+
+**/*.ipynb_checkpoints/

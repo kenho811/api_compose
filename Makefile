@@ -22,6 +22,7 @@ dist:
 	TWINE_USERNAME=$(TWINE_USERNAME) TWINE_PASSWORD=$(TWINE_PASSWORD) twine upload dist/* \
 
 build_docs:
+	cp -r ./tutorials/lesson_* ./docs/source/docs/tutorials
 	bash -c "cd ./docs && pip install -r requirements.txt && $(MAKE) html"
 
 integration_test:
