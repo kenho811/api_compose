@@ -1,4 +1,5 @@
 import json
+import sys
 
 import requests
 
@@ -23,14 +24,32 @@ def is_package_exist(
         return False
 
 
+def write_exists_in_kv_format(
+        file_path: str,
+        exists: bool,
+):
+    formatted_string=f'exists={exists}'
+    print(f'writing {formatted_string} to file {file_path}')
+    with open(file_path, 'w') as f:
+        f.write(formatted_string)
+
+
 if __name__ == '__main__':
     from setup import package_name, get_version
+
+    if len(sys.argv) == 2:
+        file_path = sys.argv[1]
+    else:
+        raise ValueError('Usage: python check_pypi_package.py {output_file_path}')
 
     base_url = "https://pypi.org/pypi"
     version = get_version()
 
     if is_package_exist(base_url, package_name, version):
-        raise ValueError(f'Package {package_name=} with version {version=} already exists on {base_url=}')
+        print(f'Package {package_name=} with version {version=} already exists on {base_url=}')
+        exists = True
     else:
         print(f"Package {package_name=} with version {version=} does not exist on {base_url=}")
-        exit(0)
+        exists = False
+
+    write_exists_in_kv_format(file_path, exists=exists)

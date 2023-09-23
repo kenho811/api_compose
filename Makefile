@@ -9,7 +9,7 @@ integration_test:
 	 bash -c "cd ./tests/e2e_tests/e2e_scaffold && LOGGING__FILE_PATH='' pytest -vvvv";
 
 check:
-	python ./check_pypi_package.py
+	python ./check_pypi_package.py 'result.txt'
 
 dist:
 	python setup.py sdist

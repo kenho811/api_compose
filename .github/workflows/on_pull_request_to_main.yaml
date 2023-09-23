@@ -6,6 +6,26 @@ on:
       - main
 
 jobs:
+  pytest:
+    permissions: write-all
+    strategy:
+      matrix:
+        python-version:
+         - "3.9"
+         - "3.10"
+         - "3.11"
+        hosts:
+          - 'windows-latest'
+          - 'ubuntu-latest'
+          - 'macos-latest'
+    runs-on: ${{ matrix.hosts }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Pytest
+        id: run-pytest
+        uses: ./.github/actions/run-pytest
+        with:
+          python-version: ${{ matrix.python-version }}
   check-pypi:
     permissions: write-all
     runs-on: ubuntu-latest
@@ -17,8 +37,8 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Show Package Already Exists Error Message
-        if: failure()
+      - name: Show Package Already Exists WARNING Message
+        if: steps.check-pypi.outputs.exists == 'True'
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}

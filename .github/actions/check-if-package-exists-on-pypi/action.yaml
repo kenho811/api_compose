@@ -1,10 +1,14 @@
-name: Publish to PyPI
+name: Check if package exists on PYPi
 
-description: Check i
+description: Check if package exists on PYPi
 inputs:
   python-version:
     required: true
     description: "The python version to use"
+outputs:
+  exists:
+    description: "Boolean to indicate if package exists on PyPI or not"
+    value: ${{ steps.set.outputs.exists }}
 
 runs:
   using: "composite"
@@ -20,3 +24,10 @@ runs:
       shell: bash
       run: |
         make check
+    - name: Write result to output
+      id: set
+      shell: bash
+      run: cat ./result.txt >> $GITHUB_OUTPUT
+    - name: Print
+      shell: bash
+      run: echo "This is the output of find-comment ${{ steps.set.outputs.exists }}"
