@@ -37,5 +37,5 @@ def get_default_schema() -> ElementBase:
 PrintableElementAnnotation = Annotated[
     PrintableElement,
     # Keep the html tags when json dumped
-    PlainSerializer(lambda x: etree.tostring(x, pretty_print=True).decode('utf-8'), return_type=str, when_used='json')
+    PlainSerializer(lambda x: etree.tostring(x, pretty_print=True).decode('utf-8'), return_type=str, when_used='always')
 ]
