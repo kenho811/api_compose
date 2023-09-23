@@ -1,6 +1,13 @@
 import json
+import sys
+from enum import Enum
 
 import requests
+
+
+class OutputEnum(Enum):
+    Exists: str = 'exists'
+    NotExists: str = 'not_exists'
 
 
 def is_package_exist(
@@ -23,14 +30,27 @@ def is_package_exist(
         return False
 
 
+def write_output(file_path: str, output: OutputEnum):
+    print(f'writing {output} to file {file_path}')
+    with open(file_path, 'w') as f:
+        f.write(output.value)
+
+
 if __name__ == '__main__':
     from setup import package_name, get_version
+    if len(sys.argv) == 2:
+        file_path = sys.argv[1]
+    else:
+        raise ValueError('Usage: python check_pypi_package.py {output_file_path}')
 
     base_url = "https://pypi.org/pypi"
     version = get_version()
 
     if is_package_exist(base_url, package_name, version):
-        raise ValueError(f'Package {package_name=} with version {version=} already exists on {base_url=}')
+        print(f'Package {package_name=} with version {version=} already exists on {base_url=}')
+        output = OutputEnum.Exists
     else:
         print(f"Package {package_name=} with version {version=} does not exist on {base_url=}")
-        exit(0)
+        output = OutputEnum.NotExists
+
+    write_output(file_path, output=output)
