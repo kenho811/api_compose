@@ -23,4 +23,4 @@ runs:
     - name: Run Pytest - E2E Tests
       shell: bash
       run: |
-        echo 'TO BE ADDED'
+        make integration_test
