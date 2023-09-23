@@ -21,4 +21,5 @@ runs:
       run: |
         make check
     - name: Set output
+      shell: bash
       run: cat ./result.txt >> $GITHUB_OUTPUT
