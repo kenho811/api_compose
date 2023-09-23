@@ -9,6 +9,9 @@ outputs:
   exists:
     description: "Boolean to indicate if package exists on PyPI or not"
     value: ${{ steps.set.outputs.exists }}
+  version:
+    description: "Version of Package Checked"
+    value: ${{ steps.set.outputs.version }}
 
 runs:
   using: "composite"
@@ -30,4 +33,4 @@ runs:
       run: cat ./result.txt >> $GITHUB_OUTPUT
     - name: Print
       shell: bash
-      run: echo "This is the output of find-comment ${{ steps.set.outputs.exists }}"
+      run: echo "Outputs are ${{ steps.set.outputs }}"

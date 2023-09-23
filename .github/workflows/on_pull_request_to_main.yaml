@@ -47,5 +47,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: ' :warning: Package with version already exists on PYPI!! Please bump your version!!! :warning: '
+              body: ' :warning: Package with version ${{ steps.check-pypi.outputs.version }} already exists on PYPI!! Please bump your version!!! :warning: '
             });
