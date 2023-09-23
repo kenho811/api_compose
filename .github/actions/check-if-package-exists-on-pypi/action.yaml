@@ -6,7 +6,9 @@ inputs:
     required: true
     description: "The python version to use"
 outputs:
-  exists: ${{ steps.set.outputs.exists }}
+  exists:
+    description: "Boolean to indicate if package exists on PyPI or not"
+    value: ${{ steps.set.outputs.exists }}
 
 runs:
   using: "composite"
@@ -15,12 +17,10 @@ runs:
       with:
         python-version: ${{ inputs.python-version }}
     - name: Install dependencies
-      id: install
       shell: bash
       run: |
         make setup
     - name: Check if package exists on PyPI
-      id: check
       shell: bash
       run: |
         make check
@@ -29,6 +29,5 @@ runs:
       shell: bash
       run: cat ./result.txt >> $GITHUB_OUTPUT
     - name: Print
-      id: print
       shell: bash
       run: echo "This is the output of find-comment ${{ steps.set.outputs.exists }}"
