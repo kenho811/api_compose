@@ -20,4 +20,4 @@ runs:
       shell: bash
       run: |
         make check
-        cat ./result.txt >> $GITHUB_OUTPUT
+        && cat ./result.txt >> $GITHUB_OUTPUT
