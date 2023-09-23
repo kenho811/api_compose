@@ -19,5 +19,4 @@ runs:
     - name: Check if package exists on PyPI
       shell: bash
       run: |
-        make check
-        && cat ./result.txt >> $GITHUB_OUTPUT
+        make check && cat ./result.txt >> $GITHUB_OUTPUT
