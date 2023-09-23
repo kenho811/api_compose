@@ -1,13 +1,7 @@
 import json
 import sys
-from enum import Enum
 
 import requests
-
-
-class OutputEnum(Enum):
-    Exists: str = 'exists'
-    NotExists: str = 'not_exists'
 
 
 def is_package_exist(
@@ -30,14 +24,19 @@ def is_package_exist(
         return False
 
 
-def write_output(file_path: str, output: OutputEnum):
-    print(f'writing {output} to file {file_path}')
+def write_exists_in_kv_format(
+        file_path: str,
+        exists: bool,
+):
+    formatted_string=f'exists={exists}'
+    print(f'writing {formatted_string} to file {file_path}')
     with open(file_path, 'w') as f:
-        f.write(output.value)
+        f.write(formatted_string)
 
 
 if __name__ == '__main__':
     from setup import package_name, get_version
+
     if len(sys.argv) == 2:
         file_path = sys.argv[1]
     else:
@@ -48,9 +47,9 @@ if __name__ == '__main__':
 
     if is_package_exist(base_url, package_name, version):
         print(f'Package {package_name=} with version {version=} already exists on {base_url=}')
-        output = OutputEnum.Exists
+        exists = True
     else:
         print(f"Package {package_name=} with version {version=} does not exist on {base_url=}")
-        output = OutputEnum.NotExists
+        exists = False
 
-    write_output(file_path, output=output)
+    write_exists_in_kv_format(file_path, exists=exists)
