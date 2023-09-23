@@ -1,20 +1,7 @@
-setup:
-	python -m pip install --upgrade pip
-	pip install ".[test,dist]"
-
-unit_test:
-	bash -c "cd ./tests/unit_tests/ && LOGGING__FILE_PATH='' pytest -vvvv"; \
-
-integration_test:
-	 bash -c "cd ./tests/e2e_tests/e2e_scaffold && LOGGING__FILE_PATH='' pytest -vvvv";
-
-check:
-	python ./check_pypi_package.py 'result.txt'
-
-dist:
-	python setup.py sdist
-	twine check dist/*
-	TWINE_USERNAME=$(TWINE_USERNAME) TWINE_PASSWORD=$(TWINE_PASSWORD) twine upload dist/*
+analyse: clean
+	# Generate dependency graph
+	mkdir -p ./build/pydeps
+	pydeps ./src/api_compose -o build/pydeps/dependency_graph.svg
 
 clean:
 	# clean all log files and reports
@@ -26,7 +13,24 @@ clean:
 	find ./examples -type d -name "build" -exec rm -rf {} +
 	find . -type d -name ".pytest_cache" -exec rm -rf {} +
 
-analyse: clean
-	# Generate dependency graph
-	mkdir -p ./build/pydeps
-	pydeps ./src/api_compose -o build/pydeps/dependency_graph.svg
+check:
+	python ./check_pypi_package.py 'result.txt'
+
+dist:
+	python setup.py sdist
+	twine check dist/*
+	TWINE_USERNAME=$(TWINE_USERNAME) TWINE_PASSWORD=$(TWINE_PASSWORD) twine upload dist/* \
+
+build_docs:
+	bash -c "cd ./docs && pip install -r requirements.txt && $(MAKE) html"
+
+integration_test:
+	 bash -c "cd ./tests/e2e_tests/e2e_scaffold && LOGGING__FILE_PATH='' pytest -vvvv";
+
+setup:
+	python -m pip install --upgrade pip
+	pip install ".[test,dist]"
+
+
+unit_test:
+	bash -c "cd ./tests/unit_tests/ && LOGGING__FILE_PATH='' pytest -vvvv"; \

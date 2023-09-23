@@ -71,7 +71,7 @@ if __name__ == '__main__':
             ],
             "dist": [
                 'twine==4.0.2',
-            ]
+            ],
         },
         entry_points={
             'console_scripts': [
