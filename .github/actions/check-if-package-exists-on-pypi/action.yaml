@@ -28,6 +28,6 @@ runs:
       id: set
       shell: bash
       run: cat ./result.txt >> $GITHUB_OUTPUT
-   - name: Print
-     id: print
-     run: echo "This is the output of find-comment ${{ steps.set.outputs.exists }}"
+    - name: Print
+      id: print
+      run: echo "This is the output of find-comment ${{ steps.set.outputs.exists }}"
