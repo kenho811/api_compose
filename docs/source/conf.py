@@ -18,7 +18,15 @@ release = __version__
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-    'sphinx-pydantic',
+    # create .rst files for source documnetation
+    'sphinx.ext.autodoc',
+
+    # Add doc support for pydantic models
+    'sphinxcontrib.autodoc_pydantic',
+
+    # Create [source] for method signature
+    'sphinx.ext.viewcode',
+    
 ]
 
 templates_path = ['_templates']

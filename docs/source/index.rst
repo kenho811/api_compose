@@ -1,11 +1,9 @@
-.. api-compose documentation master file, created by
-   sphinx-quickstart on Sat Sep 23 15:16:17 2023.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+:notoc:
+:html_theme.sidebar_secondary.remove:
 
 .. _about:
 
-Api-compose documentation
+Api-compose
 =======================================
 
 Api-compose is a Jinja-template based, configuration-first framework for orchestrating, asserting and reporting on API Calls.
@@ -21,6 +19,7 @@ The framework is inspired by Kubernetes, Dbt and Cucumber (gherkin).
 
 .. toctree::
    :maxdepth: 2
+   :hidden:
    :caption: Contents:
 
-   docs/models
+   docs/manifests
