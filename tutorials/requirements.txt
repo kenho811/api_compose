@@ -1,4 +1,2 @@
-api-compose[test]
-jupyterlab==4.0.6
+api-compose
 connexion==2.14.2
-greenlet==2.0.2
