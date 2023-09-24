@@ -2,7 +2,7 @@ Tutorials
 ~~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: https://mybinder.org/badge_logo.svg
- :target: https://mybinder.org/v2/gh/kenho811/api_compose.git/feature/jupyter?labpath=tutorials
+ :target: https://mybinder.org/v2/gh/kenho811/api_compose.git/HEAD?labpath=tutorials
 
 A tutorial series using jupyter notebook. It can be viewed on binder.org directly
 
