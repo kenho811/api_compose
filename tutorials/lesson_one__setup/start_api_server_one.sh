@@ -9,7 +9,7 @@ if [ -d "$REPO_DIR" ]; then
   git pull
 else
   echo "Repository does not exist. Cloning..."
-  git clone "$REPO_URL" "$REPO_DIR"
+  GIT_SSH_COMMAND="ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" git clone "$REPO_URL" "$REPO_DIR"
   cd "$REPO_DIR"
 fi
 

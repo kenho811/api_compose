@@ -1,2 +1,2 @@
-api-compose
+api-compose[test]
 jupyterlab==4.0.6
