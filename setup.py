@@ -6,6 +6,7 @@ from setuptools import setup, find_packages
 package_name = 'api_compose'
 
 
+
 def get_version():
     main_ns = {}
     path = convert_path('src/api_compose/version.py')
@@ -58,14 +59,15 @@ if __name__ == '__main__':
             "lxml==4.9.3",
             "cmd2==2.4.3",
             "jsonschema==4.19.0",
+
         ],
         extras_require={
             "test": [
                 "pytest==7.3.1",
                 "pytest-env==1.0.1",
-                # Mock REST server
                 "connexion==2.14.2",
                 "connexion[swagger-ui]",
+                # Mock REST server
                 'pydeps==1.12.8',
                 'dicttoxml==1.7.16',
             ],
@@ -76,6 +78,11 @@ if __name__ == '__main__':
         entry_points={
             'console_scripts': [
                 f'{get_cli()}=api_compose.cli.main:app',
+            ],
+            "jupyter_serverproxy_servers": [
+                # name = packagename:function_name
+                "api_server_one=api_compose.servers:setup_api_server_one",
             ]
+
         },
     )

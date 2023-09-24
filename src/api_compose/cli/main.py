@@ -138,8 +138,6 @@ def version() -> None:
 
 
 @app.command(help="Scaffold a Sample Project Structure")
-## TODO: Do a network call and git clone the example folder in the github repo instead
-## TODO: Let users choose which example to clone
 def scaffold(project_name: str) -> None:
     root = Path(project_name).absolute()
     if root.exists():

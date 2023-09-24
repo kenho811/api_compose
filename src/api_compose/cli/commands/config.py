@@ -5,7 +5,7 @@ from pathlib import Path
 
 import typer
 
-from api_compose import GlobalSettingsModelSingleton
+from api_compose.core.settings.settings import GlobalSettingsModelSingleton
 from api_compose.cli.utils.yaml_dumper import dump_dict_to_single_yaml_file
 
 app = typer.Typer(

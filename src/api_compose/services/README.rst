@@ -1,6 +1,8 @@
 Services
 -------------------
 
+- This module contains the various services which api-compose consists of.
+
 Composition Service
 ======================
 
