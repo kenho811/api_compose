@@ -1,6 +1,4 @@
 #!/bin/bash
 
 set -e
-
-cd ./tutorials
-./start_server.sh
+pip install -r tutorials/requirements.txt
