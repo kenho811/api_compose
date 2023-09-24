@@ -9,6 +9,16 @@
 .. image:: https://mybinder.org/badge_logo.svg
  :target: https://mybinder.org/v2/gh/kenho811/api_compose.git/HEAD?labpath=tutorials
 
+
+Demonstration
+============================
+
+A tutorial series as jupyter notebook is uploaded to binder.org. Please free to try it out there first!
+
+Link: https://mybinder.org/v2/gh/kenho811/api_compose.git/HEAD?labpath=tutorials
+
+
+
 Installation
 ============================
 
