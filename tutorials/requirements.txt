@@ -1,2 +1,2 @@
 api-compose
-connexion['swagger_ui']
+connexion[swagger_ui]

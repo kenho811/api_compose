@@ -34,7 +34,7 @@ def dump_dict_to_single_yaml_file(
 
     with open(file_path, 'w') as f:
         get_yaml_with_representers().dump(dict_, f)
-        logger.info(f"Model is saved at {file_path=}")
+        logger.info(f"Model is saved at {file_path.absolute()}")
 
 
 def get_yaml_with_representers():
