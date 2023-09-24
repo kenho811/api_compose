@@ -2,4 +2,5 @@
 
 set -e
 
-./tutorials/start_server.sh
+cd ./tutorials
+./start_server.sh
