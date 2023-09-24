@@ -32,6 +32,7 @@ def init_cli_settings(
         env_files_pack_name: Optional[str],
         is_interactive: bool,
         ctx: List[str],
+        session_id: Optional[str] = None,
 ):
     """Set User-defined options to CliOptionsSettingsModel"""
     manifests_folder_path = GlobalSettingsModelSingleton.get().discovery.manifests_folder_path
@@ -49,7 +50,8 @@ def init_cli_settings(
         exclude_tags=exclude_tags,
         exclude_models=exclude_models,
         selectors_pack_name=selectors_pack_name,
-        env_files_pack_name=env_files_pack_name
+        env_files_pack_name=env_files_pack_name,
+        session_id=session_id
     )
 
     # Step 2: set custom selector pack
@@ -163,7 +165,7 @@ def convert_models_to_session(models: List[BaseModel]) -> SessionModel:
             raise ValueError(f'Unhandled model type {type(model)}')
 
     session_model = SessionModel(
-        id=GlobalSettingsModelSingleton.get().session_id,
+        id=GlobalSettingsModelSingleton.get().cli_options.session_id,
         specifications=specification_models,
         model_name='SessionModel',
     )

@@ -1,2 +1,2 @@
 api-compose
-connexion==2.14.2
+connexion[swagger_ui]

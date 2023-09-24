@@ -34,7 +34,7 @@ class TagNotFoundException(Exception):
     def __init__(
             self,
             target_tag: str,
-            available_tags: Set[str],
+            available_tags: List[str],
     ):
         self.target_tag = target_tag
         self.available_tags = available_tags

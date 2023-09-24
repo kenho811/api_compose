@@ -91,7 +91,10 @@ class BaseModel(_BaseModel):
 
     @property
     def fqn(self):
-        return '.'.join([self.ancestry, self.uid])
+        if len(self.ancestry) == 0:
+            return self.uid
+        else:
+            return '.'.join([self.ancestry, self.uid])
 
     @field_validator("id")
     @classmethod

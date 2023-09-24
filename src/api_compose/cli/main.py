@@ -9,7 +9,7 @@ from api_compose.cli.commands import config
 from api_compose.cli.events import DiscoveryEvent
 from api_compose.cli.options import include_manifest_file_paths_option, include_tags_option, include_models_option, \
     exclude_manifest_file_paths_option, exclude_tags_option, exclude_models_option, is_interactive_option, \
-    extra_env_var_option, env_files_pack_name_option, selector_pack_name_option
+    extra_env_var_option, env_files_pack_name_option, selector_pack_name_option, session_id_option
 from api_compose.cli.session_builder import parse_models, convert_models_to_session, init_cli_settings
 from api_compose.cli.utils.yaml_dumper import dump_dict_to_single_yaml_file
 from api_compose.core.logging import get_logger
@@ -136,6 +136,7 @@ def init_cli(
 def version() -> None:
     typer.echo(f"the CLI is at version {__version__}")
 
+
 @app.command(help="Scaffold a Sample Project Structure")
 ## TODO: Do a network call and git clone the example folder in the github repo instead
 ## TODO: Let users choose which example to clone
@@ -204,7 +205,13 @@ def compile(
         ctx: Annotated[
             Optional[List[str]],
             extra_env_var_option,
+        ] = None,
+
+        session_id: Annotated[
+            Optional[str],
+            session_id_option,
         ] = None
+
 ) -> None:
     """
     Compile and output model
@@ -222,6 +229,7 @@ def compile(
         ctx=ctx,
         selectors_pack_name=selectors_pack_name,
         env_files_pack_name=env_files_pack_name,
+        session_id=session_id
     )
 
     required_models = parse_models(
@@ -294,6 +302,11 @@ def run(
         ctx: Annotated[
             Optional[List[str]],
             extra_env_var_option,
+        ] = None,
+
+        session_id: Annotated[
+            Optional[str],
+            session_id_option,
         ] = None
 ):
     """
@@ -311,6 +324,7 @@ def run(
         ctx=ctx,
         selectors_pack_name=selectors_pack_name,
         env_files_pack_name=env_files_pack_name,
+        session_id=session_id
     )
 
     required_models = parse_models(

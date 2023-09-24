@@ -24,3 +24,8 @@ selector_pack_name_option = typer.Option("--selector", "-s",
 
 is_interactive_option = typer.Option("--interactive/--no-interactive", "-i/-I", help='Start interactive shell or not')
 extra_env_var_option = typer.Option()
+
+session_id_option = typer.Option(
+    '--id',
+    help='Assign session id. When not set, a UUID will be automatically generated to uniquely identify the session'
+)

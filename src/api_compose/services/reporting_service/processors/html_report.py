@@ -71,7 +71,7 @@ class HtmlReport(BaseReport):
             f"{self.model.__class__.__name__}_report.html"
         )
         with open(self.path_to_output, "w") as f:
-            logger.info(f'Dumping HTML report - {self.path_to_output=}')
+            logger.info(f'Dumping HTML report - {self.path_to_output.absolute()}')
             f.write(self.report)
 
             if GlobalSettingsModelSingleton.get().cli_options.is_interactive:
