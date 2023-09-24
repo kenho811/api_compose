@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cd ./api-server-one
+pipenv install --dev && pipenv shell
+./app.py # start the HTTP server
+
+echo 'please check http://localhost:8080/ui'
