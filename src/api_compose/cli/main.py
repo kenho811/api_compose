@@ -100,7 +100,7 @@ app = typer.Typer(
 )
 
 app.add_typer(config.app, name='cfg', help="Configuration")
-app.add_typer(example.app, name='example', help="examples")
+app.add_typer(example.app, name='example', help="Example Servers for demonstrative purposes only")
 
 
 @app.callback()
@@ -140,8 +140,6 @@ def version() -> None:
 
 
 @app.command(help="Scaffold a Sample Project Structure")
-## TODO: Do a network call and git clone the example folder in the github repo instead
-## TODO: Let users choose which example to clone
 def scaffold(project_name: str) -> None:
     root = Path(project_name).absolute()
     if root.exists():

@@ -4,15 +4,13 @@ config subcommand
 
 import typer
 
-
 app = typer.Typer(
-    help="Example Servers",
+    help="Run Example Servers for demonstration",
     no_args_is_help=True
 )
 
 
-
-@app.command(help="Initialise Configuration File")
+@app.command(help="Run Api Server One")
 def api_server_one(port: str) -> None:
     """
     Run api_server_one on a given port
@@ -21,4 +19,3 @@ def api_server_one(port: str) -> None:
     """
     from api_compose.cli.commands.examples.api_server_one.app import app
     app.run(port=port)
-
