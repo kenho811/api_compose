@@ -1,9 +1,13 @@
 Tutorials
 ~~~~~~~~~~~~~~~~~~~~~~
 
-A tutorial series using jupyter notebook.
+A tutorial series using jupyter notebook. It can be viewed on binder.org directly
+
+Link: https://mybinder.org/v2/gh/kenho811/api_compose/HEAD?labpath=tutorials
+
 
 Lessons build on top of one another. Please start from lesson one.
+
 
 
 Pre-requireistes

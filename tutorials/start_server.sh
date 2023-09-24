@@ -1,6 +1,10 @@
 #!/bin/bash
 
-cd ./api-server-one
+set -e
+
+pip install -r ./requirements.txt
+cd ./api_server_one
+
 pipenv install --dev && pipenv shell
 ./app.py # start the HTTP server
 
