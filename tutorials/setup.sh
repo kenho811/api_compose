@@ -3,5 +3,5 @@ pip install -r requirements.txt
 
 
 # add jupyter config
-mkdir -p $HOME/.jupyter
-cp assets/api_server_one.svg $HOME/.jupyter/
+mkdir -p /tmp/.jupyter
+cp assets/api_server_one.svg /tmp/.jupyter/
