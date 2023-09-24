@@ -60,14 +60,13 @@ if __name__ == '__main__':
             "cmd2==2.4.3",
             "jsonschema==4.19.0",
 
-            # Run acp examples
-            "connexion==2.14.2",
-            "connexion[swagger-ui]",
         ],
         extras_require={
             "test": [
                 "pytest==7.3.1",
                 "pytest-env==1.0.1",
+                "connexion==2.14.2",
+                "connexion[swagger-ui]",
                 # Mock REST server
                 'pydeps==1.12.8',
                 'dicttoxml==1.7.16',
