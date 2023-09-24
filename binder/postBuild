@@ -1,9 +1,4 @@
 #!/bin/bash
 
 set -e
-
-pip install -r ./tutorials/requirements.txt
-cd ./tutorials/api_server_one
-
-./app.py # start the HTTP server
-echo 'please check http://localhost:8080/ui'
+pip install -r tutorials/requirements.txt
