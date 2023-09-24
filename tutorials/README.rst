@@ -8,15 +8,7 @@ A tutorial series using jupyter notebook. It can be viewed on binder.org directl
 
 Link: https://mybinder.org/v2/gh/kenho811/api_compose/HEAD?labpath=tutorials
 
-
 Lessons build on top of one another. Please start from lesson one.
-
-
-
-Pre-requireistes
-====================
-
-- Docker (To start a backend api server(s))
 
 
 Installation
@@ -26,8 +18,16 @@ Installation
 
     pip install -r requirements.txt
 
-Start tutorial
-===============
+
+
+Start tutorials Locally
+============================
+
+If you prefer doing it locally, please install jupyterlab as well
+
+```
+pip install jupyterlab
+```
 
 Ref: https://jupyterlab.readthedocs.io/en/stable/getting_started/starting.html
 
