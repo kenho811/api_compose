@@ -136,7 +136,6 @@ def init_cli(
 def version() -> None:
     typer.echo(f"the CLI is at version {__version__}")
 
-
 @app.command(help="Scaffold a Sample Project Structure")
 ## TODO: Do a network call and git clone the example folder in the github repo instead
 ## TODO: Let users choose which example to clone
