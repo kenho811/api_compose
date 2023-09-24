@@ -6,8 +6,7 @@ from typing import Annotated, List, Optional
 
 from api_compose import FunctionsRegistry, safe_import_module
 from api_compose.cli.commands import config
-from api_compose.cli.commands import example
-from api_compose.cli.events import DiscoveryEvent
+fixfrom api_compose.cli.events import DiscoveryEvent
 from api_compose.cli.options import include_manifest_file_paths_option, include_tags_option, include_models_option, \
     exclude_manifest_file_paths_option, exclude_tags_option, exclude_models_option, is_interactive_option, \
     extra_env_var_option, env_files_pack_name_option, selector_pack_name_option, session_id_option
