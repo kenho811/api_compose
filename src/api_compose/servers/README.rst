@@ -1,6 +1,8 @@
 Example Servers
 ~~~~~~~~~~~~~~~~~~~~~~
 
+- This module contains code which serves as example APi Servers to test against.
+
 
 API Server One
 ================

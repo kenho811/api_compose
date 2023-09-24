@@ -6,6 +6,7 @@ from setuptools import setup, find_packages
 package_name = 'api_compose'
 
 
+
 def get_version():
     main_ns = {}
     path = convert_path('src/api_compose/version.py')
@@ -78,6 +79,11 @@ if __name__ == '__main__':
         entry_points={
             'console_scripts': [
                 f'{get_cli()}=api_compose.cli.main:app',
+            ],
+            "jupyter_serverproxy_servers": [
+                # name = packagename:function_name
+                "api_server_one=api_compose.servers:setup_api_server_one",
             ]
+
         },
     )

@@ -100,7 +100,6 @@ app = typer.Typer(
 )
 
 app.add_typer(config.app, name='cfg', help="Configuration")
-app.add_typer(example.app, name='example', help="Example Servers for demonstrative purposes only")
 
 
 @app.callback()
