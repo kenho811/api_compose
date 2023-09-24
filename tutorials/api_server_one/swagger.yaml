@@ -7,10 +7,7 @@ consumes:
   - application/json
 produces:
   - application/json
-security:
-  # enable OAuth protection for all REST endpoints
-  # (only active if the TOKENINFO_URL environment variable is set)
-  - oauth2: [uid]
+security: []
 paths:
   /pets:
     get:
