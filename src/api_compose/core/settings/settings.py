@@ -50,6 +50,13 @@ class CliOptions(BaseSettings):
     selectors_pack_name: Optional[str] = Field('', description='selectors pack name')
     env_files_pack_name: Optional[str] = Field('', description='env files pack name')
 
+    session_id: Optional[str] = Field(
+        # ensures uniquenes of session when action is saved to database
+        str(uuid.uuid4()),
+        description='Unique Identifier of session. For internal use only',
+    )
+
+
     @field_validator('include_tags', 'exclude_tags', mode='before')
     @classmethod
     def validate_tags(cls, values):
@@ -57,6 +64,14 @@ class CliOptions(BaseSettings):
             values = list(set(values))
         return values
 
+
+    @field_validator('session_id', mode='before')
+    @classmethod
+    def validate_session_id(cls, values):
+        if type(values) == str and len(values) > 0:
+            return values
+        else:
+            return str(uuid.uuid4())
 
 class DiscoverySettings(BaseSettings):
     manifests_folder_path: JsonSerialisablePathAnnotation = Path('manifests')
@@ -171,12 +186,6 @@ class GlobalSettingsModel(YamlBaseSettings):
     reporting: ReportingSettings = ReportingSettings()
     run_folder: JsonSerialisablePathAnnotation = Path('build/run')
     selectors: SelectorsSettings = SelectorsSettings()
-    session_id: str = Field(
-        # ensures uniquenes of session when action is saved to database
-        str(uuid.uuid4()),
-        description='Unique Identifier of session. For internal use only',
-        exclude=True
-    )
 
     @computed_field
     @property
