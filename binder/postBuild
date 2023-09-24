@@ -1,4 +1,6 @@
 #!/bin/bash
 
 set -e
-pip install -r tutorials/requirements.txt
+
+cd tutorials
+./setup.sh

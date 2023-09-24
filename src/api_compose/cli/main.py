@@ -6,6 +6,7 @@ from typing import Annotated, List, Optional
 
 from api_compose import FunctionsRegistry, safe_import_module
 from api_compose.cli.commands import config
+from api_compose.cli.commands import example
 from api_compose.cli.events import DiscoveryEvent
 from api_compose.cli.options import include_manifest_file_paths_option, include_tags_option, include_models_option, \
     exclude_manifest_file_paths_option, exclude_tags_option, exclude_models_option, is_interactive_option, \
@@ -99,6 +100,7 @@ app = typer.Typer(
 )
 
 app.add_typer(config.app, name='cfg', help="Configuration")
+app.add_typer(example.app, name='example', help="examples")
 
 
 @app.callback()
