@@ -1,4 +1,6 @@
 api-compose
 connexion[swagger_ui]==2.14.2
-jupyterlab==4.0.6
-jupyter-server-proxy==4.0.0
+
+# speed up binder build
+#jupyterlab==4.0.6
+#jupyter-server-proxy==4.0.0
