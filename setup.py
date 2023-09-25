@@ -6,7 +6,6 @@ from setuptools import setup, find_packages
 package_name = 'api_compose'
 
 
-
 def get_version():
     main_ns = {}
     path = convert_path('src/api_compose/version.py')
@@ -21,6 +20,14 @@ def get_cli():
     with open(path) as file:
         exec(file.read(), main_ns)
     return main_ns['__app__']
+
+
+def get_api_server_one_prefix():
+    main_ns = {}
+    path = convert_path('src/api_compose/servers/prefixes.py')
+    with open(path) as file:
+        exec(file.read(), main_ns)
+    return main_ns['__API_SERVER_ONE_PREFIX__']
 
 
 this_directory = Path(__file__).parent
@@ -39,7 +46,7 @@ if __name__ == '__main__':
         packages=find_packages("src"),
         package_dir={"": "src"},
         include_package_data=True,
-        package_data = {
+        package_data={
             # Recursively include data files
             '': ['**/*.yaml', '**/*.j2', '**/*.rst', '**/*.py'],
         },
@@ -81,7 +88,7 @@ if __name__ == '__main__':
             ],
             "jupyter_serverproxy_servers": [
                 # name = packagename:function_name
-                "api_server_one=api_compose.servers:setup_api_server_one",
+                f"{get_api_server_one_prefix()}=api_compose.servers:setup_api_server_one",
             ]
 
         },

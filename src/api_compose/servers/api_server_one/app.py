@@ -45,23 +45,25 @@ def delete_pet(pet_id):
 logging.basicConfig(level=logging.INFO)
 app = connexion.App(
     __name__,
-    options={
-        # Move the UI to the base URL
-        'swagger_url': '/',
-    }
 )
-app.add_api(
-    'swagger.yaml',
-)
+
+
 # set the WSGI application callable to allow using uWSGI:
 # uwsgi --http :8080 -w app
 application = app.app
 
 if __name__ == '__main__':
     # run our standalone gevent server
-    if len(sys.argv) == 2:
+    if len(sys.argv) == 3:
         port = int(sys.argv[1])
-        print(f'running on port {port}')
+        base_url = f"/{sys.argv[2]}"
+        print(f"{port=} - {base_url=}")
+
+        app.add_api(
+            'swagger.yaml',
+            base_path=base_url
+        )
+
         app.run(port=port)
     else:
-        raise ValueError('Usage: python ./app.py {port}')
+        raise ValueError('Usage: python ./app.py {port} {base_url}')
