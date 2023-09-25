@@ -2,5 +2,5 @@
 
 set -e
 
-cd tutorials
-./setup.sh
+pip install jupyter-server-proxy==4.0.0
+pip install connexion[swagger_ui]==2.14.2
