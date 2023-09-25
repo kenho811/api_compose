@@ -5,7 +5,7 @@ def setup_api_server_one():
         'port': 8080,
         'launcher_entry': {
             'enabled': True,
-            'icon_path': '/tmp/.jupyter/api_server_one.svg',
+            'icon_path': '/tmp/.jupyter/api_server_one.png',
             'title': 'ApiServerOne',
         },
     }
