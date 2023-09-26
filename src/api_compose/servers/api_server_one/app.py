@@ -57,7 +57,8 @@ if __name__ == '__main__':
     if len(sys.argv) == 3:
         port = int(sys.argv[1])
         base_url = f"{sys.argv[2]}"
-        print(f"{port=} - {base_url=}")
+        print(f"{port=}")
+        print(f"{base_url=}")
 
         app.add_api(
             'swagger.yaml',

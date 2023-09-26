@@ -1,6 +1,3 @@
-# Local Installation for jupyter notebook
-git+https://github.com/kenho811/api_compose.git
-connexion==2.14.2
-jupyterlab==4.0.6
 jupyter-server-proxy==4.0.0
-
+connexion==2.14.2
+git+https://github.com/kenho811/api_compose.git

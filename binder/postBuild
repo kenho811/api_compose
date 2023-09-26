@@ -2,6 +2,4 @@
 
 set -e
 
-pip install jupyter-server-proxy==4.0.0
-pip install connexion==2.14.2
-pip install git+https://github.com/kenho811/api_compose.git
+pip install -r ./tutorials/requirements.txt
