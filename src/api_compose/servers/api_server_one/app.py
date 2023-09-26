@@ -56,7 +56,7 @@ if __name__ == '__main__':
     # run our standalone gevent server
     if len(sys.argv) == 3:
         port = int(sys.argv[1])
-        base_url = f"/{sys.argv[2]}"
+        base_url = f"{sys.argv[2]}"
         print(f"{port=} - {base_url=}")
 
         app.add_api(
