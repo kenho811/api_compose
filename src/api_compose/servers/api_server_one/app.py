@@ -45,6 +45,12 @@ def delete_pet(pet_id):
 logging.basicConfig(level=logging.INFO)
 app = connexion.App(
     __name__,
+    options={
+        'swagger_ui': True,
+
+        # Show Swagger UI at root
+        'swagger_url': '/',
+    }
 )
 
 
@@ -62,7 +68,7 @@ if __name__ == '__main__':
 
         app.add_api(
             'swagger.yaml',
-            base_path=base_url
+            base_path=base_url,
         )
 
         app.run(port=port)
