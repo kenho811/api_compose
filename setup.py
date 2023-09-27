@@ -81,6 +81,14 @@ if __name__ == '__main__':
             "dist": [
                 'twine==4.0.2',
             ],
+
+            # For jupyter notebook tutorials
+            "tutorials": [
+                "connexion==2.14.2",
+                "connexion[swagger-ui]",
+                "jupyterlab",
+                "jupyter-server-proxy==4.0.0",
+            ],
         },
         entry_points={
             'console_scripts': [
