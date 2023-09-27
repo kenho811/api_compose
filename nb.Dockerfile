@@ -2,6 +2,8 @@ FROM jupyter/minimal-notebook:latest
 
 USER root
 
+WORKDIR /home/jovyan
+
 COPY ./setup.cfg ./setup.cfg
 COPY ./setup.py ./setup.py
 COPY ./README.rst ./README.rst

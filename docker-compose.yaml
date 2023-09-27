@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: nb.Dockerfile
     volumes:
-      - ./src :/home/jovyan/src
-      - ./tutorials :/home/jovyan/tutorials
+      - ./src:/home/jovyan/src
+      - ./tutorials:/home/jovyan/tutorials
     ports:
       - 8888:8888
