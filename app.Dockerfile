@@ -5,8 +5,7 @@ WORKDIR /usr/src/app
 COPY ./setup.cfg ./setup.cfg
 COPY ./setup.py ./setup.py
 COPY ./README.rst ./README.rst
+COPY ./src ./src
 
-
-RUN ls
 RUN pip install .
 ENTRYPOINT ["acp"]
