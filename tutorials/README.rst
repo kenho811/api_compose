@@ -1,6 +1,9 @@
 Tutorials
 ~~~~~~~~~~~~~~~~~~~~~~
 
+Run on Binder
+========================
+
 .. image:: https://mybinder.org/badge_logo.svg
  :target: https://mybinder.org/v2/gh/kenho811/api_compose.git/HEAD?labpath=tutorials
 
@@ -11,26 +14,12 @@ Link: https://mybinder.org/v2/gh/kenho811/api_compose/HEAD?labpath=tutorials
 Lessons build on top of one another. Please start from lesson one.
 
 
-Installation
-===============
+Run Locally via Docker
+===========================
 
 .. code-block::
 
-    pip install -r requirements.txt
+   # In the root of the repository.
+   docker compose up
 
-
-
-Start tutorials Locally
-============================
-
-If you prefer doing it locally, please install jupyterlab as well
-
-```
-pip install jupyterlab
-```
-
-Ref: https://jupyterlab.readthedocs.io/en/stable/getting_started/starting.html
-
-.. code-block::
-
-    jupyter lab
+    # Visit http://localhost:8888
