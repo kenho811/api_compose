@@ -36,6 +36,7 @@ runs:
       with:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
+        file: app.Dockerfile
         labels: ${{ steps.meta.outputs.labels }}
     - # Push README.md to Dockerhub
       name: Check the File System
@@ -50,5 +51,5 @@ runs:
       with:
         username: ${{ inputs.dockerhub-username }}
         password: ${{ inputs.dockerhub-password }}
-        repository: kenho811/database-version-control
-        readme-filepath: ./README.md
+        repository: kenho811/api-compose
+        readme-filepath: ./README.rst
