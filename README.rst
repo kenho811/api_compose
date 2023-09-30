@@ -25,7 +25,7 @@ Local
 
 .. code-block::
 
-   docker compose -f ./tutorials up
+   docker compose -f ./tutorials/docker-compose.yaml up
 
 
 Installation
