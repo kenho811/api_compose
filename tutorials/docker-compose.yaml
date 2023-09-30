@@ -1,0 +1,12 @@
+version: '3'
+services:
+  client-notebook:
+    build:
+      context: ..
+      dockerfile: ./tutorials/Dockerfile
+    volumes:
+      - ../src:/home/jovyan/src
+      - ../tutorials:/home/jovyan/tutorials
+    ports:
+      - 8888:8888
+    command: jupyter lab --notebook-dir=/home/jovyan/tutorials

@@ -14,12 +14,11 @@ Link: https://mybinder.org/v2/gh/kenho811/api_compose/HEAD?labpath=tutorials
 Lessons build on top of one another. Please start from lesson one.
 
 
-Run Locally via Docker
-===========================
+Run Locally via Docker Compose
+======================================
 
 .. code-block::
 
-   # In the root of the repository.
    docker compose up
 
-    # Visit http://localhost:8888
+   # Visit http://localhost:8888
