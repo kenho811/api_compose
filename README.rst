@@ -10,17 +10,26 @@
  :target: https://mybinder.org/v2/gh/kenho811/api_compose.git/HEAD?labpath=tutorials
 
 
-Demonstration
-============================
+Tutorials
+=====================
+
+On Binder.org
+----------------------
 
 A tutorial series as jupyter notebook is uploaded to binder.org. Please free to try it out there first!
 
 Link: https://mybinder.org/v2/gh/kenho811/api_compose.git/HEAD?labpath=tutorials
 
+Local
+----------------------
+
+.. code-block::
+
+   docker compose -f ./tutorials up
 
 
 Installation
-============================
+=====================
 
 `PyPI Package <https://pypi.org/project/api-compose>`_
 
@@ -29,7 +38,7 @@ Installation
    pip install |PACKAGE_NAME|
 
 Get Started
-============================
+------------------
 
 .. parsed-literal::
 
@@ -37,7 +46,7 @@ Get Started
    |CLI_NAME| scaffold <your_project_name>
 
 Run the programme
-============================
+-------------------------
 
 .. parsed-literal::
 
@@ -69,7 +78,7 @@ Declaration-based API Call Composition
 
 
 Useful Builtin Jinja Globals
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+----------------------------------------
 
 Builtin Jinja Globals allow users to specify which part (e.g. headers, body etc.) of an API action (e.g. login, get_images etc.) to use.
 
@@ -85,7 +94,7 @@ Builtin Jinja Globals allow users to specify which part (e.g. headers, body etc.
     {{ action('self')| config_body }}
 
 Supported API Calls Type - Adapters
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+----------------------------------------
 
 - Below is the table which breaks down the type of API Call by
 
@@ -184,15 +193,3 @@ Run Time Rendering
     variable_end_string='}}'
     comment_start_string='{#'
     comment_end_string='#}'
-
-
-
-Config File
-============================
-
-File name is `config.yaml`
-
-.. code-block::
-
-    # Generate config.yaml
-    acp cfg init
