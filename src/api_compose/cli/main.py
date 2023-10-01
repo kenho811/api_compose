@@ -25,9 +25,7 @@ logger = get_logger(__name__)
 import typer
 
 COMPILED_FOLDER_PATH = GlobalSettingsModelSingleton.get().compiled_folder
-COMPILED_FOLDER_PATH.mkdir(exist_ok=True, parents=True)
 RUN_FOLDER_PATH = GlobalSettingsModelSingleton.get().run_folder
-RUN_FOLDER_PATH.mkdir(exist_ok=True, parents=True)
 
 OUTPUT_PATHS: List[Path] = [
     GlobalSettingsModelSingleton.get().run_folder,
@@ -237,6 +235,7 @@ def compile(
     )
 
     session_model = convert_models_to_session(required_models)
+    COMPILED_FOLDER_PATH.mkdir(parents=True, exist_ok=True)
     folder_path = COMPILED_FOLDER_PATH.joinpath(session_model.id)
 
     # Dump individual file
@@ -333,7 +332,9 @@ def run(
     session_model = convert_models_to_session(required_models)
     session_model = run_session_model(session_model)
 
+    RUN_FOLDER_PATH.mkdir(parents=True, exist_ok=True)
     folder_path = RUN_FOLDER_PATH.joinpath(session_model.id)
+
 
     # Dump individual file
     for model in required_models:

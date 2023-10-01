@@ -9,4 +9,3 @@ services:
       - ../tutorials:/home/jovyan/tutorials
     ports:
       - 8888:8888
-    command: jupyter lab --notebook-dir=/home/jovyan/tutorials
