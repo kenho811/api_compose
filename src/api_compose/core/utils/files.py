@@ -51,3 +51,11 @@ def get_file_names_in(
         return [file.stem for file in folder_path.glob('**/*') if file.is_file()]
     else:
         return []
+
+
+def write_content_to_file(path: str, content):
+    """ For jupyter notebook """
+    print(f'writing content to {path=}')
+    print(content)
+    with open(path, 'w') as f:
+        f.write(content)
