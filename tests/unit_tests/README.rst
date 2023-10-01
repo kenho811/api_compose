@@ -9,12 +9,9 @@ Pytest Fixtures to be imported into conftest
 
 
 
-
 resources
 ======================
 Resources Files
-
-
 
 
 Domains
