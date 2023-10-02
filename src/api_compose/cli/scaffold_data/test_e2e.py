@@ -9,6 +9,7 @@ from api_compose.cli.main import app
 def test_runner() -> CliRunner:
     return CliRunner()
 
+
 @pytest.fixture()
 def clean_up(
         capsys: CaptureFixture,
@@ -29,8 +30,12 @@ def test_can_compile(
 ):
     """Assert that manifests can be compiled"""
     with capsys.disabled() as disabled:
-        result = test_runner.invoke(app, [
-            "compile",
-        ]
-                                    )
+        result = test_runner.invoke(
+            app,
+            [
+                "compile",
+            ],
+            # Let Result Capture return_value
+            standalone_mode=False
+        )
         assert result.exit_code == 0, "Result is non-zero"
