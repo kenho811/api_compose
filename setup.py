@@ -22,12 +22,14 @@ def get_cli():
     return main_ns['__app__']
 
 
-def get_api_server_one_prefix():
+def get_api_server_prefix(
+        key: str
+):
     main_ns = {}
     path = convert_path('src/api_compose/servers/prefixes.py')
     with open(path) as file:
         exec(file.read(), main_ns)
-    return main_ns['__API_SERVER_ONE_PREFIX__']
+    return main_ns.get(key)
 
 
 this_directory = Path(__file__).parent
@@ -96,7 +98,8 @@ if __name__ == '__main__':
             ],
             "jupyter_serverproxy_servers": [
                 # name = packagename:function_name
-                f"{get_api_server_one_prefix()}=api_compose.servers:setup_api_server_one",
+                f"{get_api_server_prefix('__API_SERVER_ONE_PREFIX__')}=api_compose.servers:setup_api_server_one",
+                f"{get_api_server_prefix('__API_SERVER_TWO_PREFIX__')}=api_compose.servers:setup_api_server_two",
             ]
 
         },
