@@ -4,4 +4,5 @@ set -e
 
 pip install ".[tutorials]"
 
+mkdir -p /home/jovyan/.jupyter
 cp tutorials/configs/jupyter_lab_config.py /home/jovyan/.jupyter/jupyter_lab_config.py
