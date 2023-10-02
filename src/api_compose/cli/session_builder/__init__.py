@@ -15,6 +15,7 @@ from api_compose.root.models.scenario import ScenarioModel
 from api_compose.root.models.specification import SpecificationModel
 from api_compose.services.common.deserialiser import get_available_models
 from api_compose.services.common.deserialiser.deserialiser import get_manifest_relative_path
+from api_compose.services.common.events.deserialisation import DeserialisationEvent
 from api_compose.services.common.models.base import BaseModel
 from api_compose.services.composition_service.models.actions.actions.base_action import BaseActionModel
 

@@ -1,0 +1,9 @@
+globals:
+  base_url: http://localhost:8085
+actions:
+  create_pet:
+    animal_type: cat
+    name: susie
+    tags:
+      size: small
+      character: friendly

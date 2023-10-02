@@ -155,7 +155,7 @@ class SelectorsSettings(BaseSettings):
 
 
 class LoggingSettings(BaseSettings):
-    logging_level: int = logging.INFO
+    logging_level: int = logging.DEBUG
     log_file_path: Optional[JsonSerialisablePathAnnotation] = Path('log.jsonl')
     event_filters: List[EventType] = []
 

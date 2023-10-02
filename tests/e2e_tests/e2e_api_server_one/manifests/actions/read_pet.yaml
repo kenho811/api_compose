@@ -8,12 +8,12 @@ config:
     template: ''
   url:
     format: string
-    template: "[[ globals.base_url ]]/pets/1"
+    template: "http://localhost:8085/api_server_one/pets/1"
   body:
     format: yaml
     template: |
-     "animal_type": "[[ actions.create_pet.animal_type ]]"
-     "name": "[[ actions.create_pet.name ]]"
-     "tags": [[ actions.create_pet.tags ]]
+     "animal_type": "cat"
+     "name": "Susie"
+     "tags": {}
 description: Create Pet
 execution_id: 'json_http_action'

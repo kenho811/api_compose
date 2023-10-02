@@ -16,8 +16,10 @@ def test_can_create_pet(capsys: CaptureFixture, start_api_server_one):
                 "run",
                 "-f",
                 "./manifests/actions/create_pet.yaml",
+                "-e",
+                "base",
                 "--id",
-                "action__can_create_pet",
+                "action__create_pet",
             ],
             standalone_mode=False,
         )
@@ -26,4 +28,4 @@ def test_can_create_pet(capsys: CaptureFixture, start_api_server_one):
         assert len(session.specifications) == 1
         assert len(session.specifications[0].scenarios) == 1
         assert len(session.specifications[0].scenarios[0].actions) == 1
-        assert session.specifications[0].scenarios[0].actions[0].output.status_code == 200
+        assert session.specifications[0].scenarios[0].actions[0].output.status_code == 201
