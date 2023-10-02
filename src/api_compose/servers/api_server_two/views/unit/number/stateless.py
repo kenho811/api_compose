@@ -1,4 +1,4 @@
-from unit_tests.resources.views.base import BaseView
+from api_compose.servers.api_server_two.views.base import BaseView
 
 
 class StatelessView(BaseView):

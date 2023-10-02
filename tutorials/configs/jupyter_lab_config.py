@@ -1,14 +1,15 @@
 # Configuration file for lab.
+from api_compose.servers.prefixes import __API_SERVER_TWO_PREFIX__, __API_SERVER_ONE_PREFIX__, __API_SERVER_TWO_PORT__, __API_SERVER_ONE_PORT__
 
-c = get_config()  #noqa
 
+c = get_config()  # noqa
 
 c.ServerApp.root_dir = '/home/jovyan/tutorials'
 c.ServerApp.file_to_run = '/home/jovyan/tutorials/index.ipynb'
 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Application(SingletonConfigurable) configuration
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 ## This is an application.
 
 ## The date format used by logging formatters for %(asctime)s
@@ -22,7 +23,40 @@ c.ServerApp.file_to_run = '/home/jovyan/tutorials/index.ipynb'
 ## Set the log level by value or name.
 #  Choices: any of [0, 10, 20, 30, 40, 50, 'DEBUG', 'INFO', 'WARN', 'ERROR', 'CRITICAL']
 #  Default: 30
-# c.Application.log_level = 30
+c.Application.log_level = 30
+
+c.ServerProxy.servers = {
+    "api_server_one": {
+        'command': [
+            'python',
+            '-m',
+            'api_compose.servers.api_server_one.app',
+            '{port}',
+            '{base_url}' + __API_SERVER_ONE_PREFIX__
+        ],
+        'port': __API_SERVER_ONE_PORT__,
+        'absolute_url': True,
+        'launcher_entry': {
+            'enabled': True,
+            'title': 'ApiServerOne',
+        },
+    },
+    'api_server_two': {
+        'command': [
+            'python',
+            '-m',
+            'api_compose.servers.api_server_two.app',
+            '{port}',
+            '{base_url}' + __API_SERVER_TWO_PREFIX__
+        ],
+        'port': __API_SERVER_TWO_PORT__,
+        'absolute_url': True,
+        'launcher_entry': {
+            'enabled': True,
+            'title': 'ApiServerTwo',
+        },
+    }
+}
 
 #  Default: {}
 # c.Application.logging_config = {}
@@ -35,9 +69,9 @@ c.ServerApp.file_to_run = '/home/jovyan/tutorials/index.ipynb'
 #  Default: False
 # c.Application.show_config_json = False
 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # JupyterApp(Application) configuration
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 ## Base class for Jupyter applications
 
 ## Answer yes to any prompts.
@@ -79,9 +113,9 @@ c.ServerApp.file_to_run = '/home/jovyan/tutorials/index.ipynb'
 #  See also: Application.show_config_json
 # c.JupyterApp.show_config_json = False
 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # ExtensionApp(JupyterApp) configuration
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 ## Base class for configurable Jupyter Server Extension Applications.
 #  
 #      ExtensionApp subclasses can be initialized two ways:
@@ -160,9 +194,9 @@ c.ServerApp.file_to_run = '/home/jovyan/tutorials/index.ipynb'
 #  Default: []
 # c.ExtensionApp.template_paths = []
 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # LabServerApp(ExtensionApp) configuration
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 ## A Lab Server Application that runs out-of-the-box
 
 ## "A list of comma-separated URIs to get the allowed extensions list
@@ -340,9 +374,9 @@ c.ServerApp.file_to_run = '/home/jovyan/tutorials/index.ipynb'
 #  Default: ''
 # c.LabServerApp.workspaces_dir = ''
 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # LabApp(LabServerApp) configuration
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 ## 
 #  See also: LabServerApp.allowed_extensions_uris
 # c.LabApp.allowed_extensions_uris = ''
@@ -593,9 +627,9 @@ c.ServerApp.file_to_run = '/home/jovyan/tutorials/index.ipynb'
 #  Default: '/home/jovyan/.jupyter/lab/workspaces'
 # c.LabApp.workspaces_dir = '/home/jovyan/.jupyter/lab/workspaces'
 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # ServerApp(JupyterApp) configuration
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 ## The Jupyter Server application class.
 
 ## Set the Access-Control-Allow-Credentials: true header

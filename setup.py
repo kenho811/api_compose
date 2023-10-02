@@ -22,14 +22,6 @@ def get_cli():
     return main_ns['__app__']
 
 
-def get_api_server_one_prefix():
-    main_ns = {}
-    path = convert_path('src/api_compose/servers/prefixes.py')
-    with open(path) as file:
-        exec(file.read(), main_ns)
-    return main_ns['__API_SERVER_ONE_PREFIX__']
-
-
 this_directory = Path(__file__).parent
 long_description = this_directory.joinpath("README.rst").read_text()
 
@@ -67,16 +59,17 @@ if __name__ == '__main__':
             "cmd2==2.4.3",
             "jsonschema==4.19.0",
 
+            # Demo Servers
+            "connexion==2.14.2",
+            "connexion[swagger-ui]",
+            'dicttoxml==1.7.16',
+
         ],
         extras_require={
             "test": [
                 "pytest==7.3.1",
                 "pytest-env==1.0.1",
-                "connexion==2.14.2",
-                "connexion[swagger-ui]",
-                # Mock REST server
                 'pydeps==1.12.8',
-                'dicttoxml==1.7.16',
             ],
             "dist": [
                 'twine==4.0.2',
@@ -84,8 +77,6 @@ if __name__ == '__main__':
 
             # For jupyter notebook tutorials
             "tutorials": [
-                "connexion==2.14.2",
-                "connexion[swagger-ui]",
                 "jupyterlab",
                 "jupyter-server-proxy==4.0.0",
             ],
@@ -94,10 +85,5 @@ if __name__ == '__main__':
             'console_scripts': [
                 f'{get_cli()}=api_compose.cli.main:app',
             ],
-            "jupyter_serverproxy_servers": [
-                # name = packagename:function_name
-                f"{get_api_server_one_prefix()}=api_compose.servers:setup_api_server_one",
-            ]
-
         },
     )

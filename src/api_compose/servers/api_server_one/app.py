@@ -54,11 +54,6 @@ def build_api_server_one(port, base_url= None):
             'swagger_url': '/',
         }
     )
-
-    # set the WSGI application callable to allow using uWSGI:
-    # uwsgi --http :8080 -w app
-    application = app.app
-
     app.add_api(
         'swagger.yaml',
         base_path=base_url,

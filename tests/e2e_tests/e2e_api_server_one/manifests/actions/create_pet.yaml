@@ -1,0 +1,20 @@
+
+model_name: JsonHttpActionModel
+config:
+  method:
+    format: string
+    template: PUT
+  params:
+    format: yaml
+    template: ''
+  url:
+    format: string
+    template: "http://localhost:8085/api_server_one/pets/1"
+  body:
+    format: yaml
+    template: |
+     "animal_type": "cat"
+     "name": "Susie"
+     "tags": {}
+description: Dummy Json Http Request
+execution_id: 'json_http_action'

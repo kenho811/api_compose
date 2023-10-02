@@ -243,10 +243,14 @@ def compile(
         dump_dict_to_single_yaml_file(model.model_dump(),
                                       folder_path.joinpath(model.manifest_file_path))
     # Dump Session
-    dump_dict_to_single_yaml_file(session_model.model_dump(),
-                                  folder_path.joinpath('session.yaml'))
+    session_yaml_path = folder_path.joinpath('session.yaml')
+    dump_dict_to_single_yaml_file(
+        session_model.model_dump(),
+        session_yaml_path,
+    )
 
     typer.echo('Session and other accessories are compiled')
+    return session_yaml_path.absolute()
 
 
 @app.command(help=f"Compile, run and dump manifests as session to Path {RUN_FOLDER_PATH}")
@@ -335,20 +339,23 @@ def run(
     RUN_FOLDER_PATH.mkdir(parents=True, exist_ok=True)
     folder_path = RUN_FOLDER_PATH.joinpath(session_model.id)
 
-
     # Dump individual file
     for model in required_models:
         dump_dict_to_single_yaml_file(model.model_dump(),
                                       folder_path.joinpath(model.manifest_file_path))
 
-    dump_dict_to_single_yaml_file(session_model.model_dump(),
-                                  folder_path.joinpath('session.yaml'))
+    session_yaml_path = folder_path.joinpath('session.yaml')
+    dump_dict_to_single_yaml_file(
+        session_model.model_dump(),
+        session_yaml_path,
+    )
 
     if session_model.is_success:
         typer.echo('Session is completed with success')
     else:
         typer.echo('Session is completed with error')
-        raise typer.Exit(1)
+
+    return session_yaml_path.absolute()
 
 
 @app.command(help=f""" Clean all output folders. All of {[str(path) for path in OUTPUT_PATHS]}  """)
@@ -368,4 +375,3 @@ def clean(
 
         if path_to_clean.is_dir():
             shutil.rmtree(path_to_clean)
-
