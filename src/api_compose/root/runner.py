@@ -47,7 +47,7 @@ class Runner:
 
         specification_processor.run()
 
-    def _execute_report_renderer(self):
+    def execute_report_renderer(self):
         # Generate report(s)
         output_folder = GlobalSettingsModelSingleton.get().reporting.reports_folder
 
@@ -71,4 +71,4 @@ class Runner:
                     f"Specification Model {scenario_group_model.id} done..... going to sleep for {self.session_model}"
                 )
 
-        self._execute_report_renderer()
+        self.execute_report_renderer()

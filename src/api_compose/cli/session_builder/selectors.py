@@ -1,4 +1,4 @@
-__all__ = ['set_custom_selector']
+__all__ = ['set_custom_selector_pack']
 
 from pathlib import Path
 from typing import List, Set
@@ -7,6 +7,7 @@ from api_compose.core.logging import get_logger
 from api_compose.core.settings.exceptions import IncludeExcludeBothSetException
 from api_compose.core.settings.settings import GlobalSettingsModelSingleton
 from api_compose.core.settings.settings import SelectorsSettings
+from api_compose.services.common.events.deserialisation import DeserialisationEvent
 
 logger = get_logger(__name__)
 
@@ -38,7 +39,7 @@ def set_custom_selector_pack(
             exclude_models=exclude_models,
         )
     elif include_num > 0:
-        logger.info('Overriding selectors pack to `custom`')
+        logger.info('Overriding selectors pack to `custom`', DeserialisationEvent())
         GlobalSettingsModelSingleton.get().cli_options.selectors_pack_name = 'custom'
         GlobalSettingsModelSingleton.get().selectors.packs.append(SelectorsSettings.SelectorsPackSettings(
             name='custom',
@@ -48,7 +49,7 @@ def set_custom_selector_pack(
             models=include_models, )
         )
     elif exclude_num > 0:
-        logger.info('Overriding selectors pack to `custom`')
+        logger.info('Overriding selectors pack to `custom`', DeserialisationEvent())
         GlobalSettingsModelSingleton.get().cli_options.selectors_pack_name = 'custom'
         GlobalSettingsModelSingleton.get().selectors.packs.append(SelectorsSettings.SelectorsPackSettings(
             type='Exclude',

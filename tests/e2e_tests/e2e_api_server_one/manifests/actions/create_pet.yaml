@@ -1,4 +1,3 @@
-
 model_name: JsonHttpActionModel
 config:
   method:
@@ -9,12 +8,14 @@ config:
     template: ''
   url:
     format: string
-    template: "http://localhost:8085/api_server_one/pets/1"
+    template: "[[ globals.base_url ]]/pets/[[ actions.create_pet.id ]]"
   body:
     format: yaml
     template: |
-     "animal_type": "cat"
-     "name": "Susie"
-     "tags": {}
-description: Dummy Json Http Request
-execution_id: 'json_http_action'
+     "animal_type": "[[ actions.create_pet.animal_type ]]"
+     "name": "[[ actions.create_pet.name ]]"
+     "tags": [[ actions.create_pet.tags ]]
+description: Create Pet
+[% if actions.create_pet.execution_id is defined %]
+execution_id: [[ actions.create_pet.execution_id ]]
+[% endif %]

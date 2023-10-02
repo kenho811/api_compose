@@ -15,6 +15,7 @@ from api_compose.root.models.scenario import ScenarioModel
 from api_compose.root.models.specification import SpecificationModel
 from api_compose.services.common.deserialiser import get_available_models
 from api_compose.services.common.deserialiser.deserialiser import get_manifest_relative_path
+from api_compose.services.common.events.deserialisation import DeserialisationEvent
 from api_compose.services.common.models.base import BaseModel
 from api_compose.services.composition_service.models.actions.actions.base_action import BaseActionModel
 
@@ -65,7 +66,7 @@ def init_cli_settings(
     )
 
     # Display Env files Pack Name and Env Var
-    logger.debug(f'Display Current Env Files Pack: {GlobalSettingsModelSingleton.get().current_env_files_pack_name}', DiscoveryEvent())
+    logger.debug(f'Display Current Env Files Pack Name: {GlobalSettingsModelSingleton.get().current_env_files_pack_name}', DiscoveryEvent())
     logger.debug('Display Environment Variables:', DiscoveryEvent())
     logger.debug(json.dumps(
         get_env_vars_context([path for path in GlobalSettingsModelSingleton.get().current_env_files_pack.paths]),
@@ -74,7 +75,8 @@ def init_cli_settings(
     )
 
     # Display Selector Pack Name var
-    logger.debug(f'Display Current Selector Pack: {GlobalSettingsModelSingleton.get().current_selectors_pack_name}', DiscoveryEvent())
+    logger.debug(f'Display Current Selector Pack Name: {GlobalSettingsModelSingleton.get().current_selectors_pack_name}', DiscoveryEvent())
+    logger.debug(f'Display Current Selector Pack: {GlobalSettingsModelSingleton.get().current_selectors_pack}', DiscoveryEvent())
 
 
 def parse_models(

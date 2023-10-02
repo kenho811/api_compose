@@ -1,4 +1,6 @@
-from typing import Union
+from typing import Union, Annotated
+
+from pydantic import Field
 
 from api_compose.core.jinja.core.context import BaseJinjaContext
 from api_compose.core.jinja.core.engine import JinjaEngine
@@ -58,6 +60,6 @@ class XmlTemplatedTextField(XmlTextField, BaseTemplatedTextField):
     pass
 
 
-JsonLikeTemplatedTextField = Union[JsonTemplatedTextField, YamlTemplatedTextField]
-
-
+JsonLikeTemplatedTextFieldAnnotation = Annotated[
+    Union[JsonTemplatedTextField, YamlTemplatedTextField],
+    Field(discriminator='format')]
