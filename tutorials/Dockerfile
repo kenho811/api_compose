@@ -15,5 +15,6 @@ USER 1000
 
 
 COPY ./tutorials /home/jovyan/tutorials
-COPY ./tutorials/jupyter_lab_config.py /home/jovyan/.jupyter/jupyter_lab_config.py
+COPY ./tutorials/configs/jupyter_lab_config.py /home/jovyan/.jupyter/jupyter_lab_config.py
+
 

@@ -17,8 +17,9 @@ Lessons build on top of one another. Please start from lesson one.
 Run Locally via Docker Compose
 ======================================
 
-.. code-block::
+.. code-block::'
 
+   # In current directory
    docker compose up
 
    # Visit http://localhost:8888
