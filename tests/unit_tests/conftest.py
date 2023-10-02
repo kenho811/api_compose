@@ -161,8 +161,8 @@ def rest_base_url(rest_port) -> str:
 
 
 @pytest.fixture(scope='session')
-def rest_server(rest_port):
-    app = build_rest_server(rest_port)
+def start_api_unit_test_server(rest_port):
+    app = build_unit_test_server(rest_port)
     thread = threading.Thread(target=app.run)
     thread.daemon = True
     thread.start()
@@ -172,7 +172,7 @@ def rest_server(rest_port):
     thread.join(1)
 
 
-def build_rest_server(rest_port):
+def build_unit_test_server(rest_port):
     app = connexion.App(__name__,
                         specification_dir='resources',
                         port=rest_port,
@@ -190,5 +190,5 @@ if __name__ == '__main__':
     url = f'http://localhost:{port}/ui'
     print(f"Please visit the UI at {url=}")
     sys.path.append('resources')
-    app = build_rest_server(8085)
+    app = build_unit_test_server(8085)
     app.run()

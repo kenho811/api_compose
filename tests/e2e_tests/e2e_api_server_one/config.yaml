@@ -7,11 +7,17 @@ discovery:
   macros_folder_path: macros
   manifests_folder_path: manifests
 env_files:
-  default: base
+  default: null
   packs:
-    base:
+  - name: base
+    paths:
     - envs/base-env.yaml
-    prod:
+  - name: uat
+    paths:
+    - envs/base-env.yaml
+    - envs/uat-env.yaml
+  - name: prod
+    paths:
     - envs/base-env.yaml
     - envs/prod-env.yaml
 logging:
@@ -23,17 +29,18 @@ reporting:
   reports_folder: build/reports
 run_folder: build/run
 selectors:
+  default: null
   packs:
-    action:
-      manifest_file_paths: []
-      models:
-      - JsonHttpActionModel
-      - XmlHttpActionModel
-      tags: []
-      type: Include
-    spec:
-      manifest_file_paths: []
-      models:
-      - SpecificationModel
-      tags: []
-      type: Include
+  - manifest_file_paths: []
+    models:
+    - SpecificationModel
+    name: spec
+    tags: []
+    type: Include
+  - manifest_file_paths: []
+    models:
+    - JsonHttpActionModel
+    - XmlHttpActionModel
+    name: action
+    tags: []
+    type: Include
