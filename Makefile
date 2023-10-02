@@ -26,6 +26,7 @@ build_docs:
 
 integration_test:
 	bash -c "cd ./src/api_compose/cli/scaffold_data && LOGGING__FILE_PATH='' pytest -vvvv";
+	bash -c "cd ./tests/e2e_tests/e2e_api_server_one && LOGGING__FILE_PATH='' pytest -vvvv";
 
 setup:
 	python -m pip install --upgrade pip
