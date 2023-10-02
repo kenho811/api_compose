@@ -3,7 +3,7 @@ from api_compose.services.persistence_service.processors.simple_backend import S
 
 
 def test_scenario(
-        start_rest_server,
+        start_api_unit_test_server,
         number_stateful_two_scenario,
         test_run_time_jinja_engine,
 ):
