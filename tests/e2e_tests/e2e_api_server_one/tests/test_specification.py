@@ -2,6 +2,7 @@ import requests
 from _pytest.capture import CaptureFixture
 from typer.testing import CliRunner
 
+from api_compose import GlobalSettingsModelSingleton
 from api_compose.cli.main import app
 from api_compose.root.models.session import parse_session_from_yaml_file
 
@@ -13,6 +14,8 @@ def test_can_update_pet(
         start_api_server_one
 ):
     with capsys.disabled() as disabled:
+        GlobalSettingsModelSingleton.set() # reset settings
+
         result = runner.invoke(
             app,
             [

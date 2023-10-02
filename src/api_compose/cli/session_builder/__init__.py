@@ -66,7 +66,7 @@ def init_cli_settings(
     )
 
     # Display Env files Pack Name and Env Var
-    logger.debug(f'Display Current Env Files Pack: {GlobalSettingsModelSingleton.get().current_env_files_pack_name}', DiscoveryEvent())
+    logger.debug(f'Display Current Env Files Pack Name: {GlobalSettingsModelSingleton.get().current_env_files_pack_name}', DiscoveryEvent())
     logger.debug('Display Environment Variables:', DiscoveryEvent())
     logger.debug(json.dumps(
         get_env_vars_context([path for path in GlobalSettingsModelSingleton.get().current_env_files_pack.paths]),
@@ -75,7 +75,8 @@ def init_cli_settings(
     )
 
     # Display Selector Pack Name var
-    logger.debug(f'Display Current Selector Pack: {GlobalSettingsModelSingleton.get().current_selectors_pack_name}', DiscoveryEvent())
+    logger.debug(f'Display Current Selector Pack Name: {GlobalSettingsModelSingleton.get().current_selectors_pack_name}', DiscoveryEvent())
+    logger.debug(f'Display Current Selector Pack: {GlobalSettingsModelSingleton.get().current_selectors_pack}', DiscoveryEvent())
 
 
 def parse_models(
