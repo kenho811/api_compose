@@ -216,7 +216,7 @@ class GlobalSettingsModel(YamlBaseSettings):
 
     @property
     def current_selectors_pack(self) -> SelectorsSettings.SelectorsPackSettings:
-        if self.current_env_files_pack_name is None:
+        if self.current_selectors_pack_name is None:
             # Run everything
             return SelectorsSettings.SelectorsPackSettings(name='', type='Exclude')
 

@@ -1,17 +1,11 @@
-import yaml
+import requests
 from _pytest.capture import CaptureFixture
 from typer.testing import CliRunner
 
 from api_compose.cli.main import app
-from api_compose.root import SessionModel
+from api_compose.root.models.session import parse_session_from_yaml_file
 
 runner = CliRunner()
-
-
-def parse_session_file(session_yaml_path: str) -> SessionModel:
-    with open(session_yaml_path, 'r') as f:
-        dict_ = yaml.load(f, Loader=yaml.FullLoader)
-        return SessionModel(**dict_)
 
 
 def test_can_create_pet(capsys: CaptureFixture, start_api_server_one):
@@ -27,7 +21,9 @@ def test_can_create_pet(capsys: CaptureFixture, start_api_server_one):
             ],
             standalone_mode=False,
         )
-        assert result.exit_code == 0, "Result is non-zero"
-        session = parse_session_file(result.return_value)
+        session = parse_session_from_yaml_file(result.return_value)
 
-        print(session)
+        assert len(session.specifications) == 1
+        assert len(session.specifications[0].scenarios) == 1
+        assert len(session.specifications[0].scenarios[0].actions) == 1
+        assert session.specifications[0].scenarios[0].actions[0].output.status_code == 200
