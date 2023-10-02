@@ -7,5 +7,6 @@ services:
     volumes:
       - ../src:/home/jovyan/src
       - ../tutorials:/home/jovyan/tutorials
+      - ./configs/jupyter_lab_config.py:/home/jovyan/.jupyter/jupyter_lab_config.py
     ports:
       - 8888:8888
