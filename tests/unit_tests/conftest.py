@@ -161,7 +161,7 @@ def rest_base_url(rest_port) -> str:
 
 
 @pytest.fixture(scope='session')
-def rest_server(rest_port):
+def start_rest_server(rest_port):
     app = build_rest_server(rest_port)
     thread = threading.Thread(target=app.run)
     thread.daemon = True

@@ -44,7 +44,7 @@ from api_compose.services.composition_service.models.protocols.status_enums impo
     ]
 )
 def test_number_stateless_returns_bac_request_with_wrong_body_data_type(
-        rest_server,
+        start_rest_server,
         rest_base_url,
         test_run_time_jinja_engine,
         endpoint,

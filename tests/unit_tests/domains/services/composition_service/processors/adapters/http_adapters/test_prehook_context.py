@@ -14,7 +14,7 @@ from api_compose.services.composition_service.processors.adapters.http_adapter.j
 
 
 def test_adapter_throws_reserved_keywords_exception(
-        rest_server,
+        start_rest_server,
         rest_base_url,
         test_run_time_jinja_engine,
 ):
@@ -48,7 +48,7 @@ def test_adapter_throws_reserved_keywords_exception(
 
 
 def test_different_config_fields_can_reference_same_variable_in_prehook(
-        rest_server,
+        start_rest_server,
         rest_base_url,
         test_run_time_jinja_engine,
 ):

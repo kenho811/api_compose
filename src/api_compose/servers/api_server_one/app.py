@@ -5,7 +5,6 @@ import sys
 
 import connexion
 from connexion import NoContent
-from flask import redirect
 
 # our memory-only pet storage
 PETS = {}
@@ -42,35 +41,40 @@ def delete_pet(pet_id):
         return NoContent, 404
 
 
-logging.basicConfig(level=logging.INFO)
-app = connexion.App(
-    __name__,
-    options={
-        'swagger_ui': True,
 
-        # Show Swagger UI at root
-        'swagger_url': '/',
-    }
-)
+def build_api_server_one(port, base_url= None):
+    logging.basicConfig(level=logging.INFO)
+    app = connexion.App(
+        __name__,
+        port=port,
+        options={
+            'swagger_ui': True,
 
+            # Show Swagger UI at root
+            'swagger_url': '/',
+        }
+    )
 
-# set the WSGI application callable to allow using uWSGI:
-# uwsgi --http :8080 -w app
-application = app.app
+    # set the WSGI application callable to allow using uWSGI:
+    # uwsgi --http :8080 -w app
+    application = app.app
+
+    app.add_api(
+        'swagger.yaml',
+        base_path=base_url,
+    )
+    return app
+
 
 if __name__ == '__main__':
     # run our standalone gevent server
     if len(sys.argv) == 3:
-        port = int(sys.argv[1])
+        port = sys.argv[1]
+        port = int(port) if port else 8080
+
         base_url = f"{sys.argv[2]}"
-        print(f"{port=}")
-        print(f"{base_url=}")
-
-        app.add_api(
-            'swagger.yaml',
-            base_path=base_url,
-        )
-
-        app.run(port=port)
+        base_url = base_url if base_url else None
+        app = build_api_server_one(port, base_url)
+        app.run()
     else:
         raise ValueError('Usage: python ./app.py {port} {base_url}')
