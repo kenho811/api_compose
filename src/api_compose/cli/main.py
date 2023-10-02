@@ -108,14 +108,14 @@ def init_cli(
 
     user_module = safe_import_module(functions_folder_path)
     if user_module is None:
-        logger.info(f"Failed to Import Custom Functions from folder {functions_folder_path} does not exist",
+        logger.info(f"Failed to Import Custom Functions from folder {functions_folder_path.absolute()} does not exist",
                     DiscoveryEvent())
 
     # Import manifests
     manifests_folder_path = GlobalSettingsModelSingleton.get().discovery.manifests_folder_path
     if not manifests_folder_path.exists():
         logger.error(
-            f'Failed to find manifest folder at {GlobalSettingsModelSingleton.get().discovery.manifests_folder_path}',
+            f'Failed to find manifest folder at {GlobalSettingsModelSingleton.get().discovery.manifests_folder_path.absolute()}',
             DiscoveryEvent())
         # raise ManifestFolderNotFoundException(manifests_folder_path)
 
@@ -368,3 +368,4 @@ def clean(
 
         if path_to_clean.is_dir():
             shutil.rmtree(path_to_clean)
+

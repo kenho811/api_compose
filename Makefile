@@ -25,7 +25,7 @@ build_docs:
 	bash -c "cd ./docs && pip install -r requirements.txt && $(MAKE) html"
 
 integration_test:
-	 bash -c "cd ./tests/e2e_tests/e2e_scaffold && LOGGING__FILE_PATH='' pytest -vvvv";
+	bash -c "cd ./src/api_compose/cli/scaffold_data && LOGGING__FILE_PATH='' pytest -vvvv";
 
 setup:
 	python -m pip install --upgrade pip
