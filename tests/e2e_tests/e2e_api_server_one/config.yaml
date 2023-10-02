@@ -7,7 +7,7 @@ discovery:
   macros_folder_path: macros
   manifests_folder_path: manifests
 env_files:
-  default: null
+  default: base
   packs:
   - name: base
     paths:

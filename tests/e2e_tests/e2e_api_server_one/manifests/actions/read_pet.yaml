@@ -2,18 +2,18 @@ model_name: JsonHttpActionModel
 config:
   method:
     format: string
-    template: PUT
+    template: GET
   params:
     format: yaml
-    template: ''
+    template: |
+      limit: [[ actions.read_pet.limit ]]
   url:
     format: string
-    template: "http://localhost:8085/api_server_one/pets/1"
+    template: "http://localhost:8085/pets"
   body:
     format: yaml
-    template: |
-     "animal_type": "cat"
-     "name": "Susie"
-     "tags": {}
-description: Create Pet
-execution_id: 'json_http_action'
+    template: ""
+description: Read Pets
+[% if actions.read_pet.execution_id is defined %]
+execution_id: [[ actions.read_pet.execution_id ]]
+[% endif %]

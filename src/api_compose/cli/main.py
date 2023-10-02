@@ -108,7 +108,7 @@ def init_cli(
 
     user_module = safe_import_module(functions_folder_path)
     if user_module is None:
-        logger.info(f"Failed to Import Custom Functions from folder {functions_folder_path.absolute()} does not exist",
+        logger.info(f"Failed to Import Custom Functions from folder {functions_folder_path.absolute()}",
                     DiscoveryEvent())
 
     # Import manifests

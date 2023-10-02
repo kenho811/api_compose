@@ -11,7 +11,7 @@ def rest_port():
     return 8085
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture
 def start_api_server_one(rest_port):
     app = build_api_server_one(rest_port)
     thread = threading.Thread(target=app.run)

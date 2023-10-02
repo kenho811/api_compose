@@ -1,0 +1,33 @@
+model_name: SpecificationModel
+tags: []
+scenarios:
+  - id: can_update_pet
+    model_name: ScenarioModel
+    description: assert that pet can be updated
+    functional_testing: HappyPath
+    actions:
+      - model_name: RefResolverModel
+        ref: create_pet
+        context:
+          actions:
+            create_pet:
+              id: 1
+              name: Amy
+              anima_type: cat
+              tags:
+                state: sick
+              execution_id: create_pet
+      - model_name: RefResolverModel
+        ref: create_pet
+        context:
+          actions:
+            create_pet:
+              id: 1
+              name: Amy
+              anima_type: cat
+              tags:
+                state: healthy
+              execution_id: update_pet
+      - model_name: RefResolverModel
+        ref: read_pet
+    assertions: []

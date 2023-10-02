@@ -5,7 +5,7 @@ from pydantic import Field
 
 from api_compose.core.lxml.parser import get_default_element
 from api_compose.services.common.models.text_field.templated_text_field import StringTemplatedTextField, \
-    JsonLikeTemplatedTextField, JsonTemplatedTextField, XmlTemplatedTextField
+    JsonLikeTemplatedTextFieldAnnotation, JsonTemplatedTextField, XmlTemplatedTextField
 from api_compose.services.composition_service.models.actions.configs.base_configs import BaseActionConfigModel
 
 
@@ -18,18 +18,18 @@ class BaseHttpActionConfigModel(BaseActionConfigModel):
         StringTemplatedTextField(template='GET'),
         description='Templateable HTTP Method',
     )
-    headers: JsonLikeTemplatedTextField = Field(
+    headers: JsonLikeTemplatedTextFieldAnnotation = Field(
         JsonTemplatedTextField(template="{}"),
         description='Templateable HTTP Headers',
     )
-    params: JsonLikeTemplatedTextField = Field(
+    params: JsonLikeTemplatedTextFieldAnnotation = Field(
         JsonTemplatedTextField(template="{}"),
         description='Templateable HTTP Params',
     )
 
 
 class JsonHttpActionConfigModel(BaseHttpActionConfigModel):
-    body: JsonLikeTemplatedTextField = Field(
+    body: JsonLikeTemplatedTextFieldAnnotation = Field(
         JsonTemplatedTextField(template="{}"),
         description='Templateable HTTP body',
     )

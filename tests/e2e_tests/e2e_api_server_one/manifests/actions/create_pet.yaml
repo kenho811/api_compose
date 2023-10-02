@@ -8,7 +8,7 @@ config:
     template: ''
   url:
     format: string
-    template: "[[ globals.base_url ]]/pets/1"
+    template: "[[ globals.base_url ]]/pets/[[ actions.create_pet.id ]]"
   body:
     format: yaml
     template: |
@@ -16,4 +16,6 @@ config:
      "name": "[[ actions.create_pet.name ]]"
      "tags": [[ actions.create_pet.tags ]]
 description: Create Pet
-execution_id: 'json_http_action'
+[% if actions.create_pet.execution_id is defined %]
+execution_id: [[ actions.create_pet.execution_id ]]
+[% endif %]
