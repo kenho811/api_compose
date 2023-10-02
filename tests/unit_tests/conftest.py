@@ -152,18 +152,18 @@ def test_manifests_search_path() -> Path:
 
 
 @pytest.fixture(scope='session')
-def rest_port() -> int:
+def port() -> int:
     return 8085
 
 
 @pytest.fixture(scope='session')
-def rest_base_url(rest_port) -> str:
-    return f"http://localhost:{rest_port}"
+def rest_base_url(port) -> str:
+    return f"http://localhost:{port}"
 
 
 @pytest.fixture(scope='session')
-def start_api_unit_test_server(rest_port):
-    app = build_api_server_two(rest_port, base_url=None)
+def start_api_server_two(port):
+    app = build_api_server_two(port, base_url=None)
     thread = threading.Thread(target=app.run)
     thread.daemon = True
     thread.start()

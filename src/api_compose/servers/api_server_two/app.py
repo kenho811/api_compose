@@ -8,7 +8,6 @@ def build_api_server_two(port, base_url):
     app = connexion.App(
         __name__,
         port=port,
-        specification_dir='.',
         options={
             'swagger_ui': True,
             # Show Swagger UI at root

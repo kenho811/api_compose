@@ -3,7 +3,7 @@ from api_compose.root.processors.schedulers.scheduler import ActionScheduler
 
 
 def test_scheduler_with_templating(
-        start_api_unit_test_server,
+        start_api_server_two,
         test_run_time_jinja_engine,
         number_stateful_two_scenario,
 ):
