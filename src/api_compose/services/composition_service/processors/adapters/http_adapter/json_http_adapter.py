@@ -71,9 +71,15 @@ class JsonHttpAdapter(BaseHttpAdapter):
         try:
             body = json.loads(self.response.text)
         except Exception as e:
-            logger.error("Cannot deserialise output body to Dict \n"
+            logger.error("Cannot deserialise output body to Dict/List \n"
                          f"{self.response.text}")
-            body = {'message': self.response.text}
+            body = {BaseHttpAdapter.OUTPUT_BODY_KEY: self.response.text}
+
+        # even after json
+        if type(body) not in [dict, list]:
+            logger.error("Cannot deserialise output body to Dict/List \n"
+                         f"{self.response.text}")
+            body = {BaseHttpAdapter.OUTPUT_BODY_KEY: self.response.text}
 
         self.output = JsonHttpActionOutputModel(
             url=self.response.url,

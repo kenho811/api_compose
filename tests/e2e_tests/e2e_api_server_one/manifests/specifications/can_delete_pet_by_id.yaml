@@ -10,11 +10,23 @@ scenarios:
         ref: create_pet_by_id
         context:
           actions:
-            create_pet:
-              id: 2
+            create_pet_by_id:
+              pet_id: 2
               name: Ben
               anima_type: dog
               execution_id: create_pet_by_id
       - model_name: RefResolverModel
+        ref: delete_pet_by_id
+        context:
+          actions:
+            delete_pet_by_id:
+              pet_id: 2
+      - model_name: RefResolverModel
         ref: read_pet_by_id
-    assertions: []
+        context:
+          actions:
+            read_pet_by_id:
+              pet_id: 2
+    assertions:
+      - description: Pet_id equals 2 does not exist.
+        template: "{{ action('read_pet_by_id')| output_status_code == 404 }}"

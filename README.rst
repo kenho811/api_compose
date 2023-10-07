@@ -7,6 +7,7 @@
 ~~~~~~~~~~~~~~~~~~~~
 .. image:: assets/logo.png
    :align: center
+   :alt: Generated from Smashinglogo
 
 
 
