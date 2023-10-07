@@ -8,6 +8,7 @@ from api_compose.core.logging import get_logger
 from api_compose.root import SessionModel
 from api_compose.services.common.registry.processor_registry import ProcessorRegistry, ProcessorCategory
 from api_compose.services.composition_service.models.actions.states import ActionStateEnum
+from api_compose.services.reporting_service.events import ReportingEvent
 from api_compose.services.reporting_service.processors.base_report import BaseReport
 from api_compose.services.reporting_service.utils.plots import dump_actions_duration_graph
 
@@ -71,7 +72,7 @@ class HtmlReport(BaseReport):
             f"{self.model.__class__.__name__}_report.html"
         )
         with open(self.path_to_output, "w") as f:
-            logger.info(f'Dumping HTML report - {self.path_to_output.absolute()}')
+            logger.info(f'Dumping HTML report - {self.path_to_output.absolute()}', ReportingEvent())
             f.write(self.report)
 
             if GlobalSettingsModelSingleton.get().cli_options.is_interactive:

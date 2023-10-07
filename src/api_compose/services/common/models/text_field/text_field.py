@@ -42,7 +42,7 @@ class BaseTextField(_BaseModel):
     def deserialise_to_obj(self):
         try:
             self.obj = self.serde.deserialise(self.text)
-            logger.debug(f"deserialised to {self.obj=}")
+            logger.debug(f"deserialised to {self.obj=}", TextFieldEvent())
         except Exception as e:
             logger.error(f"Error deserialising text to {self.format=} \n"
                          f"{self.text=}", TextFieldEvent())

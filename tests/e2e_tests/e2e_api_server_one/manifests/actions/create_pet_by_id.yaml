@@ -1,0 +1,23 @@
+model_name: JsonHttpActionModel
+config:
+  method:
+    format: string
+    template: PUT
+  params:
+    format: yaml
+    template: ''
+  url:
+    format: string
+    template: "[[ globals.base_url ]]/pets/[[ actions.create_pet_by_id.pet_id ]]"
+  body:
+    format: yaml
+    template: |
+     "animal_type": "[[ actions.create_pet_by_id.animal_type ]]"
+     "name": "[[ actions.create_pet_by_id.name ]]"
+     [% if actions.create_pet_by_id.execution_id is defined %]
+     "tags": [[ actions.create_pet_by_id.tags ]]
+     [% endif %]
+description: Create Pet By Id
+[% if actions.create_pet_by_id.execution_id is defined %]
+execution_id: [[ actions.create_pet_by_id.execution_id ]]
+[% endif %]

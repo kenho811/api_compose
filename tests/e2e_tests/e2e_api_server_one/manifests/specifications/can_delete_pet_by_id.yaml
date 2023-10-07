@@ -1,0 +1,20 @@
+model_name: SpecificationModel
+tags: []
+scenarios:
+  - id: can_delete_pet_by_id
+    model_name: ScenarioModel
+    description: assert that pet can be deleted by id
+    functional_testing: HappyPath
+    actions:
+      - model_name: RefResolverModel
+        ref: create_pet_by_id
+        context:
+          actions:
+            create_pet:
+              id: 2
+              name: Ben
+              anima_type: dog
+              execution_id: create_pet_by_id
+      - model_name: RefResolverModel
+        ref: read_pet_by_id
+    assertions: []

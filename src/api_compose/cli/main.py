@@ -2,7 +2,7 @@ import os
 import os
 import shutil
 from pathlib import Path
-from typing import Annotated, List, Optional
+from typing import Annotated, List, Optional, Tuple
 
 from api_compose import FunctionsRegistry, safe_import_module
 from api_compose.cli.commands import config
@@ -208,7 +208,7 @@ def compile(
             session_id_option,
         ] = None
 
-) -> None:
+) -> Tuple[Path, bool]:
     """
     Compile and output model
     Usage:
@@ -250,7 +250,7 @@ def compile(
     )
 
     typer.echo('Session and other accessories are compiled')
-    return session_yaml_path.absolute()
+    return session_yaml_path.absolute(), True
 
 
 @app.command(help=f"Compile, run and dump manifests as session to Path {RUN_FOLDER_PATH}")
@@ -309,7 +309,7 @@ def run(
             Optional[str],
             session_id_option,
         ] = None
-):
+) -> Tuple[Path, bool]:
     """
     Compile, run and output model
     acp run --ctx key1=val1 --ctx key2=val2
@@ -355,7 +355,7 @@ def run(
     else:
         typer.echo('Session is completed with error')
 
-    return session_yaml_path.absolute()
+    return session_yaml_path.absolute(), session_model.is_success
 
 
 @app.command(help=f""" Clean all output folders. All of {[str(path) for path in OUTPUT_PATHS]}  """)

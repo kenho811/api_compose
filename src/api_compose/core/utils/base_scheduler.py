@@ -62,12 +62,12 @@ class BaseScheduler(ABC):
         while True:
             with concurrent.futures.ThreadPoolExecutor(max_workers=self.max_concurrent_node_execution_num) as executor:
                 total_rescan_cnt += 1
-                logger.info("cnt=%s : traversing all nodes" % (total_rescan_cnt), SchedulerEvent())
+                logger.debug("cnt=%s : traversing all nodes" % (total_rescan_cnt), SchedulerEvent())
                 has_submit = False
 
                 # Schedule work
                 for node_id in self.digraph.nodes:
-                    logger.info("cnt=%s : checking node_id=%s " % (total_rescan_cnt, node_id), SchedulerEvent())
+                    logger.debug("cnt=%s : checking node_id=%s " % (total_rescan_cnt, node_id), SchedulerEvent())
                     node_id: str = node_id
                     node: _BaseModel = self.nodes_mapping.get(node_id)
 
@@ -88,7 +88,7 @@ class BaseScheduler(ABC):
 
                 # Check if all is done
                 if self.are_all_nodes_done():
-                    logger.info("All nodes are done", SchedulerEvent())
+                    logger.debug("All nodes are done", SchedulerEvent())
                     break
 
                 if total_rescan_cnt - rescan_with_submit_count > self.max_rescan_without_submit_cnt:
@@ -96,7 +96,7 @@ class BaseScheduler(ABC):
                         f'Max Rescan without submit count {self.max_rescan_without_submit_cnt=} is exceeded! Scheduler stopped', SchedulerEvent())
                     break
 
-                logger.info(f'going to rescan in {self.rescan_all_nodes_in_seconds=}', SchedulerEvent())
+                logger.debug(f'going to rescan in {self.rescan_all_nodes_in_seconds=}', SchedulerEvent())
                 time.sleep(self.rescan_all_nodes_in_seconds)
 
     def are_node_upstreams_done(self, node: _BaseModel) -> bool:

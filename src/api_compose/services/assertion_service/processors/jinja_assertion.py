@@ -48,6 +48,7 @@ class JinjaAssertion():
 
         if is_success:
             cleaned_text = text.strip().lower().strip("'").strip('"')
+            logger.info('Assertion %s is evaluated to %s' % (self.template, text), AssertionEvent())
             if cleaned_text == 'true':
                 return True, text, exec
             elif cleaned_text == 'false':

@@ -1,12 +1,17 @@
 globals:
-  base_url: http://localhost:8085
+  base_url: http://localhost:8090
 actions:
-  create_pet:
-    id: 1
+  create_pet_by_id:
+    pet_id: 1
     animal_type: cat
     name: susie
     tags:
       size: small
       character: friendly
-  read_pet:
+  delete_pet_by_id:
+    pet_id: 1
+  read_pet_by_id:
+    pet_id: 1
+    limit: 100
+  read_pets:
     limit: 100

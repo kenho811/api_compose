@@ -6,11 +6,13 @@ from api_compose.core.settings.settings import GlobalSettingsModelSingleton
 from api_compose.root.events import ScenarioEvent
 from api_compose.root.models.scenario import ScenarioModel
 from api_compose.root.processors.schedulers.scheduler import ActionScheduler
+from api_compose.services.assertion_service.models.jinja_assertion import AssertionStateEnum
 from api_compose.services.assertion_service.processors.i_jinja_assertion import InteractiveJinjaAssertion
 from api_compose.services.assertion_service.processors.jinja_assertion import JinjaAssertion
 from api_compose.services.common.processors.base import BaseProcessor
 from api_compose.services.common.registry.processor_registry import ProcessorRegistry, ProcessorCategory
 from api_compose.services.composition_service.jinja.context import ActionJinjaContext
+from api_compose.services.composition_service.models.actions.states import ActionStateEnum
 from api_compose.services.composition_service.processors.executors.base_executor import BaseExecutor
 from api_compose.services.persistence_service.processors.base_backend import BaseBackend
 
@@ -54,7 +56,7 @@ class ScenarioProcessor(BaseProcessor):
         )
 
     def run(self):
-        logger.info(f'Running Scenario {self.scenario_model.id}', ScenarioEvent())
+        logger.info(f'Running Scenario {self.scenario_model.fqn}', ScenarioEvent())
         # Run Actions
         self.scenario_model.start_time = time.time()
         self.action_scheduler.run()
@@ -66,30 +68,39 @@ class ScenarioProcessor(BaseProcessor):
             action_model=self.scenario_model.actions[0],
             append_current_action_model=False,
         )
+        
+        # Skip Assertions if not all actions are in ENDED state
+        is_all_actions_ended = all(action.state == ActionStateEnum.ENDED for action in self.scenario_model.actions)
+        
+        if is_all_actions_ended:
+            logger.info(f'Evaluating Assertions for scenario {self.scenario_model.fqn}', ScenarioEvent())
+            if GlobalSettingsModelSingleton.get().cli_options.is_interactive:
+                # Dynamic Jinja Template Generation
+                if len(self.scenario_model.assertions) > 0:
+                    logger.warning(f'Pre-defined Assertions for Scenario {self.scenario_model.id} will be overwritten')
+                    self.scenario_model.assertions = []
 
-        if GlobalSettingsModelSingleton.get().cli_options.is_interactive:
-            # Dynamic Jinja Template Generation
-            if len(self.scenario_model.assertions) > 0:
-                logger.warning(f'Pre-defined Assertions for Scenario {self.scenario_model.id} will be overwritten')
-                self.scenario_model.assertions = []
-
-            logger.info(f"Dropping to an interactive Jinja Session for Scenario {self.scenario_model.id=}")
-            # Jinja Template is generated dynamically
-            i_jinja_assertion = InteractiveJinjaAssertion(
-                jinja_engine=self.jinja_engine,
-                jinja_context=jinja_context,
-            )
-            i_jinja_assertion.cmdloop()
-            self.scenario_model.assertions = i_jinja_assertion.assertions
-        else:
-            # Jinja Template is pre-defined
-            for assertion_model in self.scenario_model.assertions:
-                jinja_assertion = JinjaAssertion(
-                    assertion_model=assertion_model,
+                logger.info(f"Dropping to an interactive Jinja Session for Scenario {self.scenario_model.id=}")
+                # Jinja Template is generated dynamically
+                i_jinja_assertion = InteractiveJinjaAssertion(
                     jinja_engine=self.jinja_engine,
                     jinja_context=jinja_context,
                 )
-                jinja_assertion.run()
-
+                i_jinja_assertion.cmdloop()
+                self.scenario_model.assertions = i_jinja_assertion.assertions
+            else:
+                # Jinja Template is pre-defined
+                for assertion_model in self.scenario_model.assertions:
+                    jinja_assertion = JinjaAssertion(
+                        assertion_model=assertion_model,
+                        jinja_engine=self.jinja_engine,
+                        jinja_context=jinja_context,
+                    )
+                    jinja_assertion.run()
+        else:
+            logger.error(f'Discarding Assertions for scenario {self.scenario_model.fqn} as not all actions are in {ActionStateEnum.ENDED}', ScenarioEvent())
+            for assertion_model in self.scenario_model.assertions:
+                assertion_model.state = AssertionStateEnum.DISCARDED
+            
         # Save results
         self.backend.add(self.scenario_model)

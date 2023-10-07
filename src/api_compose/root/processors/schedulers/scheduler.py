@@ -54,7 +54,7 @@ class ActionScheduler(BaseScheduler):
         return node.state in [ActionStateEnum.ERROR, ActionStateEnum.ENDED, ActionStateEnum.DISCARDED]
 
     def execute_node(self, node: BaseActionModel, skip: bool) -> None:
-        logger.info(f'{node.fqn}: Executing action model {node.uid=} - {skip=}', SchedulerEvent())
+        logger.debug(f'{node.fqn}: Executing action model {node.uid=} - {skip=}', SchedulerEvent())
         if skip:
             node.state = ActionStateEnum.DISCARDED
         else:

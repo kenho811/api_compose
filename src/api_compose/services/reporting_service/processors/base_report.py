@@ -9,7 +9,7 @@ from api_compose.services.common.processors.base import BaseProcessor
 from api_compose.services.common.models.base import BaseModel
 from api_compose.services.common.registry.processor_registry import ProcessorRegistry
 from api_compose.core.logging import get_logger
-
+from api_compose.services.reporting_service.events import ReportingEvent
 
 logger = get_logger(name=__name__)
 
@@ -37,7 +37,7 @@ class BaseReport(BaseProcessor, ABC):
     def run(self):
         self.render()
         self.write()
-        logger.info(f"Report is written to folder={self.output_folder_path.absolute()}")
+        logger.info(f"Report is written to folder={self.output_folder_path.absolute()}", ReportingEvent())
 
     @abstractmethod
     def render(self):

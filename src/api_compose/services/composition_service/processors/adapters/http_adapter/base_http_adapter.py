@@ -60,7 +60,8 @@ class BaseHttpAdapter(BaseAdapter):
     def _on_exchange(self):
         super()._on_exchange()
 
-        logger.info(f"Action %s is communicating over HTTP" % (self.action_model.fqn),
+        logger.info(f"Action %s is communicating over HTTP. Display passed parameters: \n Url: %s \n method: %s \n headers: %s \n params: %s \n body: %s"% (
+            self.action_model.fqn, self.url_obj, self.method_obj, self.headers_obj, self.params_obj, self.body_obj), # noqa
                     ActionEvent(
                         data=ActionData(id=self.action_model.fqn, state=ActionStateEnum.RUNNING,
                                         input={'url': self.url_obj,

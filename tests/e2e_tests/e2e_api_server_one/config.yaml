@@ -15,7 +15,7 @@ env_files:
 logging:
   event_filters: []
   log_file_path: log.jsonl
-  logging_level: 5
+  logging_level: 20
 reporting:
   processor: HtmlReport
   reports_folder: build/reports

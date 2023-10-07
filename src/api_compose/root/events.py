@@ -10,6 +10,7 @@ class SpecificationEvent(BaseEvent):
     event: EventType = EventType.Specification
     data: BaseData = BaseData()
 
+
 class ScenarioEvent(BaseEvent):
     event: EventType = EventType.Scenario
     data: BaseData = BaseData()

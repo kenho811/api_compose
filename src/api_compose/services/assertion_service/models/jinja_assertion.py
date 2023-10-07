@@ -5,8 +5,9 @@ from pydantic import Field, BaseModel as _BaseModel
 
 
 class AssertionStateEnum(str, Enum):
-    PENDING = 'pending'
+    DISCARDED = 'discarded' # Not executed because conditions not met
     EXECUTED = 'executed'
+    PENDING = 'pending' # initial state
 
 
 class JinjaAssertionModel(_BaseModel):

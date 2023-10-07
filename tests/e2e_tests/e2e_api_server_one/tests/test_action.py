@@ -9,7 +9,7 @@ from api_compose.root.models.session import parse_session_from_yaml_file
 runner = CliRunner()
 
 
-def test_can_read_pet(capsys: CaptureFixture, start_api_server_one):
+def test_can_read_pets(capsys: CaptureFixture, start_api_server_one):
     with capsys.disabled() as disabled:
         GlobalSettingsModelSingleton.set() # reset settings
 
@@ -18,18 +18,20 @@ def test_can_read_pet(capsys: CaptureFixture, start_api_server_one):
             [
                 "run",
                 "-f",
-                "./manifests/actions/read_pet.yaml",
+                "./manifests/actions/read_pets.yaml",
                 "--id",
-                "action__read_pet",
+                "api_server_one__action__read_pet",
             ],
             standalone_mode=False,
+            catch_exceptions=False, # Let exception bubble up
         )
-        session = parse_session_from_yaml_file(result.return_value)
+        session = parse_session_from_yaml_file(result.return_value[0])
+        is_success = result.return_value[1]
 
         assert len(session.specifications) == 1
         assert len(session.specifications[0].scenarios) == 1
         assert len(session.specifications[0].scenarios[0].actions) == 1
         assert session.specifications[0].scenarios[0].actions[0].output.status_code == 200
-
+        assert is_success, result.exception
 
 
