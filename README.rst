@@ -5,9 +5,15 @@
 
 |NAME|
 ~~~~~~~~~~~~~~~~~~~~
+.. image:: assets/logo.png
+   :align: center
+
+
 
 .. image:: https://mybinder.org/badge_logo.svg
- :target: https://mybinder.org/v2/gh/kenho811/api_compose.git/HEAD?labpath=tutorials
+   :target: https://mybinder.org/v2/gh/kenho811/api_compose.git/HEAD?labpath=tutorials
+
+
 
 
 Tutorials
@@ -145,7 +151,7 @@ Reporting
 Architectural Diagram
 ===========================
 
-.. figure:: ./diagrams/framework_architecture.png
+.. figure:: ./assets/framework_architecture.png
    :scale: 70%
    :align: center
    :alt: API Compose Framwork Architecture
@@ -155,7 +161,7 @@ Architectural Diagram
    Lucid Chart here: `https://lucid.app/lucidchart/f8d1f9f9-bc93-46ec-8e4f-6561a4c822c3/edit?beaconFlowId=70D4EDD3B7971E6C&invitationId=inv_c7b45baf-050c-480b-923e-2979440ce4c8&page=0_0#`
 
 
-.. figure:: ./diagrams/framework_building_blocks.png
+.. figure:: ./assets/framework_building_blocks.png
 
     Hierarchical structure of the models
 

@@ -1,6 +1,6 @@
 __all__ = ['get_yaml_with_representers']
 
-from pathlib import Path, PosixPath
+from pathlib import Path, PosixPath, WindowsPath
 from typing import Dict, Tuple, List, Union
 
 from lxml import etree
@@ -34,7 +34,6 @@ def dump_dict_to_single_yaml_file(
 
     with open(file_path, 'w') as f:
         get_yaml_with_representers().dump(dict_, f)
-        logger.info(f"Model is saved at {file_path.absolute()}")
 
 
 def get_yaml_with_representers():
@@ -42,6 +41,7 @@ def get_yaml_with_representers():
 
     yaml.add_representer(Path, _str_path_representer)
     yaml.add_representer(PosixPath, _str_path_representer)
+    yaml.add_representer(WindowsPath, _str_path_representer)
     yaml.add_representer(set, _str_list_representer)
     yaml.add_representer(BackendProcessorEnum, _str_enum_representer)
     yaml.add_representer(ReportProcessorEnum, _str_enum_representer)

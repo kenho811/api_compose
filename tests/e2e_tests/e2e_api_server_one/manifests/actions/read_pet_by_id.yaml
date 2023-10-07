@@ -1,0 +1,18 @@
+model_name: JsonHttpActionModel
+config:
+  method:
+    format: string
+    template: GET
+  params:
+    format: yaml
+    template: ""
+  url:
+    format: string
+    template: "[[ globals.base_url ]]/pets/[[ actions.read_pet_by_id.pet_id ]]"
+  body:
+    format: yaml
+    template: ""
+description: Read Pet By Id
+[% if actions.read_pet_by_id.execution_id is defined %]
+execution_id: [[ actions.read_pet_by_id.execution_id ]]
+[% endif %]

@@ -10,7 +10,7 @@ jobs:
     permissions: write-all
     strategy:
       matrix:
-        python-version:
+        python-versions:
          - "3.9"
          - "3.10"
          - "3.11"
@@ -25,8 +25,8 @@ jobs:
         id: run-pytest
         uses: ./.github/actions/run-pytest
         with:
-          python-version: ${{ matrix.python-version }}
-
+          python-version: ${{ matrix.python-versions }}
+          host: ${{ matrix.hosts }}
   publish-to-pypi:
     needs:
       - pytest

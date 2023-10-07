@@ -5,6 +5,9 @@ inputs:
   python-version:
     required: true
     description: "The python version to use"
+  host:
+    required: true
+    description: "Host where pytest is run"
 
 runs:
   using: "composite"
@@ -24,3 +27,9 @@ runs:
       shell: bash
       run: |
         make integration_test
+    - name: Archive Build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-files-${{ inputs.python-version }}-${{ inputs.host }}
+        path: |
+          build

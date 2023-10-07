@@ -36,7 +36,7 @@ class BaseTemplatedTextField(BaseTextField):
                 jinja_globals=jinja_engine._environment.globals) from exec
 
         self.text = rendered
-        logger.debug(f"rendered to {self.text=}")
+        logger.debug(f"rendered to {self.text=}", TemplatedFieldEvent())
         return self
 
 

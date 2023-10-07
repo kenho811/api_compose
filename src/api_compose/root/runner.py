@@ -37,7 +37,6 @@ class Runner:
 
     def _execute_specification(self, specification_model: SpecificationModel):
         # Parallel Execution of Specifications??
-        print(specification_model.fqn)
 
         specification_processor = SpecificationProcessor(
             specification_model,

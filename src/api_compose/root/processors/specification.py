@@ -35,7 +35,7 @@ class SpecificationProcessor(BaseProcessor):
         self.backend = backend
 
     def run(self):
-        logger.info(f'Running Specification {self.specification_model.id}', SpecificationEvent())
+        logger.info(f'Running Specification {self.specification_model.fqn}', SpecificationEvent())
         for idx, scenario_model in enumerate(self.specification_model.scenarios):
             scenario_controller = ScenarioProcessor(
                 scenario_model=scenario_model,

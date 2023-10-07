@@ -173,23 +173,12 @@ def start_api_server_two(port):
     thread.join(1)
 
 
-# def build_unit_test_server(rest_port):
-#     app = connexion.App(__name__,
-#                         specification_dir='resources',
-#                         port=rest_port,
-#                         host='localhost'
-#                         )
-#     app.add_api('http_openapi.yaml', resolver=MethodViewResolver('views'))
-#     return app
-#
-#
-# if __name__ == '__main__':
-#     # Running Swagger in standalone mode for debugging
-#     import sys
-#
-#     port = 8085
-#     url = f'http://localhost:{port}/ui'
-#     print(f"Please visit the UI at {url=}")
-#     sys.path.append('resources')
-#     app = build_unit_test_server(8085)
-#     app.run()
+if __name__ == '__main__':
+    # Running Swagger in standalone mode for debugging
+    import sys
+
+    port = 8085
+    url = f'http://localhost:{port}/ui'
+    print(f"Please visit the UI at {url=}")
+    app = build_api_server_two(port, base_url=None)
+    app.run()
