@@ -3,6 +3,8 @@ import sys
 
 import requests
 
+from scripts.getters import get_version, package_name
+
 
 def is_package_exist(
         base_url: str,
@@ -37,8 +39,6 @@ def write_exists_in_kv_format(
 
 
 if __name__ == '__main__':
-    from setup import package_name, get_version
-
     if len(sys.argv) == 2:
         file_path = sys.argv[1]
     else:
