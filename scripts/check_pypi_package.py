@@ -3,7 +3,7 @@ import sys
 
 import requests
 
-from scripts.getters import get_version, package_name
+from getters import get_version, package_name
 
 
 def is_package_exist(
