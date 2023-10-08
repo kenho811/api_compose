@@ -4,7 +4,7 @@ Intermediate models with references still not yet resolved
 from pathlib import Path
 from typing import Dict, Any, Literal
 
-from pydantic import Field, AliasChoices, model_validator, field_validator
+from pydantic import Field, AliasChoices, model_validator, field_validator, PrivateAttr
 
 from api_compose.core.settings.settings import (GlobalSettingsModelSingleton)
 from api_compose.core.utils.string import normalise_sentence
@@ -42,9 +42,9 @@ class RefResolverModel(BaseModel):
     )
 
     ## All Contexts
-    env_vars_context: Dict[str, Any] = Field(
+    _env_vars_context: Dict[str, Any] = PrivateAttr(
         {},
-        description='Context from Env Var to render manifest file'
+        # description='Context from Env Var to render manifest file'
     )
 
     extra_context: Dict[str, Any] = Field(
@@ -56,9 +56,9 @@ class RefResolverModel(BaseModel):
         description='Context specific to the model to render manifest file'
     )
 
-    cli_context: Dict[str, Any] = Field(
+    _cli_context: Dict[str, Any] = PrivateAttr(
         {},
-        description='Context from CLI used to render manifest file'
+        # description='Context from CLI used to render manifest file'
     )
 
 

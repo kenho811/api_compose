@@ -1,8 +1,6 @@
 import logging
 import os
 
-from typer.testing import CliRunner
-
 from api_compose import FunctionsRegistry, FunctionType
 from api_compose.servers.api_server_two.app import build_api_server_two
 from api_compose.services.common.jinja import build_compile_time_jinja_engine, build_runtime_jinja_engine
@@ -15,9 +13,6 @@ os.environ['LOGGING__LOGGING_LEVEL'] = str(logging.DEBUG)
 import threading
 import time
 from pathlib import Path
-
-import connexion
-from connexion.resolver import MethodViewResolver
 
 from api_compose.core.jinja.core.engine import JinjaEngine
 from api_compose.services.composition_service.models.actions.outputs.http_outputs import JsonHttpActionOutputModel
@@ -60,32 +55,34 @@ def test_compile_time_jinja_engine(
 
 @pytest.fixture
 def test_action_jinja_context() -> ActionJinjaContext:
-    previous_action_model = JsonHttpActionModel(model_name='JsonHttpActionModel',
+    previous_action_model = JsonHttpActionModel(
+        model_name='JsonHttpActionModel',
         id='login',
         execution_id='login',
-        input=JsonHttpActionInputModel(
-            url='http://abc.com/v1/login',
-            params={},
-            method='POST',
-        ),
-        output=JsonHttpActionOutputModel(
-            headers={
-                'Server': 'cloudflare',
-                'Transfer-Encoding': 'chunked',
-                'Vary': 'Accept-Encoding',
-                'X-Frame-Options': 'SAMEORIGIN',
-            },
-            body={
-                'token': 1234,
-                'is_true': True,
-                'float': 1.23,
-                'animal': 'dog',
-            },
-            status_code=200,
-        ),
+    )
+    previous_action_model._input = JsonHttpActionInputModel(
+        url='http://abc.com/v1/login',
+        params={},
+        method='POST',
+    )
+    previous_action_model._output = JsonHttpActionOutputModel(
+        headers={
+            'Server': 'cloudflare',
+            'Transfer-Encoding': 'chunked',
+            'Vary': 'Accept-Encoding',
+            'X-Frame-Options': 'SAMEORIGIN',
+        },
+        body={
+            'token': 1234,
+            'is_true': True,
+            'float': 1.23,
+            'animal': 'dog',
+        },
+        status_code=200,
     )
 
-    current_action_model = JsonHttpActionModel(model_name='JsonHttpActionModel',
+    current_action_model = JsonHttpActionModel(
+        model_name='JsonHttpActionModel',
         id='get_image',
         execution_id='get_image',
         config=JsonHttpActionConfigModel(
@@ -99,7 +96,8 @@ def test_action_jinja_context() -> ActionJinjaContext:
             ),
             params=JsonTemplatedTextField(
                 template=json.dumps(
-                    {'query': "{{ action('login') | output_body | jpath('$.animal') }}"}
+                    {
+                        'query': "{{ action('login') | output_body | jpath('$.animal') }}"}
                 )
             ),
             method=StringTemplatedTextField(
@@ -110,29 +108,30 @@ def test_action_jinja_context() -> ActionJinjaContext:
                     {'size': 12}
                 )
             )
-        ),
-        input=JsonHttpActionInputModel(
-            url='http://abc.com/v1/images',
-            headers={'token': 'Bearer 1234'},
-            params={
-                'query': 'dogs',
-            },
-            method='GET',
-            body={'size': 12},
-        ),
-        output=JsonHttpActionOutputModel(
-            body={
-                'field_one': 1234,
-                'val': 12,
-            },
-            headers={
-                'Content-Length': '101',
-                'Date': 'Sat, 26 Aug 2023 15:05:39 GMT',
-                'Server': 'Google Frontend',
-            },
-            status_code=200,
-        ),
+        )
     )
+    current_action_model._input = JsonHttpActionInputModel(
+        url='http://abc.com/v1/images',
+        headers={'token': 'Bearer 1234'},
+        params={
+            'query': 'dogs',
+        },
+        method='GET',
+        body={'size': 12},
+    )
+    current_action_model._output = JsonHttpActionOutputModel(
+        body={
+            'field_one': 1234,
+            'val': 12,
+        },
+        headers={
+            'Content-Length': '101',
+            'Date': 'Sat, 26 Aug 2023 15:05:39 GMT',
+            'Server': 'Google Frontend',
+        },
+        status_code=200,
+    )
+
     action_models = [previous_action_model, current_action_model]
     return ActionJinjaContext(
         action_models=action_models,
@@ -143,8 +142,6 @@ def test_action_jinja_context() -> ActionJinjaContext:
 @pytest.fixture()
 def test_manifests_search_path() -> Path:
     return Path(__file__).parent.joinpath('resources/manifests').absolute()
-
-
 
 
 ############################################################
@@ -175,7 +172,6 @@ def start_api_server_two(port):
 
 if __name__ == '__main__':
     # Running Swagger in standalone mode for debugging
-    import sys
 
     port = 8085
     url = f'http://localhost:{port}/ui'

@@ -148,7 +148,7 @@ def get_action_input_url(
     """
     return get_action_attribute(
         action_model,
-        ['input', 'url'],
+        ['_input', 'url'],
     )
 
 
@@ -165,7 +165,7 @@ def get_action_input_body(
     """
     return get_action_attribute(
         action_model,
-        ['input', 'body'],
+        ['_input', 'body'],
     )
 
 
@@ -182,7 +182,7 @@ def get_action_output_body(
     """
     return get_action_attribute(
         action_model,
-        ['output', 'body'],
+        ['_output', 'body'],
     )
 
 
@@ -199,7 +199,7 @@ def get_action_output_headers(
     """
     return get_action_attribute(
         action_model,
-        ['output', 'headers'],
+        ['_output', 'headers'],
     )
 
 
@@ -216,7 +216,7 @@ def get_action_output_status_code(
     """
     return get_action_attribute(
         action_model,
-        ['output', 'status_code'],
+        ['_output', 'status_code'],
     )
 
 

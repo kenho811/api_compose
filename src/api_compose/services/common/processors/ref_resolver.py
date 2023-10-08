@@ -60,19 +60,10 @@ class RefResolver(BaseProcessor):
     def resolve(
             self,
     ) -> BaseModel:
-        # merged_context = merge_dict(
-        #     self.ref_resolver_model.env_vars_context,
-        #     self.ref_resolver_model.context
-        # )
-        # merged_context = merge_dict(
-        #     merged_context,
-        #     self.ref_resolver_model.cli_context,
-        # )
-
         model: BaseModel = deserialise_manifest_to_model(
             manifest_file_path=Path(self.ref_resolver_model.id),
             manifests_folder_path=self.manifests_folder_path,
-            env_vars_context=self.ref_resolver_model.env_vars_context,
+            env_vars_context=self.ref_resolver_model._env_vars_context,
             extra_context=self.ref_resolver_model.extra_context,
 
         )

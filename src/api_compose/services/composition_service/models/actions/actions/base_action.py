@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import Dict, Optional, List, Any, Literal, Union
 
-from pydantic import Field, model_validator, field_validator
+from pydantic import Field, model_validator, field_validator, PrivateAttr
 
 from api_compose.core.logging import get_logger
 from api_compose.core.utils.exceptions import ReservedKeywordsException
@@ -34,17 +34,17 @@ class BaseActionModel(BaseModel):
     model_name: Literal['BaseActionModel'] = Field(
         description=BaseModel.model_fields['model_name'].description
     )
-    class_name: str = 'Action'
+    _class_name: str = PrivateAttr(
+        'Action'
+    )
 
-    adapter_class_name: str = Field(
+    _adapter_class_name: str = PrivateAttr(
         'BaseAdapter',
-        description='Adapter Processor Name',
     )
 
     config: BaseActionConfigModel = Field(
         BaseActionConfigModel(),
         description='Configuration Passed to Adapter to execute the Action',
-
     )
 
     # when not set explicitly, same as id. Used to distinguish two or more same actions, but executed in the same test scenario
@@ -68,14 +68,12 @@ class BaseActionModel(BaseModel):
 
         return self
 
-    start_time: Union[int,float] = Field(
+    _start_time: Union[int, float] = PrivateAttr(
         -1,
-        description='Start Time, number of seconds passed since epoch',
     )
 
-    end_time: Union[int,float] = Field(
+    _end_time: Union[int, float] = PrivateAttr(
         -1,
-        description='End Time, number of seconds passed since epoch',
     )
 
     @property
@@ -93,8 +91,8 @@ class BaseActionModel(BaseModel):
         -------
 
         """
-        if self.start_time > 0 and self.end_time > 0:
-            return self.end_time - self.start_time
+        if self._start_time > 0 and self._end_time > 0:
+            return self._end_time - self._start_time
         else:
             return -1
 
@@ -117,17 +115,16 @@ class BaseActionModel(BaseModel):
     )
 
     # To be set by Adapter, not by user
-    state: ActionStateEnum = Field(
+    _state: ActionStateEnum = PrivateAttr(
         ActionStateEnum.PENDING,
-        description='Action State',
     )
-    input: BaseActionInputModel = Field(
+    _input: BaseActionInputModel = PrivateAttr(
         BaseActionInputModel(),
-        description='Action Input',
+        # description='Action Input',
     )
-    output: BaseActionOutputModel = Field(
+    _output: BaseActionOutputModel = PrivateAttr(
         BaseActionOutputModel(),
-        description='Action Output',
+        # description='Action Output',
     )
     response_status: OtherResponseStatusEnum = Field(
         OtherResponseStatusEnum.UNITIALISED_STATUS,

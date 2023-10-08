@@ -218,7 +218,7 @@ def test_mixed_schema_validator(
         schema_validator_model,
 ):
     schema_validator = ProcessorRegistry.create_processor_by_name(
-        class_name=schema_validator_model.class_name,
+        class_name=schema_validator_model._class_name,
         config={'schema_models': schema_models,
                 'action_output_model': xml_action_output_model,
                 'schema_validator_model': schema_validator_model,

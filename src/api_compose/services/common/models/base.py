@@ -1,7 +1,7 @@
 from pathlib import Path
-from typing import Any, List, Optional, Set, Literal
+from typing import Any, List, Optional, Set, Literal, Dict
 
-from pydantic import BaseModel as _BaseModel
+from pydantic import BaseModel as _BaseModel, PrivateAttr, model_serializer
 from pydantic import field_validator, model_validator, Field, ConfigDict
 
 from api_compose.core.utils.string import split_pascal_case_string
@@ -27,14 +27,22 @@ class BaseModel(_BaseModel):
         description='Model Name. Used for Internal model lookup',
     )
 
-    class_name: str = Field(
-        description='Class which the model corresponds to. User for Internal class lookup',
+    _class_name: str = PrivateAttr(
+        # description='Class which the model corresponds to. User for Internal class lookup',
     )
 
-    @model_validator(mode="before")
+
+    @model_serializer
+    def serialise_all_attributes(self) -> Dict[str, Any]:
+        """Serialise both public and private attributes"""
+        private = self.__pydantic_private__
+        public = self.__dict__
+        return {**private, **public}
+
+    @model_validator(mode="after")
     @classmethod
     def set_class_name(cls, values):
-        values['class_name'] = ''.join(split_pascal_case_string(cls.__name__)[:-1])
+        values._class_name = ''.join(split_pascal_case_string(cls.__name__)[:-1])
         return values
 
     description: str = Field(

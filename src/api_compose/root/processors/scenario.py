@@ -58,9 +58,9 @@ class ScenarioProcessor(BaseProcessor):
     def run(self):
         logger.info(f'Running Scenario {self.scenario_model.fqn}', ScenarioEvent())
         # Run Actions
-        self.scenario_model.start_time = time.time()
+        self.scenario_model._start_time = time.time()
         self.action_scheduler.run()
-        self.scenario_model.end_time = time.time()
+        self.scenario_model._end_time = time.time()
 
         # Get ActionJinjaContext
         jinja_context = ActionJinjaContext.build(
@@ -70,7 +70,7 @@ class ScenarioProcessor(BaseProcessor):
         )
         
         # Skip Assertions if not all actions are in ENDED state
-        is_all_actions_ended = all(action.state == ActionStateEnum.ENDED for action in self.scenario_model.actions)
+        is_all_actions_ended = all(action._state == ActionStateEnum.ENDED for action in self.scenario_model.actions)
         
         if is_all_actions_ended:
             logger.info(f'Evaluating Assertions for scenario {self.scenario_model.fqn}', ScenarioEvent())

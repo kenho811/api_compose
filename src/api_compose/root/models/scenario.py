@@ -2,7 +2,7 @@ import os
 from enum import Enum
 from typing import List, Any, Union, Literal, Annotated
 
-from pydantic import BaseModel as _BaseModel, ConfigDict, field_validator, model_validator
+from pydantic import BaseModel as _BaseModel, ConfigDict, field_validator, model_validator, PrivateAttr
 from pydantic import Field
 
 from api_compose.core.logging import get_logger
@@ -129,25 +129,21 @@ class ScenarioModel(BaseModel):
     def actions_duration_file_name(self) -> str:
         return self.fqn.replace('.', '-') + '.png'
 
-    start_time: Union[int, float] = Field(
+    _start_time: Union[int, float] = PrivateAttr(
         -1,
-        description='Start Time, number of seconds passed since epoch',
-
     )
-    end_time: Union[int, float] = Field(
+    _end_time: Union[int, float] = PrivateAttr(
         -1,
-        description='End Time, number of seconds passed since epoch',
-
     )
 
     @property
     def is_success(self):
         return (all(assertion_item.is_success for assertion_item in self.assertions)
-                and all(action.state == ActionStateEnum.ENDED for action in self.actions))
+                and all(action._state == ActionStateEnum.ENDED for action in self.actions))
 
     @property
     def elapsed_time(self) -> float:
-        if self.start_time > 0 and self.end_time > 0:
-            return self.end_time - self.start_time
+        if self._start_time > 0 and self._end_time > 0:
+            return self._end_time - self._start_time
         else:
             return -1

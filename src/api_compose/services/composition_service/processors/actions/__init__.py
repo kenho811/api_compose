@@ -105,7 +105,7 @@ class Action(BaseProcessor):
     ):
         super().__init__()
         self.adapter: BaseAdapter = ProcessorRegistry.create_processor_by_name(
-            class_name=action_model.adapter_class_name,
+            class_name=action_model._adapter_class_name,
             config={
                 **dict(action_model=action_model, jinja_engine=jinja_engine, )
             }
@@ -123,9 +123,9 @@ class Action(BaseProcessor):
     def validate_schema(self):
         for schema_validator_model in self.action_model.schema_validators:
             self.schema_validator: BaseSchemaValidator = ProcessorRegistry.create_processor_by_name(
-                class_name=schema_validator_model.class_name,
+                class_name=schema_validator_model._class_name,
                 config={'schema_models': self.action_model.schemas,
-                        'action_output_model': self.action_model.output,
+                        'action_output_model': self.action_model._output,
                         'schema_validator_model': schema_validator_model,
                         }
             )
@@ -134,7 +134,7 @@ class Action(BaseProcessor):
 
     @property
     def state(self):
-        return self.action_model.state
+        return self.action_model._state
 
     @property
     def execution_id(self):

@@ -94,7 +94,7 @@ def test_can_get_latest_model_from_simple_backend(
 ):
     # Act
     new_model = parent_one_action_one_model.model_copy(deep=True, update={
-        'state': ActionStateEnum.ENDED
+        '_state': ActionStateEnum.ENDED
     })
     populated_simple_backend.add(new_model)
 
@@ -104,7 +104,7 @@ def test_can_get_latest_model_from_simple_backend(
     # Assert
     assert actual is not None
     assert type(actual) == JsonHttpActionModel
-    assert actual.state == ActionStateEnum.ENDED
+    assert actual._state == ActionStateEnum.ENDED
 
 
 def test_can_get_multiple_actions_with_same_parent(
