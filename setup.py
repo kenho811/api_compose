@@ -3,24 +3,7 @@ from pathlib import Path
 
 from setuptools import setup, find_packages
 
-package_name = 'api_compose'
-
-
-def get_version():
-    main_ns = {}
-    path = convert_path('src/api_compose/version.py')
-    with open(path) as file:
-        exec(file.read(), main_ns)
-    return main_ns['__version__']
-
-
-def get_cli():
-    main_ns = {}
-    path = convert_path('src/api_compose/app.py')
-    with open(path) as file:
-        exec(file.read(), main_ns)
-    return main_ns['__app__']
-
+from scripts.getters import get_version, get_cli, package_name
 
 this_directory = Path(__file__).parent
 long_description = this_directory.joinpath("README.rst").read_text()
