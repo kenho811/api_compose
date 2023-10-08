@@ -14,7 +14,7 @@ clean:
 	find . -type d -name ".pytest_cache" -exec rm -rf {} +
 
 check:
-	python ./check_pypi_package.py 'result.txt'
+	python ./scripts/check_pypi_package.py 'result.txt'
 
 dist:
 	python setup.py sdist
