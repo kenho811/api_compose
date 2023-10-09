@@ -1,6 +1,7 @@
 from typing import Union, List, Literal, Annotated
 
 from pydantic import Field
+from pydantic.json_schema import SkipJsonSchema
 
 from api_compose.core.logging import get_logger
 from api_compose.services.composition_service.models.actions.actions.base_action import BaseActionModel
@@ -25,7 +26,7 @@ class BaseHttpActionModel(BaseActionModel):
         description=BaseActionModel.model_fields['model_name'].description
     )
 
-    adapter_class_name: str = Field(
+    adapter_class_name: SkipJsonSchema[str] = Field(
         'BaseHttpAdapter',
         description=BaseActionModel.model_fields['adapter_class_name'].description,
     )
@@ -33,20 +34,20 @@ class BaseHttpActionModel(BaseActionModel):
         BaseHttpActionConfigModel(),
         description=BaseActionModel.model_fields['config'].description,
     )
-    api_protocol: ActionAPIProtocolEnum = Field(
+    api_protocol: SkipJsonSchema[ActionAPIProtocolEnum] = Field(
         ActionAPIProtocolEnum.HTTP,
         description=BaseActionModel.model_fields['api_protocol'].description,
     )
 
-    input: BaseHttpActionInputModel = Field(
+    input: SkipJsonSchema[BaseHttpActionInputModel] = Field(
         BaseHttpActionInputModel(),
         description=BaseActionModel.model_fields['input'].description,
     )
-    output: BaseHttpActionOutputModel = Field(
+    output: SkipJsonSchema[BaseHttpActionOutputModel] = Field(
         BaseHttpActionOutputModel(),
         description=BaseActionModel.model_fields['output'].description,
     )
-    response_status: Union[HttpResponseStatusEnum, OtherResponseStatusEnum] = Field(
+    response_status: SkipJsonSchema[Union[HttpResponseStatusEnum, OtherResponseStatusEnum]] = Field(
         OtherResponseStatusEnum.UNITIALISED_STATUS,
         description=BaseActionModel.model_fields['response_status'].description,
     )
@@ -56,7 +57,7 @@ class JsonHttpActionModel(BaseHttpActionModel):
     model_name: Literal['JsonHttpActionModel'] = Field(
         description=BaseActionModel.model_fields['model_name'].description
     )
-    adapter_class_name: str = Field(
+    adapter_class_name: SkipJsonSchema[str] = Field(
         'JsonHttpAdapter',
         description=BaseHttpActionModel.model_fields['adapter_class_name'].description,
     )
@@ -65,11 +66,11 @@ class JsonHttpActionModel(BaseHttpActionModel):
         description=BaseHttpActionModel.model_fields['config'].description,
     )
 
-    input: JsonHttpActionInputModel = Field(
+    input: SkipJsonSchema[JsonHttpActionInputModel] = Field(
         JsonHttpActionInputModel(),
         description=BaseHttpActionModel.model_fields['input'].description,
     )
-    output: JsonHttpActionOutputModel = Field(
+    output: SkipJsonSchema[JsonHttpActionOutputModel] = Field(
         JsonHttpActionOutputModel(),
         description=BaseHttpActionModel.model_fields['output'].description,
     )
@@ -91,7 +92,7 @@ class XmlHttpActionModel(BaseHttpActionModel):
         description=BaseActionModel.model_fields['model_name'].description
     )
 
-    adapter_class_name: str = Field(
+    adapter_class_name: SkipJsonSchema[str] = Field(
         'XmlHttpAdapter',
         description=BaseHttpActionModel.model_fields['adapter_class_name'].description,
     )
@@ -101,11 +102,11 @@ class XmlHttpActionModel(BaseHttpActionModel):
         description=BaseHttpActionModel.model_fields['config'].description,
     )
 
-    input: XmlHttpActionInputModel = Field(
+    input: SkipJsonSchema[XmlHttpActionInputModel] = Field(
         XmlHttpActionInputModel(),
         description=BaseHttpActionModel.model_fields['input'].description,
     )
-    output: XmlHttpActionOutputModel = Field(
+    output: SkipJsonSchema[XmlHttpActionOutputModel] = Field(
         XmlHttpActionOutputModel(),
         description=BaseHttpActionModel.model_fields['output'].description,
     )

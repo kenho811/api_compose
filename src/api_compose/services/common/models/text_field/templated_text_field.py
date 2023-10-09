@@ -1,6 +1,7 @@
-from typing import Union, Annotated
+from typing import Union, Annotated, Optional
 
 from pydantic import Field
+from pydantic.json_schema import SkipJsonSchema
 
 from api_compose.core.jinja.core.context import BaseJinjaContext
 from api_compose.core.jinja.core.engine import JinjaEngine
@@ -15,6 +16,7 @@ logger = get_logger(__name__)
 
 class BaseTemplatedTextField(BaseTextField):
     template: str = ""
+    text: SkipJsonSchema[Optional[str]] = Field(None)
 
     # Setters
     def render_to_text(self, jinja_engine: JinjaEngine, jinja_context: BaseJinjaContext) -> 'BaseTemplatedTextField':

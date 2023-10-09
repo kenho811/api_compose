@@ -2,6 +2,7 @@ from enum import Enum
 from typing import Dict, Optional, List, Any, Literal, Union
 
 from pydantic import Field, model_validator, field_validator, PrivateAttr
+from pydantic.json_schema import SkipJsonSchema
 
 from api_compose.core.logging import get_logger
 from api_compose.core.utils.exceptions import ReservedKeywordsException
@@ -34,9 +35,9 @@ class BaseActionModel(BaseModel):
     model_name: Literal['BaseActionModel'] = Field(
         description=BaseModel.model_fields['model_name'].description
     )
-    class_name: str = 'Action'
+    class_name: SkipJsonSchema[str] = 'Action'
 
-    adapter_class_name: str = Field(
+    adapter_class_name: SkipJsonSchema[str] = Field(
         'BaseAdapter',
         description='Adapter Processor Name',
     )
@@ -68,12 +69,12 @@ class BaseActionModel(BaseModel):
 
         return self
 
-    start_time: Union[int,float] = Field(
+    start_time: SkipJsonSchema[Union[int, float]] = Field(
         -1,
         description='Start Time, number of seconds passed since epoch',
     )
 
-    end_time: Union[int,float] = Field(
+    end_time: SkipJsonSchema[Union[int, float]] = Field(
         -1,
         description='End Time, number of seconds passed since epoch',
     )
@@ -111,30 +112,31 @@ class BaseActionModel(BaseModel):
             value = {}
         return value
 
-    api_protocol: ActionAPIProtocolEnum = Field(
+    # intrinsic
+    api_protocol: SkipJsonSchema[ActionAPIProtocolEnum] = Field(
         ActionAPIProtocolEnum.UNDEFINED,
         description='API Protocol',
     )
 
     # To be set by Adapter, not by user
-    state: ActionStateEnum = Field(
+    state: SkipJsonSchema[ActionStateEnum] = Field(
         ActionStateEnum.PENDING,
         description='Action State',
     )
-    input: BaseActionInputModel = Field(
+    input: SkipJsonSchema[BaseActionInputModel] = Field(
         BaseActionInputModel(),
         description='Action Input',
     )
-    output: BaseActionOutputModel = Field(
+    output: SkipJsonSchema[BaseActionOutputModel] = Field(
         BaseActionOutputModel(),
         description='Action Output',
     )
-    response_status: OtherResponseStatusEnum = Field(
+    response_status: SkipJsonSchema[OtherResponseStatusEnum] = Field(
         OtherResponseStatusEnum.UNITIALISED_STATUS,
         description='Actual Response Status',
     )
 
-    exec: Optional[str] = Field(
+    exec: SkipJsonSchema[Optional[str]] = Field(
         None,
         description='Exception Message when Action is in Error State'
     )

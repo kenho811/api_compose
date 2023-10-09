@@ -3,6 +3,7 @@ from typing import Any, Union, Optional, Literal
 
 from pydantic import BaseModel as _BaseModel, Field
 from pydantic import field_serializer
+from pydantic.json_schema import SkipJsonSchema
 
 from api_compose.core.logging import get_logger
 from api_compose.core.serde.base import BaseSerde
@@ -27,15 +28,15 @@ class TextFieldFormatEnum(str, Enum):
 
 class BaseTextField(_BaseModel):
     format: TextFieldFormatEnum
-    serde: BaseSerde = Field(exclude=True)
+    text: Optional[str] = Field(None)
+    serde: SkipJsonSchema[BaseSerde] = Field(exclude=True)
 
     @field_serializer('serde')
     def serialize_serde(self, serde: BaseSerde, _info):
         return serde.__str__()
 
     # Other properties
-    text: Optional[str] = Field(None)
-    obj: Optional[Any] = Field(None)
+    obj: SkipJsonSchema[Optional[Any]] = Field(None)
 
     # Setters
 

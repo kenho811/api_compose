@@ -1,6 +1,7 @@
 from typing import Literal
 
 from pydantic import Field
+from pydantic.json_schema import SkipJsonSchema
 
 from api_compose.services.composition_service.models.actions.actions.base_action import BaseActionModel
 from api_compose.services.composition_service.models.actions.configs.dummy_configs import DummyActionConfigModel
@@ -18,9 +19,7 @@ class DummyActionModel(BaseActionModel):
         description=BaseActionModel.model_fields['model_name'].description
     )
 
-
-
-    adapter_class_name: str = Field(
+    adapter_class_name: SkipJsonSchema[str] = Field(
         'DummyAdapter',
         description=BaseActionModel.model_fields['adapter_class_name'].description,
     )
@@ -30,11 +29,11 @@ class DummyActionModel(BaseActionModel):
         description=BaseActionModel.model_fields['config'].description,
     )
 
-    input: DummyActionInputModel = Field(
+    input: SkipJsonSchema[DummyActionInputModel] = Field(
         DummyActionInputModel(),
         description=BaseActionModel.model_fields['input'].description,
     )
-    output: DummyActionOutputModel = Field(
+    output: SkipJsonSchema[DummyActionOutputModel] = Field(
         DummyActionOutputModel(),
         description=BaseActionModel.model_fields['output'].description,
     )
