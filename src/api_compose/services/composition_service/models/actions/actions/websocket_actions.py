@@ -1,6 +1,7 @@
 from typing import Union, List, Literal
 
 from pydantic import Field
+from pydantic.json_schema import SkipJsonSchema
 
 from api_compose.core.logging import get_logger
 from api_compose.services.composition_service.models.actions.actions.base_action import BaseActionModel
@@ -25,7 +26,7 @@ class JsonRpcWebSocketActionModel(BaseHttpActionModel):
         description=BaseActionModel.model_fields['model_name'].description
     )
 
-    adapter_class_name: str = Field(
+    adapter_class_name: SkipJsonSchema[str] = Field(
         'JsonRpcWebsocketAdapter',
         description=BaseHttpActionModel.model_fields['adapter_class_name'].description,
     )
@@ -36,15 +37,15 @@ class JsonRpcWebSocketActionModel(BaseHttpActionModel):
 
     )
 
-    input: JsonRpcWebSocketActionInputModel = Field(
+    input: SkipJsonSchema[JsonRpcWebSocketActionInputModel] = Field(
         JsonRpcWebSocketActionInputModel(),
         description=BaseHttpActionModel.model_fields['input'].description,
     )
-    output: JsonRpcWebSocketActionOutputModel = Field(
+    output: SkipJsonSchema[JsonRpcWebSocketActionOutputModel] = Field(
         JsonRpcWebSocketActionOutputModel(),
         description=BaseHttpActionModel.model_fields['output'].description,
     )
-    response_status: Union[WebSocketResponseStatusEnum, OtherResponseStatusEnum] = Field(
+    response_status: SkipJsonSchema[Union[WebSocketResponseStatusEnum, OtherResponseStatusEnum]] = Field(
         OtherResponseStatusEnum.UNITIALISED_STATUS,
         description=BaseHttpActionModel.model_fields['response_status'].description,
     )

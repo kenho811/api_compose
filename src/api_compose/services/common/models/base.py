@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import Any, List, Optional, Set, Literal
 
 from pydantic import BaseModel as _BaseModel
+from pydantic.json_schema import SkipJsonSchema
 from pydantic import field_validator, model_validator, Field, ConfigDict
 
 from api_compose.core.utils.string import split_pascal_case_string
@@ -27,7 +28,7 @@ class BaseModel(_BaseModel):
         description='Model Name. Used for Internal model lookup',
     )
 
-    class_name: str = Field(
+    class_name: SkipJsonSchema[str] = Field(
         description='Class which the model corresponds to. User for Internal class lookup',
     )
 
@@ -43,7 +44,7 @@ class BaseModel(_BaseModel):
 
     )
 
-    manifest_file_path: Optional[Path] = Field(
+    manifest_file_path: SkipJsonSchema[Optional[Path]] = Field(
         None,
         description='Relative Path to Manifest which defines the model'
     )
@@ -54,7 +55,7 @@ class BaseModel(_BaseModel):
     )
 
     # To be set programmatically. Don't set manually
-    parent_ids: List[str] = Field(
+    parent_ids: SkipJsonSchema[List[str]] = Field(
         [],
         description='A list of parents of the model. Internally set to construct model hierarchy.',
 

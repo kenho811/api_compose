@@ -1,8 +1,5 @@
 from pathlib import Path
 
-from api_compose.services.common.env import get_env_vars_context
-from api_compose.core.settings.settings import GlobalSettingsModelSingleton
-from api_compose.core.utils.dict import merge_dict
 from api_compose.core.utils.string import normalise_sentence
 from api_compose.services.common.deserialiser import get_models_description
 from api_compose.services.common.deserialiser.deserialiser import deserialise_manifest_to_model

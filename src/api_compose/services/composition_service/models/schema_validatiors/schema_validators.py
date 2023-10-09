@@ -2,6 +2,7 @@ from typing import Optional, Dict, List, Union, Any, Literal
 
 from lxml.etree import ElementBase
 from pydantic import Field, ConfigDict
+from pydantic.json_schema import SkipJsonSchema
 
 from api_compose.core.lxml.parser import get_default_schema, PrintableElementAnnotation, get_default_element
 from api_compose.services.common.models.base import BaseModel
@@ -29,13 +30,14 @@ class BaseSchemaValidatorModel(BaseModel, extra='forbid'):
     against: ValidateAgainstAnnotation = Field(
         description='Validate against which part of the action',
     )
-    actual: Any = Field(
+
+    # Set by programme
+    actual: SkipJsonSchema[Any] = Field(
         None,
         description='Actual object to be validated'
     )
-
-    exec: Optional[str] = Field(None, description='Exception while validating schema')
-    is_valid: bool = Field(False, description='Whether the object is valid')
+    exec: SkipJsonSchema[Optional[str]] = Field(None, description='Exception while validating schema')
+    is_valid: SkipJsonSchema[bool] = Field(False, description='Whether the object is valid')
 
 
 class JsonSchemaValidatorModel(BaseSchemaValidatorModel):
@@ -48,8 +50,9 @@ class JsonSchemaValidatorModel(BaseSchemaValidatorModel):
         description=BaseSchemaValidatorModel.model_fields['expected_schema'].description
     )
 
+    # Set by programme
     # Actual Object
-    actual: Union[List, Dict] = Field(
+    actual: SkipJsonSchema[Union[List, Dict]] = Field(
         {},
         description=BaseSchemaValidatorModel.model_fields['actual'].description
     )
@@ -63,14 +66,16 @@ class XmlSchemaValidatorModel(BaseSchemaValidatorModel):
     )
 
     # Expected Schema
-    expected_schema: PrintableElementAnnotation = Field(
+    ##FIXME - Should not Skip Schema for this, but error
+    expected_schema: SkipJsonSchema[PrintableElementAnnotation] = Field(
         get_default_schema(),
         description=BaseSchemaValidatorModel.model_fields[
             'expected_schema'].description
     )
 
+    # Set by programme
     # Actual Object
-    actual: ElementBase = Field(
+    actual: SkipJsonSchema[ElementBase] = Field(
         get_default_element(),
         description=BaseSchemaValidatorModel.model_fields['actual'].description
     )

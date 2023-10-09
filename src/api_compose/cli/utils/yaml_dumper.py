@@ -1,7 +1,7 @@
 __all__ = ['get_yaml_with_representers']
 
 from pathlib import Path, PosixPath, WindowsPath
-from typing import Dict, Tuple, List, Union
+from typing import Dict
 
 from lxml import etree
 from lxml.etree import _Element
