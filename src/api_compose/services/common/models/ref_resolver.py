@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Dict, Any, Literal
 
 from pydantic import Field, AliasChoices, model_validator, field_validator
+from pydantic.json_schema import SkipJsonSchema
 
 from api_compose.core.settings.settings import (GlobalSettingsModelSingleton)
 from api_compose.core.utils.string import normalise_sentence
@@ -35,14 +36,14 @@ class RefResolverModel(BaseModel):
         ),
     )
 
-    manifests_folder_path: Path = Field(
+    manifests_folder_path: SkipJsonSchema[Path] = Field(
         # get folder path dynamically with factory
         default_factory=lambda: GlobalSettingsModelSingleton.get().discovery.manifests_folder_path,
         description='Absolute Path to manifest files',
     )
 
     ## All Contexts
-    env_vars_context: Dict[str, Any] = Field(
+    env_vars_context: SkipJsonSchema[Dict[str, Any]] = Field(
         {},
         description='Context from Env Var to render manifest file'
     )
@@ -56,7 +57,7 @@ class RefResolverModel(BaseModel):
         description='Context specific to the model to render manifest file'
     )
 
-    cli_context: Dict[str, Any] = Field(
+    cli_context: SkipJsonSchema[Dict[str, Any]] = Field(
         {},
         description='Context from CLI used to render manifest file'
     )

@@ -12,6 +12,9 @@ def main():
         print(model.model_name)
         schema: Dict = model.model_json_schema()
         print(json.dumps(schema, indent=4))
+        exit(1)
+
+
 
 
 if __name__ == '__main__':
