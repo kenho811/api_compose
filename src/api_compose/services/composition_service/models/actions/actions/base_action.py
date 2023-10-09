@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import Dict, Optional, List, Any, Literal, Union
 
-from pydantic import Field, model_validator, field_validator
+from pydantic import Field, model_validator, field_validator, PrivateAttr
 
 from api_compose.core.logging import get_logger
 from api_compose.core.utils.exceptions import ReservedKeywordsException
@@ -139,10 +139,8 @@ class BaseActionModel(BaseModel):
         description='Exception Message when Action is in Error State'
     )
 
-    _exec: Optional[Exception] = Field(
+    _exec: Optional[Exception] = PrivateAttr(
         None,
-        description='Exception Instance thrown when Action is in Error State',
-        exclude=True,
     )
 
     schemas: List[BaseSchemaModel] = Field(
