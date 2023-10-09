@@ -33,7 +33,7 @@ if __name__ == '__main__':
             "typer[all]==0.9.0",
             "jinja2==3.1.2",
             "pyyaml==6.0",
-            "pydantic==2.0.3",
+            "pydantic==2.4.2",
             "pydantic-settings==2.0.3",
             "networkx==3.1",
             "python-dotenv==1.0.0",
