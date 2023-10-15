@@ -26,7 +26,7 @@ runs:
     - name: Check if package exists on PyPI
       shell: bash
       run: |
-        make check
+        make output_file_path=result.txt check
     - name: Write result to output
       id: set
       shell: bash

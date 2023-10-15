@@ -1,9 +1,10 @@
-from distutils.util import convert_path
 from pathlib import Path
 
 from setuptools import setup, find_packages
 
-from scripts.getters import get_version, get_cli, package_name
+from scripts.helpers.get_cli_name import get_cli_name
+from scripts.helpers.const import package_name
+from scripts.helpers.get_release_version import dump_release_version
 
 this_directory = Path(__file__).parent
 long_description = this_directory.joinpath("README.rst").read_text()
@@ -11,7 +12,7 @@ long_description = this_directory.joinpath("README.rst").read_text()
 if __name__ == '__main__':
     setup(
         name=package_name,
-        version=get_version(),
+        version=dump_release_version(),
         python_requires='>=3.9',
         description="A Framework for orchestrating, asserting and reporting on API calls with templates",
         long_description=long_description,
@@ -66,7 +67,7 @@ if __name__ == '__main__':
         },
         entry_points={
             'console_scripts': [
-                f'{get_cli()}=api_compose.cli.main:app',
+                f'{get_cli_name()}=api_compose.cli.main:app',
             ],
         },
     )

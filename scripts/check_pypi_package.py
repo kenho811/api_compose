@@ -3,7 +3,9 @@ import sys
 
 import requests
 
-from getters import get_version, package_name
+from helpers.const import package_name
+from helpers.get_release_version import dump_release_version
+from helpers.write import write_exists_in_kv_format
 
 
 def is_package_exist(
@@ -26,18 +28,6 @@ def is_package_exist(
         return False
 
 
-def write_exists_in_kv_format(
-        file_path: str,
-        exists: bool,
-        version: str,
-):
-    formatted_string=(f'exists={exists}\n'
-                      f'version={version}')
-    print(f'writing {formatted_string} to file {file_path}')
-    with open(file_path, 'w') as f:
-        f.write(formatted_string)
-
-
 if __name__ == '__main__':
     if len(sys.argv) == 2:
         file_path = sys.argv[1]
@@ -45,7 +35,7 @@ if __name__ == '__main__':
         raise ValueError('Usage: python check_pypi_package.py {output_file_path}')
 
     base_url = "https://pypi.org/pypi"
-    version = get_version()
+    version = dump_release_version()
 
     if is_package_exist(base_url, package_name, version):
         print(f'Package {package_name=} with version {version=} already exists on {base_url=}')
@@ -54,4 +44,9 @@ if __name__ == '__main__':
         print(f"Package {package_name=} with version {version=} does not exist on {base_url=}")
         exists = False
 
-    write_exists_in_kv_format(file_path, exists=exists, version=version)
+    write_exists_in_kv_format(
+        file_path,
+        # key value pairs
+        exists=exists,
+        version=version
+    )

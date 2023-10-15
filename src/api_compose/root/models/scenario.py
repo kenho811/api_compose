@@ -64,9 +64,15 @@ class ScenarioModel(BaseModel):
                     'When User Defined, each Action will retain the execution_id assigned by the user.',
     )
     actions: List[
-        Annotated[Union[
-            JsonRpcWebSocketActionModel, XmlHttpActionModel, JsonHttpActionModel, DummyActionModel],
-        Field(discriminator='model_name')
+        Annotated[
+            Union[
+                JsonRpcWebSocketActionModel,
+                XmlHttpActionModel,
+                JsonHttpActionModel,
+                DummyActionModel,
+                RefResolverModel,
+            ],
+            Field(discriminator='model_name')
         ]
     ]
 
