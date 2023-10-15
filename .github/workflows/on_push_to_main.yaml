@@ -44,3 +44,25 @@ jobs:
         with:
           pypi-api-token: ${{ secrets.PYPI_API_TOKEN }}
           python-version: "3.10"
+
+  publish-to-ghrelease:
+    permissions: write-all
+    needs:
+      - pytest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: ${{ inputs.python-version }}
+      - name: Dump release version
+        id: set-version
+        run: |
+          make output_file_path=version.txt dump_release_version
+          cat ./version.txt >> $GITHUB_OUTPUT
+      - name: Publish to Github Release
+        uses: ./.github/actions/publish-to-ghrelease
+        with:
+          gh-release-tag-name: ${{ steps.set-version.outputs.version }}
+          gh-release-release-name: Release ${{ steps.set.outputs.version }}
+          gh-token: ${{ secrets.GITHUB_TOKEN }}
