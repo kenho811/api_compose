@@ -11,7 +11,8 @@ def main(output_folder_path: Path):
     models: List[BaseModel] = sum([entry.models for entry in ProcessorRegistry().registry], [])
     for model in models:
         print('============================')
-        file_path = output_folder_path.joinpath(model.model_name)
+        file_name = f"{model.model_name}.json"
+        file_path = output_folder_path.joinpath(file_name)
         schema: Dict = model.model_json_schema()
         with open(file_path, 'w') as schema_file:
             schema_str: str = json.dumps(schema, indent=4)
