@@ -8,7 +8,7 @@ from lxml import etree
 from lxml.etree import _Element
 from pydantic import BaseModel as _BaseModel
 
-from api_compose.core.events.base import BaseEvent
+from api_compose.core.events.base import BaseEvent, EventType
 from api_compose.core.events.default import DefaultEvent
 from api_compose.core.settings.settings import GlobalSettingsModelSingleton
 from api_compose.core.utils import _modify_json_encoder  # noqa - modify json.dump behaviour
@@ -21,12 +21,14 @@ class LoggerAdapter():
             self,
             name,
             log_file_path: Path,
+            log_format: str,
             overwrite: bool = True,
-            logging_level=logging.DEBUG
+            logging_level=logging.DEBUG,
     ):
         self.name = name
         self.log_file_path = log_file_path
         self.logging_level = logging_level
+        self.log_format = log_format
 
         if overwrite:
             self._delete_log_file()
@@ -39,7 +41,7 @@ class LoggerAdapter():
         logger.setLevel(self.logging_level)
 
         stream_handler = logging.StreamHandler()
-        stream_handler.setFormatter(StreamFormatter())
+        stream_handler.setFormatter(StreamFormatter(self.log_format))
         stream_handler.addFilter(EventFilter())
         logger.addHandler(stream_handler)
 
@@ -121,6 +123,42 @@ class FileJsonFormatter(logging.Formatter):
 
 
 class StreamFormatter(logging.Formatter):
+    BOLD_GREY = '\x1b[1;38;21m'
+    GREY = '\x1b[38;21m'
+    UNDERLINE_GREY = '\x1b[4;38;21m'
+
+    BLUE = '\x1b[38;5;39m'
+    BOLD_BLUE = '\x1b[1;38;5;39m'
+    UNDERLINE_BLUE = '\x1b[4;38;5;39m'
+    UNDERLINE_BOLD_BLUE = '\x1b[1;4;38;5;39m'
+
+    BOLD_YELLOW = '\x1b[4;38;5;226m'
+    YELLOW = '\x1b[38;5;226m'
+    UNDERLINE_YELLOW = '\x1b[1;38;5;226m'
+
+    BOLD_RED = '\x1b[1;38;5;196m'
+    RED = '\x1b[38;5;196m'
+    UNDERLINE_RED = '\x1b[4;38;5;196m'
+
+    RESET = '\x1b[0m'
+
+    def __init__(
+            self,
+            log_fmt: str,
+            *args,
+            **kwargs
+    ):
+        super().__init__(*args, **kwargs)
+        self.base_log_fmt = log_fmt
+        self.log_formats = {
+            EventType.Specification: self.UNDERLINE_BOLD_BLUE + self.base_log_fmt + self.RESET,
+            EventType.Scenario: self.BOLD_BLUE + self.base_log_fmt + self.RESET,
+            EventType.Action: self.BLUE + self.base_log_fmt + self.RESET,
+            EventType.Assertion: self.BLUE + self.base_log_fmt + self.RESET,
+        }
+
     def format(self, record: logging.LogRecord):
-        record.msg = f"[{getattr(record, 'event')}] : {record.levelname} - {record.msg}"
-        return super().format(record)
+        DEFAULT_LOG_FMT = self.GREY + self.base_log_fmt + self.RESET
+        log_fmt = self.log_formats.get(record.event, DEFAULT_LOG_FMT)
+        formatter = logging.Formatter(log_fmt)
+        return formatter.format(record)
