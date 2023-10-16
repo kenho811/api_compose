@@ -35,7 +35,7 @@ class SpecificationProcessor(BaseProcessor):
         self.backend = backend
 
     def run(self):
-        logger.info(f'Running Specification {self.specification_model.fqn}', SpecificationEvent())
+        logger.info(f'Specification Started - {self.specification_model.fqn}', SpecificationEvent())
         for idx, scenario_model in enumerate(self.specification_model.scenarios):
             scenario_controller = ScenarioProcessor(
                 scenario_model=scenario_model,
@@ -45,4 +45,5 @@ class SpecificationProcessor(BaseProcessor):
 
             scenario_controller.run()
 
+        logger.info(f'Specification Ended - {self.specification_model.fqn}', SpecificationEvent())
         self.backend.add(self.specification_model)

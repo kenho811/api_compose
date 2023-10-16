@@ -9,7 +9,7 @@ __all__ = ['GlobalSettingsModelSingleton', 'GlobalSettingsModel']
 import logging
 import uuid
 from pathlib import Path
-from typing import List, Optional, Dict, Set, Any, Literal, Annotated
+from typing import List, Optional, Dict, Any, Literal, Annotated
 
 from pydantic import Field, model_validator, computed_field, PlainSerializer, field_validator
 
@@ -56,14 +56,12 @@ class CliOptions(BaseSettings):
         description='Unique Identifier of session. For internal use only',
     )
 
-
     @field_validator('include_tags', 'exclude_tags', mode='before')
     @classmethod
     def validate_tags(cls, values):
         if type(values) == list:
             values = list(set(values))
         return values
-
 
     @field_validator('session_id', mode='before')
     @classmethod
@@ -72,6 +70,7 @@ class CliOptions(BaseSettings):
             return values
         else:
             return str(uuid.uuid4())
+
 
 class DiscoverySettings(BaseSettings):
     manifests_folder_path: JsonSerialisablePathAnnotation = Path('manifests')
@@ -115,7 +114,7 @@ class SelectorsSettings(BaseSettings):
         tags: List[str] = Field([], description='set of tags to look for in manifest(s)')
         models: List[str] = Field([], description='list of models to look for in manifest(s)')
 
-        @field_validator('tags',  mode='before')
+        @field_validator('tags', mode='before')
         @classmethod
         def validate_tags(cls, values):
             if type(values) == list:
@@ -157,7 +156,14 @@ class SelectorsSettings(BaseSettings):
 class LoggingSettings(BaseSettings):
     logging_level: int = logging.DEBUG
     log_file_path: Optional[JsonSerialisablePathAnnotation] = Path('log.jsonl')
-    event_filters: List[EventType] = []
+    log_format: str = "%(event)s - %(levelname)s - %(message)s"
+    event_filters: List[EventType] = [
+        # Event Type which concerns the users
+        EventType.Specification,
+        EventType.Scenario,
+        EventType.Action,
+        EventType.Assertion
+    ]
 
 
 class ReportingSettings(BaseSettings):
